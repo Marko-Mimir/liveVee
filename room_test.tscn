@@ -1,0 +1,174 @@
+[gd_scene load_steps=14 format=3 uid="uid://bc8a4c3cfbps6"]
+
+[ext_resource type="Texture2D" uid="uid://cwt4nq4yahpks" path="res://icon.svg" id="1_qs3ax"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="2_0yego"]
+[ext_resource type="Texture2D" uid="uid://clvnioqm7fpon" path="res://sprites/sword-slash-Sheet.png" id="3_fkafd"]
+[ext_resource type="Script" path="res://scripts/enemybase.gd" id="4_alpae"]
+[ext_resource type="Script" path="res://scripts/health.gd" id="5_jsi8y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ugrgn"]
+size = Vector2(128.409, 129.939)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gv02t"]
+size = Vector2(61, 124)
+
+[sub_resource type="Animation" id="Animation_tci5f"]
+resource_name = "slash1"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sword:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_g18fh"]
+resource_name = "slash2"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sword:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_mmuok"]
+resource_name = "slash3"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sword:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [6, 7, 8]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5g8bu"]
+_data = {
+"slash1": SubResource("Animation_tci5f"),
+"slash2": SubResource("Animation_g18fh"),
+"slash3": SubResource("Animation_mmuok")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2b40u"]
+size = Vector2(54, 54)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wgj5k"]
+size = Vector2(54, 54)
+
+[node name="room-test" type="Node2D"]
+
+[node name="plat1" type="Sprite2D" parent="."]
+position = Vector2(63, 46)
+scale = Vector2(4.89063, 0.515625)
+texture = ExtResource("1_qs3ax")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="plat1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="plat1/StaticBody2D"]
+position = Vector2(-0.20447, 2.90909)
+shape = SubResource("RectangleShape2D_ugrgn")
+
+[node name="plat2" type="Sprite2D" parent="."]
+position = Vector2(-524, -113)
+scale = Vector2(4.89063, 0.515625)
+texture = ExtResource("1_qs3ax")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="plat2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="plat2/StaticBody2D"]
+position = Vector2(-0.20447, 2.90909)
+shape = SubResource("RectangleShape2D_ugrgn")
+
+[node name="plat3" type="Sprite2D" parent="."]
+position = Vector2(421, -243)
+scale = Vector2(4.89063, 0.515625)
+texture = ExtResource("1_qs3ax")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="plat3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="plat3/StaticBody2D"]
+position = Vector2(-0.20447, 2.90909)
+shape = SubResource("RectangleShape2D_ugrgn")
+
+[node name="player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("character")]
+unique_name_in_owner = true
+position = Vector2(0, -81)
+script = ExtResource("2_0yego")
+character = NodePath("sprite")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+shape = SubResource("RectangleShape2D_gv02t")
+
+[node name="sprite" type="Sprite2D" parent="player"]
+self_modulate = Color(0, 1, 0, 1)
+scale = Vector2(0.5, 1)
+texture = ExtResource("1_qs3ax")
+
+[node name="sword" type="Sprite2D" parent="player"]
+position = Vector2(70, 2)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_fkafd")
+hframes = 9
+
+[node name="Camera2D" type="Camera2D" parent="player"]
+
+[node name="swordAnimator" type="AnimationPlayer" parent="player"]
+libraries = {
+"": SubResource("AnimationLibrary_5g8bu")
+}
+
+[node name="dummyEnemy" type="RigidBody2D" parent="." node_paths=PackedStringArray("healthManager", "healthLabel")]
+position = Vector2(235, -364)
+script = ExtResource("4_alpae")
+healthManager = NodePath("healthManager")
+healthLabel = NodePath("Label")
+
+[node name="healthManager" type="Node2D" parent="dummyEnemy"]
+position = Vector2(-235, 364)
+script = ExtResource("5_jsi8y")
+
+[node name="sprite" type="Sprite2D" parent="dummyEnemy"]
+self_modulate = Color(1, 0, 0, 1)
+position = Vector2(-1, 0)
+scale = Vector2(0.422502, 0.422502)
+texture = ExtResource("1_qs3ax")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="dummyEnemy"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_2b40u")
+
+[node name="hurtbox" type="Area2D" parent="dummyEnemy"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="dummyEnemy/hurtbox"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_wgj5k")
+
+[node name="Label" type="Label" parent="dummyEnemy"]
+offset_left = -41.0
+offset_top = -54.0
+offset_right = 40.0
+offset_bottom = -31.0
+text = "Health 50pts"
+
+[connection signal="area_entered" from="dummyEnemy/hurtbox" to="dummyEnemy" method="_on_hurtbox_area_entered"]
