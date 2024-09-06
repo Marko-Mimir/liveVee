@@ -14,6 +14,10 @@ config/name="projectLive"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Player="*res://objects/player.tscn"
+
 [input]
 
 die={

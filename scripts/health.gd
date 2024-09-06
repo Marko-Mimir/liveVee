@@ -3,9 +3,12 @@ class_name Health
 
 var health : float = 10;
 var maxHealth : int = 10;
+@export var bar : ProgressBar
 
 func initalize(maxHp : int):
 	maxHealth = maxHp
+	bar.max_value = maxHp
+	bar.value = maxHp
 	health = maxHp
 
 func getHealth():
@@ -19,6 +22,7 @@ func editHealth(editHp : float):
 		health = maxHealth;
 	if health < 0:
 		health = 0;
+	bar.value = health
 	return health
 
 

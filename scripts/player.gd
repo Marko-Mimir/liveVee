@@ -2,13 +2,20 @@ extends CharacterBody2D
 class_name Character
 
 @export var character : Node2D
+@export var attackTimer : Timer
+@export var attackAnimator : AnimationPlayer
 const SPEED = 500.0
 const JUMP_VELOCITY = -400.0
+var stop = false;
 var canJump = false;
 var coyoteTimer : Timer;
 var additionalJumps : int = 1
-var damage = 15
 var slashint = 1
+var damMin = 10
+var damMax = 25
+var damSour = 7
+var slashCounter = 0
+var timescale : float = 1.0
 var flip: bool = false:
 	set(value):
 		if (flip != value):
@@ -18,6 +25,16 @@ var flip: bool = false:
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+	
+func damage(isSour : bool):
+	if isSour:
+		return randi_range(damMin, damMax-damSour)
+	else:
+		return randi_range(damMin, damMax)
+
+func getSour():
+	var sour = get_node("sourSpot")
+	return sour
 
 func _ready():
 	coyoteTimer = Timer.new()
@@ -37,7 +54,7 @@ func _physics_process(delta):
 	if not is_on_floor():
 		if coyoteTimer.is_stopped() and canJump:
 			coyoteTimer.start();
-		velocity.y += gravity * delta
+		velocity.y += (gravity * delta)*timescale
 	else:
 		additionalJumps = 1;
 		coyoteTimer.stop()
@@ -53,11 +70,14 @@ func _physics_process(delta):
 	
 	# Handle attack.
 	if Input.is_action_just_pressed("n_attack"):
-		$swordAnimator.play("slash"+str(slashint))
+		slashCounter+=1
+		attackAnimator.play("slash"+str(slashint))
 		slashint += 1
 		if slashint == 4:
 			slashint = 1
+		attackTimer.start()
 	if Input.is_action_just_pressed("s_attack"):
+		slashCounter+=1
 		print("atk - str")
 	 	
 	if Input.is_action_just_pressed("left"):
@@ -67,8 +87,16 @@ func _physics_process(delta):
 	
 	var direction = Input.get_axis("left", "right")
 	if direction:
-		velocity.x = direction * SPEED
+		velocity.x = (direction * SPEED)*timescale
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.x = (move_toward(velocity.x, 0, SPEED))*timescale
 
 	move_and_slide()
+
+
+func _on_attack_reset_timeout():
+	if slashint == 2:
+		attackAnimator.play("reset1")
+	elif slashint == 1:
+		attackAnimator.play("reset3")
+	slashint = 1

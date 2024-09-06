@@ -1,0 +1,8 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dpln7wp86xpgh"]
+
+[ext_resource type="FontFile" uid="uid://0h4mdha6d1rs" path="res://resources/main.ttf" id="1_rjif4"]
+
+[resource]
+Label/colors/font_color = Color(1, 1, 0, 1)
+Label/font_sizes/font_size = 38
+Label/fonts/font = ExtResource("1_rjif4")
