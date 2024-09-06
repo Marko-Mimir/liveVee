@@ -20,6 +20,12 @@ func _ready():
 func _on_hurtbox_area_entered(_area):
 	hurtCheck()
 
+func getPlayerDir() -> bool:
+	if player.position.x < position.x:
+		return true
+	else:
+		return false
+
 func hurtCheck():
 	if counter == player.slashCounter:
 #Sometimes the sweet and sour spot will both emit, this is to stop that
