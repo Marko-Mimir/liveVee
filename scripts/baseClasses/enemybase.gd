@@ -11,17 +11,15 @@ signal dead
 var hurted = false
 var hitstop : Timer
 var counter = -1
-var player : Character;
 
 func _ready():
 	healthManager.initalize(100)
-	player=get_window().get_child(0)
 
 func _on_hurtbox_area_entered(_area):
 	hurtCheck()
 
 func getPlayerDir() -> bool:
-	if player.position.x < position.x:
+	if player.global_position.x < global_position.x:
 		return true
 	else:
 		return false
@@ -44,6 +42,6 @@ func hurtCheck():
 	get_window().add_child(num)
 	
 	if healthManager.getHealth() == 0:
-		emit_signal("dead")
+		dead.emit()
 	else:
-		emit_signal("hurt")
+		hurt.emit()

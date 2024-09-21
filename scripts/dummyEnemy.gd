@@ -46,10 +46,9 @@ func _physics_process(delta):
 	
 	if currentState == states.CHASE:
 		idleTimer.stop()
-		var query = PhysicsRayQueryParameters2D.create(global_position, base.player.global_position, floorCast.collision_mask)
+		var query = PhysicsRayQueryParameters2D.create(global_position, base.plyr.global_position, floorCast.collision_mask)
 		var result = space_state.intersect_ray(query)
 		if result:
-			print("WALL INBETWEEN! LOST PLAYER")
 			speed = 100
 			currentState = states.WANDER
 		

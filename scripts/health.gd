@@ -24,5 +24,3 @@ func editHealth(editHp : float):
 		health = 0;
 	bar.value = health
 	return health
-
-

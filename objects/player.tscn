@@ -1,333 +1,116 @@
-[gd_scene load_steps=11 format=3 uid="uid://lsfvax3to7ux"]
+[gd_scene load_steps=9 format=3 uid="uid://bdk4v1yalw4s4"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_4j3bi"]
-[ext_resource type="Texture2D" uid="uid://cwt4nq4yahpks" path="res://icon.svg" id="2_dcn72"]
-[ext_resource type="Texture2D" uid="uid://clvnioqm7fpon" path="res://sprites/sword-slash-Sheet.png" id="3_o7kd0"]
+[ext_resource type="Texture2D" uid="uid://dwf3al7sgflwb" path="res://sprites/tmpPlyr.png" id="2_c3k07"]
+[ext_resource type="Script" path="res://scripts/swordManager.gd" id="3_o3yit"]
+[ext_resource type="Texture2D" uid="uid://cekb6jdpapb32" path="res://sprites/circle.png" id="4_1ef2y"]
+[ext_resource type="Texture2D" uid="uid://b7dt74jochsi8" path="res://sprites/tmpplyr-arm.png" id="4_nurn6"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gv02t"]
-size = Vector2(61, 124)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m82m7"]
+size = Vector2(34, 102)
 
-[sub_resource type="Animation" id="Animation_6l31a"]
-resource_name = "reset1"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sword:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [2, 4, 0]
-}
+[sub_resource type="SkeletonModification2DFABRIK" id="SkeletonModification2DFABRIK_axyaf"]
+target_nodepath = NodePath("../../swordManager")
+fabrik_data_chain_length = 2
+joint_data/0/bone_index = 1
+joint_data/0/bone2d_node = NodePath("shoulder/backarm")
+joint_data/1/bone_index = 2
+joint_data/1/bone2d_node = NodePath("shoulder/backarm/forearm")
+joint_data/1/magnet_position = Vector2(-10, 10)
+joint_data/1/use_target_rotation = false
 
-[sub_resource type="Animation" id="Animation_v015o"]
-resource_name = "reset3"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sword:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [9, 6]
-}
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_43rpg"]
+enabled = true
+modification_count = 1
+modifications/0 = SubResource("SkeletonModification2DFABRIK_axyaf")
 
-[sub_resource type="Animation" id="Animation_tci5f"]
-resource_name = "slash1"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sword:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [0, 1, 2]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("sweetSpot/hitshape2d:polygon")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [PackedVector2Array(-5, 3, 41, -8, 47, 40, 21, 90, 21, 38)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("sweetSpot/hitshape2d:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("sweetSpot/hitshape2d:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(81, -32)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("sourSpot/hitshape2d:polygon")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [PackedVector2Array(-8, 17, -31.28, -21.2031, 11, -33, 4, -57, -70, -49, -74, 64, -9, 56)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("sourSpot/hitshape2d:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-
-[sub_resource type="Animation" id="Animation_g18fh"]
-resource_name = "slash2"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sword:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [3, 4, 5]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("sweetSpot/hitshape2d:polygon")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [PackedVector2Array(16, 68, 39, 83, 51, 41, 27, -24, 24, 39)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("sweetSpot/hitshape2d:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("sweetSpot/hitshape2d:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(81, -32)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("sourSpot/hitshape2d:polygon")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [PackedVector2Array(-76, -1, -75, 66, 8, 67, -10.1844, 49.9123, -5, -46)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("sourSpot/hitshape2d:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-
-[sub_resource type="Animation" id="Animation_mmuok"]
-resource_name = "slash3"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sword:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [6, 7, 8]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("sweetSpot/hitshape2d:polygon")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [PackedVector2Array(-5, 75, 35, 67, 53, 34, 12, 33, 15, 52)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("sweetSpot/hitshape2d:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("sweetSpot/hitshape2d:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(81, -32)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("sourSpot/hitshape2d:polygon")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [PackedVector2Array(-19, 4, 15, 2, -2, -11, -75, -25, -74, 64, -32, 62)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("sourSpot/hitshape2d:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_5g8bu"]
-_data = {
-"reset1": SubResource("Animation_6l31a"),
-"reset3": SubResource("Animation_v015o"),
-"slash1": SubResource("Animation_tci5f"),
-"slash2": SubResource("Animation_g18fh"),
-"slash3": SubResource("Animation_mmuok")
-}
-
-[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("character", "attackTimer", "attackAnimator")]
-position = Vector2(-222, -235)
+[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("coyoteTimer", "sprite", "groundCast")]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_4j3bi")
-character = NodePath("sprite")
-attackTimer = NodePath("attackReset")
-attackAnimator = NodePath("swordAnimator")
+coyoteTimer = NodePath("coyoteTimer")
+sprite = NodePath("TmpPlyr")
+groundCast = NodePath("groundCast")
+
+[node name="TmpPlyr" type="Sprite2D" parent="."]
+position = Vector2(-4, 4)
+texture = ExtResource("2_c3k07")
+offset = Vector2(0, -2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_gv02t")
+visible = false
+position = Vector2(1, -1)
+shape = SubResource("RectangleShape2D_m82m7")
 
-[node name="sprite" type="Sprite2D" parent="."]
-self_modulate = Color(0, 1, 0, 1)
-scale = Vector2(0.5, 1)
-texture = ExtResource("2_dcn72")
+[node name="shoulder" type="Marker2D" parent="."]
+position = Vector2(-4, -26)
 
-[node name="sword" type="Sprite2D" parent="."]
-position = Vector2(70, 2)
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("3_o7kd0")
-hframes = 10
+[node name="swordManager" type="Marker2D" parent="." node_paths=PackedStringArray("shoulder")]
+position = Vector2(11, 2)
+script = ExtResource("3_o3yit")
+shoulder = NodePath("../shoulder")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Circle" type="Sprite2D" parent="swordManager"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_1ef2y")
 
-[node name="attackReset" type="Timer" parent="."]
-wait_time = 2.0
+[node name="coyoteTimer" type="Timer" parent="."]
+wait_time = 0.2
 one_shot = true
 
-[node name="swordAnimator" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_5g8bu")
-}
+[node name="groundCast" type="RayCast2D" parent="."]
+position = Vector2(0, 42)
+target_position = Vector2(0, 20)
 
-[node name="sweetSpot" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 0
-monitoring = false
+[node name="arm" type="Node2D" parent="."]
 
-[node name="hitshape2d" type="CollisionPolygon2D" parent="sweetSpot"]
-position = Vector2(81, -32)
-polygon = PackedVector2Array(-5, 3, 41, -8, 47, 40, 21, 90, 21, 38)
-disabled = true
+[node name="polygons" type="Node2D" parent="arm"]
 
-[node name="sourSpot" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 0
-monitoring = false
+[node name="backarm" type="Polygon2D" parent="arm/polygons"]
+position = Vector2(-15, -32)
+texture = ExtResource("4_nurn6")
+skeleton = NodePath("../../Skeleton2D")
+polygon = PackedVector2Array(14.6018, 0.442478, 19.5796, 9.0708, 18.9159, 25.2212, 14.1593, 30.0885, 6.96903, 28.208, 2.98673, 2.98673, 7.41151, 0.331858)
+uv = PackedVector2Array(14.6018, 0.442478, 19.5796, 9.0708, 18.9159, 25.2212, 14.1593, 30.0885, 6.96903, 28.208, 2.98673, 2.98673, 7.41151, 0.331858)
+bones = ["shoulder", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0), "shoulder/backarm", PackedFloat32Array(1, 1, 0, 1, 1, 1, 1), "shoulder/backarm/forearm", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0), "shoulder/backarm/forearm/hand", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)]
 
-[node name="hitshape2d" type="CollisionPolygon2D" parent="sourSpot"]
-position = Vector2(105, -9)
-polygon = PackedVector2Array(-8, 17, -31.28, -21.2031, 11, -33, 4, -57, -70, -49, -74, 64, -9, 56)
-disabled = true
+[node name="forearm" type="Polygon2D" parent="arm/polygons"]
+position = Vector2(-32, -17)
+texture = ExtResource("4_nurn6")
+skeleton = NodePath("../../Skeleton2D")
+polygon = PackedVector2Array(23.4513, 6.63717, 24.7788, 25.5531, 31.8584, 29.9779, 35.6195, 25.1106, 35.3982, 12.0575, 32.7434, 4.31416, 25.5531, 4.31416)
+uv = PackedVector2Array(23.4513, 6.63717, 24.7788, 25.5531, 31.8584, 29.9779, 35.6195, 25.1106, 35.3982, 12.0575, 32.7434, 4.31416, 25.5531, 4.31416)
+bones = ["shoulder", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0), "shoulder/backarm", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0), "shoulder/backarm/forearm", PackedFloat32Array(1, 1, 1, 1, 1, 1, 1), "shoulder/backarm/forearm/hand", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)]
 
-[connection signal="timeout" from="attackReset" to="." method="_on_attack_reset_timeout"]
+[node name="hand" type="Polygon2D" parent="arm/polygons"]
+position = Vector2(-48, -5)
+texture = ExtResource("4_nurn6")
+skeleton = NodePath("../../Skeleton2D")
+polygon = PackedVector2Array(40.3761, 19.9115, 47.5664, 24.4469, 50.885, 21.1283, 50.6637, 11.8363, 45.9071, 8.96018, 41.3717, 11.615)
+uv = PackedVector2Array(40.3761, 19.9115, 47.5664, 24.4469, 50.885, 21.1283, 50.6637, 11.8363, 45.9071, 8.96018, 41.3717, 11.615)
+bones = ["shoulder", PackedFloat32Array(0, 0, 0, 0, 0, 0), "shoulder/backarm", PackedFloat32Array(0, 0, 0, 0, 0, 0), "shoulder/backarm/forearm", PackedFloat32Array(0, 0, 0, 0, 0, 0), "shoulder/backarm/forearm/hand", PackedFloat32Array(1, 1, 1, 1, 1, 1)]
+
+[node name="Skeleton2D" type="Skeleton2D" parent="arm"]
+modification_stack = SubResource("SkeletonModificationStack2D_43rpg")
+
+[node name="shoulder" type="Bone2D" parent="arm/Skeleton2D"]
+position = Vector2(-4, -26)
+rotation = 0.329239
+rest = Transform2D(0.993632, 0.112675, -0.112675, 0.993632, -4, -26)
+
+[node name="backarm" type="Bone2D" parent="arm/Skeleton2D/shoulder"]
+rotation = -0.187663
+scale = Vector2(0.999996, 0.999996)
+rest = Transform2D(0.994572, -0.104048, 0.104048, 0.994572, 0, 0)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="forearm" type="Bone2D" parent="arm/Skeleton2D/shoulder/backarm"]
+position = Vector2(0, 18)
+rotation = -0.844853
+rest = Transform2D(0.996376, 0.0850576, -0.0850576, 0.996376, 0, 18)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="hand" type="Bone2D" parent="arm/Skeleton2D/shoulder/backarm/forearm"]
+position = Vector2(6.35669, 17.8771)
+rotation = 1.6488
+rest = Transform2D(0.997181, -0.0750361, 0.0750361, 0.997181, 2, 16)

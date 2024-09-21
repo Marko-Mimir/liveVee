@@ -5,7 +5,7 @@ var label : Label
 @export var critTheme : Theme;
 var damage : int = 0
 var crit : bool = false
-
+	
 
 
 
