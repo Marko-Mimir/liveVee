@@ -4,12 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://clvnioqm7fpon" path="res://sprites/sword-slash-Sheet.png" id="1_ixg84"]
 
 [node name="sword" type="Sprite2D"]
+self_modulate = Color(1, 1, 1, 0.223529)
 texture = ExtResource("1_ixg84")
 offset = Vector2(17, -4.5)
 hframes = 10
-frame = 2
 script = ExtResource("1_7c4ne")
-flipOffset = 45
+flipOffset = 36
 
 [node name="handle" type="Marker2D" parent="."]
 position = Vector2(-6, 3)

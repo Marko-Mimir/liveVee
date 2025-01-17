@@ -18,9 +18,9 @@ var flip : bool = false:
 			swordManager.currentSword.flip(value)
 		var fabrIk :SkeletonModification2DFABRIK = skeleton.get_modification_stack().get_modification(0)
 		if value == true:
-			fabrIk.set_fabrik_joint_magnet_position(1, Vector2(10,10))
+			fabrIk.set_fabrik_joint_magnet_position(1, Vector2(.01,20))
 		else:
-			fabrIk.set_fabrik_joint_magnet_position(1, Vector2(-10,10))
+			fabrIk.set_fabrik_joint_magnet_position(1, Vector2(-.01,20))
 
 @export var coyoteTimer : Timer
 @export var sprite : Sprite2D
@@ -40,6 +40,7 @@ func get_fabrik():
 	return fabrIk
 
 func _ready():
+	swordManager =get_node("swordManager")
 	skeleton = get_node("arm/Skeleton2D")
 	coyoteTimer.timeout.connect(coyoteTimeout)
 	
@@ -93,6 +94,8 @@ func _process(_delta):
 		flip = false
 	elif mouse.x < 0 and not flip:
 		flip = true
+	
+	#Attack
 	
 	#debug stuff
 	if Input.is_action_just_pressed("debug"):

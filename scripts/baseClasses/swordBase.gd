@@ -2,13 +2,14 @@ extends Sprite2D
 class_name SwordBase
 
 var handle
+var shoulder : Marker2D;
 
 @export var flipOffset : int
 
-func _ready() -> void:
+func init() -> void:
 	player.attack_input.connect(attackInput)
 	handle = get_node("./handle")
-	print(handle)
+	
 
 func attackInput(isStrong : bool) -> void:
 	print(isStrong)
@@ -22,4 +23,3 @@ func flip(value : bool) -> void:
 	else:
 		offset.x += flipOffset
 	flip_h = value
-	print(offset)

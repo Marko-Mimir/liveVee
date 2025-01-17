@@ -16,7 +16,7 @@ joint_data/0/bone_index = 1
 joint_data/0/bone2d_node = NodePath("shoulder/backarm")
 joint_data/1/bone_index = 2
 joint_data/1/bone2d_node = NodePath("shoulder/backarm/forearm")
-joint_data/1/magnet_position = Vector2(-10, 10)
+joint_data/1/magnet_position = Vector2(1, 20)
 joint_data/1/use_target_rotation = false
 
 [sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_43rpg"]
@@ -43,10 +43,10 @@ position = Vector2(1, -1)
 shape = SubResource("RectangleShape2D_m82m7")
 
 [node name="shoulder" type="Marker2D" parent="."]
-position = Vector2(-4, -26)
+position = Vector2(-3, -30)
 
 [node name="swordManager" type="Marker2D" parent="." node_paths=PackedStringArray("shoulder")]
-position = Vector2(11, 2)
+position = Vector2(9, -9)
 script = ExtResource("3_o3yit")
 shoulder = NodePath("../shoulder")
 

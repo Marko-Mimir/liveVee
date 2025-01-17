@@ -18,13 +18,12 @@ func _process(_delta: float) -> void:
 		currentSword.global_position = mouse
 	else:
 		global_position = shoulder.to_global(shoulder.get_local_mouse_position().normalized() * radius)
-		if currentSword:
-			currentSword.global_position = shoulder.to_global(lerp(shoulder.get_local_mouse_position().normalized(), Vector2(0,1), 0.3) * (radius))
 		
 
 func add_sword(sword : SwordBase) -> void:
 	if currentSword != null:
 		remove_child(currentSword)
+	sword.shoulder = shoulder
 	add_child(sword)
 	player.get_fabrik().target_nodepath = sword.get_handle().get_path()
 	currentSword = sword
