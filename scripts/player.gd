@@ -96,6 +96,10 @@ func _process(_delta):
 		flip = true
 	
 	#Attack
+	if Input.is_action_just_pressed("n_attack"):
+		attack_input.emit(false)
+	if Input.is_action_just_pressed("s_attack"):
+		attack_input.emit(true)
 	
 	#debug stuff
 	if Input.is_action_just_pressed("debug"):
