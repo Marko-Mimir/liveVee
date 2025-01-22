@@ -1,28 +1,45 @@
-[gd_scene load_steps=9 format=3 uid="uid://bdk4v1yalw4s4"]
+[gd_scene load_steps=13 format=3 uid="uid://bdk4v1yalw4s4"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_4j3bi"]
-[ext_resource type="Texture2D" uid="uid://dwf3al7sgflwb" path="res://sprites/tmpPlyr.png" id="2_c3k07"]
-[ext_resource type="Script" path="res://scripts/swordManager.gd" id="3_o3yit"]
-[ext_resource type="Texture2D" uid="uid://cekb6jdpapb32" path="res://sprites/circle.png" id="4_1ef2y"]
-[ext_resource type="Texture2D" uid="uid://b7dt74jochsi8" path="res://sprites/tmpplyr-arm.png" id="4_nurn6"]
+[ext_resource type="Script" path="res://scripts/playerOnly/player.gd" id="1_4j3bi"]
+[ext_resource type="Texture2D" uid="uid://6ksafrr7spsn" path="res://sprites/player.png" id="2_f00l4"]
+[ext_resource type="Texture2D" uid="uid://ibn3wd5oal1j" path="res://sprites/head.png" id="3_sjljb"]
+[ext_resource type="Script" path="res://scripts/playerOnly/playerArm.gd" id="3_tgw36"]
+[ext_resource type="Texture2D" uid="uid://223edb5w4l0u" path="res://sprites/player-arm.png" id="4_78o4s"]
+[ext_resource type="Script" path="res://scripts/playerOnly/itemManager.gd" id="6_hvbid"]
+[ext_resource type="Texture2D" uid="uid://dagjd7mpsmofe" path="res://sprites/square.png" id="7_kyriv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m82m7"]
-size = Vector2(34, 102)
+size = Vector2(23, 67)
 
-[sub_resource type="SkeletonModification2DFABRIK" id="SkeletonModification2DFABRIK_axyaf"]
-target_nodepath = NodePath("../../swordManager")
+[sub_resource type="SkeletonModification2DFABRIK" id="SkeletonModification2DFABRIK_j5mkj"]
+target_nodepath = NodePath("../../rightFocus")
 fabrik_data_chain_length = 2
-joint_data/0/bone_index = 1
-joint_data/0/bone2d_node = NodePath("shoulder/backarm")
-joint_data/1/bone_index = 2
-joint_data/1/bone2d_node = NodePath("shoulder/backarm/forearm")
-joint_data/1/magnet_position = Vector2(1, 20)
+joint_data/0/bone_index = 0
+joint_data/0/bone2d_node = NodePath("Rhumer")
+joint_data/1/bone_index = 1
+joint_data/1/bone2d_node = NodePath("Rhumer/Rforearm")
+joint_data/1/magnet_position = Vector2(-2, 4)
 joint_data/1/use_target_rotation = false
 
-[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_43rpg"]
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_d8x17"]
 enabled = true
 modification_count = 1
-modifications/0 = SubResource("SkeletonModification2DFABRIK_axyaf")
+modifications/0 = SubResource("SkeletonModification2DFABRIK_j5mkj")
+
+[sub_resource type="SkeletonModification2DFABRIK" id="SkeletonModification2DFABRIK_chd4o"]
+target_nodepath = NodePath("../../leftfocus")
+fabrik_data_chain_length = 2
+joint_data/0/bone_index = 0
+joint_data/0/bone2d_node = NodePath("Lhumer")
+joint_data/1/bone_index = 1
+joint_data/1/bone2d_node = NodePath("Lhumer/Lfore")
+joint_data/1/magnet_position = Vector2(2, 4)
+joint_data/1/use_target_rotation = false
+
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_1s616"]
+enabled = true
+modification_count = 1
+modifications/0 = SubResource("SkeletonModification2DFABRIK_chd4o")
 
 [node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("coyoteTimer", "sprite", "groundCast")]
 collision_layer = 2
@@ -33,84 +50,180 @@ sprite = NodePath("TmpPlyr")
 groundCast = NodePath("groundCast")
 
 [node name="TmpPlyr" type="Sprite2D" parent="."]
-position = Vector2(-4, 4)
-texture = ExtResource("2_c3k07")
+z_index = 1
+position = Vector2(-1, 4)
+texture = ExtResource("2_f00l4")
 offset = Vector2(0, -2)
+
+[node name="head" type="Sprite2D" parent="TmpPlyr"]
+position = Vector2(0, -27.8)
+texture = ExtResource("3_sjljb")
+hframes = 3
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2(1, -1)
+position = Vector2(-3.5, 3.5)
 shape = SubResource("RectangleShape2D_m82m7")
-
-[node name="shoulder" type="Marker2D" parent="."]
-position = Vector2(-3, -30)
-
-[node name="swordManager" type="Marker2D" parent="." node_paths=PackedStringArray("shoulder")]
-position = Vector2(9, -9)
-script = ExtResource("3_o3yit")
-shoulder = NodePath("../shoulder")
-
-[node name="Circle" type="Sprite2D" parent="swordManager"]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("4_1ef2y")
 
 [node name="coyoteTimer" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
 
 [node name="groundCast" type="RayCast2D" parent="."]
-position = Vector2(0, 42)
+position = Vector2(0, 30)
 target_position = Vector2(0, 20)
 
-[node name="arm" type="Node2D" parent="."]
+[node name="shoulderR" type="Marker2D" parent="."]
+position = Vector2(-6.5, -10.5)
+gizmo_extents = 3.0
 
-[node name="polygons" type="Node2D" parent="arm"]
+[node name="shoulderL" type="Marker2D" parent="."]
+position = Vector2(4.5, -10.5)
+gizmo_extents = 3.0
 
-[node name="backarm" type="Polygon2D" parent="arm/polygons"]
-position = Vector2(-15, -32)
-texture = ExtResource("4_nurn6")
+[node name="rightArm" type="Node2D" parent="." node_paths=PackedStringArray("target")]
+z_index = 2
+position = Vector2(-8, 0)
+script = ExtResource("3_tgw36")
+isfocus = true
+focus = Color(1, 1, 1, 1)
+unfocus = Color(0.633757, 0.633757, 0.633757, 1)
+target = NodePath("../rightFocus")
+
+[node name="polygons" type="Node2D" parent="rightArm"]
+
+[node name="humerus" type="Polygon2D" parent="rightArm/polygons"]
+position = Vector2(-4, -15)
+texture = ExtResource("4_78o4s")
 skeleton = NodePath("../../Skeleton2D")
-polygon = PackedVector2Array(14.6018, 0.442478, 19.5796, 9.0708, 18.9159, 25.2212, 14.1593, 30.0885, 6.96903, 28.208, 2.98673, 2.98673, 7.41151, 0.331858)
-uv = PackedVector2Array(14.6018, 0.442478, 19.5796, 9.0708, 18.9159, 25.2212, 14.1593, 30.0885, 6.96903, 28.208, 2.98673, 2.98673, 7.41151, 0.331858)
-bones = ["shoulder", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0), "shoulder/backarm", PackedFloat32Array(1, 1, 0, 1, 1, 1, 1), "shoulder/backarm/forearm", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0), "shoulder/backarm/forearm/hand", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)]
+polygon = PackedVector2Array(2.86812, 1.23576, 6.72841, 1.21371, 9.50782, 3.35341, 9.52988, 7.30194, 6.92694, 15.2211, 1.16959, 15.199, 1.25782, 3.24312)
+uv = PackedVector2Array(2.86812, 1.23576, 6.72841, 1.21371, 9.50782, 3.35341, 9.52988, 7.30194, 6.92694, 15.2211, 1.16959, 15.199, 1.25782, 3.24312)
+bones = ["Rhumer", PackedFloat32Array(0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5), "Rhumer/Rforearm", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0), "Rhumer/Rforearm/Rhand", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)]
 
-[node name="forearm" type="Polygon2D" parent="arm/polygons"]
-position = Vector2(-32, -17)
-texture = ExtResource("4_nurn6")
+[node name="forearm" type="Polygon2D" parent="rightArm/polygons"]
+position = Vector2(-14, -5)
+texture = ExtResource("4_78o4s")
 skeleton = NodePath("../../Skeleton2D")
-polygon = PackedVector2Array(23.4513, 6.63717, 24.7788, 25.5531, 31.8584, 29.9779, 35.6195, 25.1106, 35.3982, 12.0575, 32.7434, 4.31416, 25.5531, 4.31416)
-uv = PackedVector2Array(23.4513, 6.63717, 24.7788, 25.5531, 31.8584, 29.9779, 35.6195, 25.1106, 35.3982, 12.0575, 32.7434, 4.31416, 25.5531, 4.31416)
-bones = ["shoulder", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0), "shoulder/backarm", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0), "shoulder/backarm/forearm", PackedFloat32Array(1, 1, 1, 1, 1, 1, 1), "shoulder/backarm/forearm/hand", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)]
+polygon = PackedVector2Array(10.9858, 3.11076, 11.0078, 10.4784, 13.0814, 14.8902, 18.1108, 14.8902, 17.9122, 1.74312, 16.0372, 0.838706, 12.0225, 1.34606)
+uv = PackedVector2Array(10.9858, 3.11076, 11.0078, 10.4784, 13.0814, 14.8902, 18.1108, 14.8902, 17.9122, 1.74312, 16.0372, 0.838706, 12.0225, 1.34606)
+bones = ["Rhumer", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0), "Rhumer/Rforearm", PackedFloat32Array(0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5), "Rhumer/Rforearm/Rhand", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)]
 
-[node name="hand" type="Polygon2D" parent="arm/polygons"]
-position = Vector2(-48, -5)
-texture = ExtResource("4_nurn6")
+[node name="hand" type="Polygon2D" parent="rightArm/polygons"]
+position = Vector2(-23, 1)
+texture = ExtResource("4_78o4s")
 skeleton = NodePath("../../Skeleton2D")
-polygon = PackedVector2Array(40.3761, 19.9115, 47.5664, 24.4469, 50.885, 21.1283, 50.6637, 11.8363, 45.9071, 8.96018, 41.3717, 11.615)
-uv = PackedVector2Array(40.3761, 19.9115, 47.5664, 24.4469, 50.885, 21.1283, 50.6637, 11.8363, 45.9071, 8.96018, 41.3717, 11.615)
-bones = ["shoulder", PackedFloat32Array(0, 0, 0, 0, 0, 0), "shoulder/backarm", PackedFloat32Array(0, 0, 0, 0, 0, 0), "shoulder/backarm/forearm", PackedFloat32Array(0, 0, 0, 0, 0, 0), "shoulder/backarm/forearm/hand", PackedFloat32Array(1, 1, 1, 1, 1, 1)]
+polygon = PackedVector2Array(19.2578, 5.64753, 20.9343, 11.4269, 27.7946, 11.8019, 27.7505, 6.17694, 22.7211, 5.02988)
+uv = PackedVector2Array(19.2578, 5.64753, 20.9343, 11.4269, 27.7946, 11.8019, 27.7505, 6.17694, 22.7211, 5.02988)
+bones = ["Rhumer", PackedFloat32Array(0, 0, 0, 0, 0), "Rhumer/Rforearm", PackedFloat32Array(0, 0, 0, 0, 0), "Rhumer/Rforearm/Rhand", PackedFloat32Array(0.5, 0.5, 0.5, 0.5, 0.5)]
 
-[node name="Skeleton2D" type="Skeleton2D" parent="arm"]
-modification_stack = SubResource("SkeletonModificationStack2D_43rpg")
+[node name="Skeleton2D" type="Skeleton2D" parent="rightArm"]
+modification_stack = SubResource("SkeletonModificationStack2D_d8x17")
 
-[node name="shoulder" type="Bone2D" parent="arm/Skeleton2D"]
-position = Vector2(-4, -26)
-rotation = 0.329239
-rest = Transform2D(0.993632, 0.112675, -0.112675, 0.993632, -4, -26)
-
-[node name="backarm" type="Bone2D" parent="arm/Skeleton2D/shoulder"]
-rotation = -0.187663
-scale = Vector2(0.999996, 0.999996)
-rest = Transform2D(0.994572, -0.104048, 0.104048, 0.994572, 0, 0)
+[node name="Rhumer" type="Bone2D" parent="rightArm/Skeleton2D"]
+position = Vector2(1.5, -10.5)
+rest = Transform2D(1, 0, 0, 1, 1.5, -10.5)
+editor_settings/show_bone_gizmo = false
 metadata/_local_pose_override_enabled_ = true
 
-[node name="forearm" type="Bone2D" parent="arm/Skeleton2D/shoulder/backarm"]
-position = Vector2(0, 18)
-rotation = -0.844853
-rest = Transform2D(0.996376, 0.0850576, -0.0850576, 0.996376, 0, 18)
+[node name="Rforearm" type="Bone2D" parent="rightArm/Skeleton2D/Rhumer"]
+position = Vector2(-0.5, 8.5)
+rest = Transform2D(1, 0, 0, 1, -0.5, 8.5)
+editor_settings/show_bone_gizmo = false
 metadata/_local_pose_override_enabled_ = true
 
-[node name="hand" type="Bone2D" parent="arm/Skeleton2D/shoulder/backarm/forearm"]
-position = Vector2(6.35669, 17.8771)
-rotation = 1.6488
-rest = Transform2D(0.997181, -0.0750361, 0.0750361, 0.997181, 2, 16)
+[node name="Rhand" type="Bone2D" parent="rightArm/Skeleton2D/Rhumer/Rforearm"]
+position = Vector2(0, 9)
+rotation = 1.36701
+rest = Transform2D(-4.37114e-08, 1, -1, -4.37114e-08, 0, 9)
+editor_settings/show_bone_gizmo = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="rightArm/Skeleton2D/Rhumer/Rforearm/Rhand"]
+remote_path = NodePath("../../../../../../RightHand")
+update_scale = false
+
+[node name="leftArm" type="Node2D" parent="." node_paths=PackedStringArray("target")]
+z_index = -2
+position = Vector2(3, 0)
+script = ExtResource("3_tgw36")
+focus = Color(1, 1, 1, 1)
+unfocus = Color(0.635294, 0.662745, 0.662745, 1)
+target = NodePath("../leftfocus")
+
+[node name="polygons" type="Node2D" parent="leftArm"]
+
+[node name="humer" type="Polygon2D" parent="leftArm/polygons"]
+position = Vector2(-3, -15)
+texture = ExtResource("4_78o4s")
+skeleton = NodePath("../../Skeleton2D")
+polygon = PackedVector2Array(2.20882, 1.13624, 9.56447, 1.4626, 9.68999, 11.0526, 5.8992, 15.6969, 0.85317, 15.5463, 0.903379, 2.81825)
+uv = PackedVector2Array(2.20882, 1.13624, 9.56447, 1.4626, 9.68999, 11.0526, 5.8992, 15.6969, 0.85317, 15.5463, 0.903379, 2.81825)
+bones = ["Lhumer", PackedFloat32Array(0.5, 0.5, 0.5, 0.5, 0.5, 0.5), "Lhumer/Lfore", PackedFloat32Array(0, 0, 0, 0, 0, 0), "Lhumer/Lfore/Lhand", PackedFloat32Array(0, 0, 0, 0, 0, 0)]
+
+[node name="fore" type="Polygon2D" parent="leftArm/polygons"]
+position = Vector2(-13, -5)
+texture = ExtResource("4_78o4s")
+skeleton = NodePath("../../Skeleton2D")
+polygon = PackedVector2Array(10.5666, 1.75329, 11.2284, 13.8856, 14.5814, 15.4739, 18.4858, 14.2606, 17.9122, 1.46653, 15.8828, 0.385647, 12.1549, 0.937118)
+uv = PackedVector2Array(10.5666, 1.75329, 11.2284, 13.8856, 14.5814, 15.4739, 18.4858, 14.2606, 17.9122, 1.46653, 15.8828, 0.385647, 10.4564, 1.90771)
+bones = ["Lhumer", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0), "Lhumer/Lfore", PackedFloat32Array(0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5), "Lhumer/Lfore/Lhand", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)]
+
+[node name="hand" type="Polygon2D" parent="leftArm/polygons"]
+position = Vector2(-23, 1)
+texture = ExtResource("4_78o4s")
+skeleton = NodePath("../../Skeleton2D")
+polygon = PackedVector2Array(19.8755, 5.393, 20.5593, 11.5254, 28.8093, 12.1651, 27.949, 6.12094, 23.7137, 4.81947)
+uv = PackedVector2Array(19.8755, 5.393, 20.5593, 11.5254, 28.8093, 12.1651, 27.949, 6.12094, 23.7137, 4.81947)
+bones = ["Lhumer", PackedFloat32Array(0, 0, 0, 0, 0), "Lhumer/Lfore", PackedFloat32Array(0, 0, 0, 0, 0), "Lhumer/Lfore/Lhand", PackedFloat32Array(0.5, 0.5, 0.5, 0.5, 0.5)]
+
+[node name="Skeleton2D" type="Skeleton2D" parent="leftArm"]
+modification_stack = SubResource("SkeletonModificationStack2D_1s616")
+
+[node name="Lhumer" type="Bone2D" parent="leftArm/Skeleton2D"]
+position = Vector2(1.5, -10.5)
+rest = Transform2D(1, 0, 0, 1, 1.5, -10.5)
+editor_settings/show_bone_gizmo = false
+metadata/_local_pose_override_enabled_ = true
+
+[node name="Lfore" type="Bone2D" parent="leftArm/Skeleton2D/Lhumer"]
+position = Vector2(0.5, 7.5)
+rest = Transform2D(1, 0, 0, 1, 0.5, 7.5)
+editor_settings/show_bone_gizmo = false
+metadata/_local_pose_override_enabled_ = true
+
+[node name="Lhand" type="Bone2D" parent="leftArm/Skeleton2D/Lhumer/Lfore"]
+position = Vector2(0, 11)
+rotation = 1.5708
+rest = Transform2D(-4.37114e-08, 1, -1, -4.37114e-08, 0, 11)
+editor_settings/show_bone_gizmo = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="leftArm/Skeleton2D/Lhumer/Lfore/Lhand"]
+remote_path = NodePath("../../../../../../LeftHand")
+update_scale = false
+
+[node name="leftfocus" type="Node2D" parent="."]
+position = Vector2(4, 8)
+
+[node name="rightFocus" type="Node2D" parent="."]
+position = Vector2(-8, 11)
+
+[node name="itemManager" type="Node2D" parent="."]
+script = ExtResource("6_hvbid")
+
+[node name="RightHand" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+self_modulate = Color(1, 1, 1, 0.682353)
+z_index = 5
+position = Vector2(-8.41551, 6.52097)
+rotation = 1.27451
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("7_kyriv")
+
+[node name="LeftHand" type="Sprite2D" parent="."]
+modulate = Color(0, 1, 0, 1)
+self_modulate = Color(1, 1, 1, 0.682353)
+z_index = 5
+position = Vector2(4.70526, 6.11975)
+rotation = 1.92965
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("7_kyriv")

@@ -7,26 +7,24 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var groundedJump = true
 var additionalJumps = 1;
 var scene : liveScene = null;
-var skeleton : Skeleton2D;
 
 #flip setter
 var flip : bool = false:
 	set(value):
 		sprite.flip_h = value
+		head.flip_h = value
 		flip = value
-		if swordManager.currentSword:
-			swordManager.currentSword.flip(value)
-		var fabrIk :SkeletonModification2DFABRIK = skeleton.get_modification_stack().get_modification(0)
-		if value == true:
-			fabrIk.set_fabrik_joint_magnet_position(1, Vector2(.01,20))
-		else:
-			fabrIk.set_fabrik_joint_magnet_position(1, Vector2(-.01,20))
+		LeftArm.flip(value)
+		RightArm.flip(value)
 
 @export var coyoteTimer : Timer
 @export var sprite : Sprite2D
 @export var groundCast : RayCast2D
 
-var swordManager : SwordManager
+var LeftArm : Node2D
+var head : Sprite2D
+var RightArm : Node2D
+
 var currentGround = null
 var friction = .01;
 
@@ -35,18 +33,18 @@ var debug = false
 #signals
 signal attack_input(isStrong)
 
-func get_fabrik():
-	var fabrIk :SkeletonModification2DFABRIK = skeleton.get_modification_stack().get_modification(0)
-	return fabrIk
+
+
 
 func _ready():
-	swordManager =get_node("swordManager")
-	skeleton = get_node("arm/Skeleton2D")
+	LeftArm = get_node("leftArm")
+	RightArm = get_node("rightArm")
+	head = get_node("TmpPlyr/head")
 	coyoteTimer.timeout.connect(coyoteTimeout)
 	
-	var packedSword : PackedScene= load("res://objects/dummySword.tscn")
-	var sword = packedSword.instantiate()
-	swordManager.add_sword(sword)
+	#var packedSword : PackedScene= load("res://objects/dummySword.tscn")
+	#var sword = packedSword.instantiate()
+	#swordManager.add_sword(sword)
 
 func coyoteTimeout() -> void:
 	groundedJump = false
@@ -95,6 +93,13 @@ func _process(_delta):
 	elif mouse.x < 0 and not flip:
 		flip = true
 	
+	if mouse.y < -35:
+		head.frame=0
+	elif mouse.y > 10:
+		head.frame=2
+	else:
+		head.frame = 1
+	
 	#Attack
 	if Input.is_action_just_pressed("n_attack"):
 		attack_input.emit(false)
@@ -105,11 +110,17 @@ func _process(_delta):
 	if Input.is_action_just_pressed("debug"):
 		debug = !debug
 	if debug:
-		if Input.is_action_just_pressed("jump") and scene:
+		if Input.is_action_just_pressed("jump") and scene: #Show debug collision blocks
 			scene.debug_collision_shape_visibility()
-		if Input.is_action_just_pressed("n_attack"):
+		if Input.is_action_just_pressed("die") and scene: #Zoom in/out camera
+			if scene.camera.zoom == Vector2(1,1):
+				scene.camera.zoom = Vector2(2,2);
+				return
+			scene.camera.zoom = Vector2(1,1)
+		if Input.is_action_just_pressed("n_attack"): #teleport arround
 			global_position = get_global_mouse_position()
-		if Input.is_action_just_pressed("down"):
+			velocity.y = 0
+		if Input.is_action_just_pressed("down"): #stop graity
 			velocity.y = 0
 			if gravity == 0:
 				gravity = ProjectSettings.get_setting("physics/2d/default_gravity")

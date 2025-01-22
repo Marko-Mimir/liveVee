@@ -18,6 +18,7 @@ spawn = NodePath("spawn")
 camera = NodePath("LiveCam")
 
 [node name="LiveCam" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
 script = ExtResource("2_87vnv")
 
 [node name="spawn" type="Marker2D" parent="."]

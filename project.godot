@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 player="*res://objects/player.tscn"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [input]
 
 die={

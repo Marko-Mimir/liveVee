@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://78u326qiuoj"
-path="res://.godot/imported/slice-special.png-c4b5f639bff4b0f6719f901bdca1242b.ctex"
+uid="uid://223edb5w4l0u"
+path="res://.godot/imported/player-arm.png-774f3d362f01aa327bd73b53195f9872.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/slice-special.png"
-dest_files=["res://.godot/imported/slice-special.png-c4b5f639bff4b0f6719f901bdca1242b.ctex"]
+source_file="res://sprites/player-arm.png"
+dest_files=["res://.godot/imported/player-arm.png-774f3d362f01aa327bd73b53195f9872.ctex"]
 
 [params]
 
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0
