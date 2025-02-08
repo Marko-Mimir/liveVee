@@ -11,11 +11,12 @@ var scene : liveScene = null;
 #flip setter
 var flip : bool = false:
 	set(value):
-		sprite.flip_h = value
-		head.flip_h = value
+		if value:
+			sprite.scale.x = -1
+		else:
+			sprite.scale.x = 1
 		flip = value
-		LeftArm.flip(value)
-		RightArm.flip(value)
+		onFlip.emit(value)
 
 @export var coyoteTimer : Timer
 @export var sprite : Sprite2D
@@ -24,6 +25,9 @@ var flip : bool = false:
 var LeftArm : Node2D
 var head : Sprite2D
 var RightArm : Node2D
+var blink : Sprite2D
+var blinkTimer : Timer
+var isBlink : bool = false
 
 var currentGround = null
 var friction = .01;
@@ -31,20 +35,19 @@ var friction = .01;
 var debug = false
 
 #signals
-signal attack_input(isStrong)
+signal onFlip(value : bool)
+signal onClick(mouseEvent : InputEventMouseButton)
 
-
-
+var manager : ItemManager;
 
 func _ready():
+	blinkTimer = get_node("blink")
 	LeftArm = get_node("leftArm")
 	RightArm = get_node("rightArm")
-	head = get_node("TmpPlyr/head")
+	head = get_node("body/head")
+	blink = get_node("body/blink")
+	manager = get_node("equipableManager")
 	coyoteTimer.timeout.connect(coyoteTimeout)
-	
-	#var packedSword : PackedScene= load("res://objects/dummySword.tscn")
-	#var sword = packedSword.instantiate()
-	#swordManager.add_sword(sword)
 
 func coyoteTimeout() -> void:
 	groundedJump = false
@@ -94,17 +97,11 @@ func _process(_delta):
 		flip = true
 	
 	if mouse.y < -35:
-		head.frame=0
+		head.frame=1
 	elif mouse.y > 10:
 		head.frame=2
 	else:
-		head.frame = 1
-	
-	#Attack
-	if Input.is_action_just_pressed("n_attack"):
-		attack_input.emit(false)
-	if Input.is_action_just_pressed("s_attack"):
-		attack_input.emit(true)
+		head.frame = 0
 	
 	#debug stuff
 	if Input.is_action_just_pressed("debug"):
@@ -117,7 +114,7 @@ func _process(_delta):
 				scene.camera.zoom = Vector2(2,2);
 				return
 			scene.camera.zoom = Vector2(1,1)
-		if Input.is_action_just_pressed("n_attack"): #teleport arround
+		if Input.is_action_just_pressed("leftMouse"): #teleport arround
 			global_position = get_global_mouse_position()
 			velocity.y = 0
 		if Input.is_action_just_pressed("down"): #stop graity
@@ -126,4 +123,23 @@ func _process(_delta):
 				gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 			else:
 				gravity = 0
+	
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.pressed:
+			onClick.emit(event)
+
+func blinkTimeout() -> void:
+	if isBlink:
+		blink.visible = false;
+		isBlink=false;
+		blinkTimer.wait_time = randf_range(1,4)
+		blinkTimer.start()
+		return
+	blink.frame = head.frame
+	blink.visible = true
+	blinkTimer.wait_time = 0.1
+	isBlink=true
+	blinkTimer.start()
 	

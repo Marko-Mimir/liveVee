@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://dva24j0mmpixu"]
+
+[ext_resource type="Script" path="res://scripts/equipables/debugSword.gd" id="1_nd7s2"]
+[ext_resource type="Resource" uid="uid://dk38xdnwo5b7n" path="res://resources/equipables/DebugSword.tres" id="2_ihj82"]
+[ext_resource type="Texture2D" uid="uid://bbmw242it7bit" path="res://sprites/equipables/debugSword.png" id="2_r3lad"]
+[ext_resource type="Shader" path="res://resources/outline.gdshader" id="2_xsd88"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7jhno"]
+resource_local_to_scene = true
+shader = ExtResource("2_xsd88")
+shader_parameter/width = 1.0
+shader_parameter/outline_color = Color(1, 0.296609, 0.102677, 1)
+shader_parameter/is_active = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pox8q"]
+size = Vector2(38, 4)
+
+[node name="DebugSword" type="Area2D" node_paths=PackedStringArray("handle")]
+z_index = -3
+z_as_relative = false
+collision_layer = 4
+collision_mask = 2
+gravity_space_override = 1
+gravity = 98.0
+script = ExtResource("1_nd7s2")
+handle = NodePath("handhold")
+itemId = 0
+settings = ExtResource("2_ihj82")
+
+[node name="sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_7jhno")
+position = Vector2(5, 0)
+texture = ExtResource("2_r3lad")
+
+[node name="handhold" type="Marker2D" parent="."]
+position = Vector2(-14, 0)
+gizmo_extents = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 0)
+shape = SubResource("RectangleShape2D_pox8q")

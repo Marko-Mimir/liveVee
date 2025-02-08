@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://cyjxwiqaav6gy"]
+
+[ext_resource type="Texture2D" uid="uid://clar7icgm343h" path="res://sprites/player/body.png" id="1_rq8tb"]
+[ext_resource type="Texture2D" uid="uid://dreeknh1km7me" path="res://sprites/player/blink.png" id="2_bf1y0"]
+[ext_resource type="Texture2D" uid="uid://ci68q4ff7tq7y" path="res://sprites/player/head.png" id="3_qln1w"]
+[ext_resource type="Texture2D" uid="uid://blfsvtvrqr2ho" path="res://sprites/player/legs.png" id="4_krr2e"]
+[ext_resource type="Texture2D" uid="uid://3c74qf3hl51j" path="res://sprites/player/animatableArm.png" id="5_omfgb"]
+
+[node name="body" type="Sprite2D"]
+position = Vector2(-1, -5.5)
+texture = ExtResource("1_rq8tb")
+hframes = 3
+
+[node name="blink" type="Sprite2D" parent="."]
+visible = false
+z_index = 1
+position = Vector2(1, -18)
+texture = ExtResource("2_bf1y0")
+hframes = 3
+
+[node name="head" type="Sprite2D" parent="."]
+position = Vector2(1, -17)
+texture = ExtResource("3_qln1w")
+hframes = 3
+
+[node name="legs" type="Sprite2D" parent="."]
+position = Vector2(2, 22.5)
+texture = ExtResource("4_krr2e")
+
+[node name="armL" type="Sprite2D" parent="."]
+position = Vector2(-7.5, 2.5)
+texture = ExtResource("5_omfgb")
+
+[node name="armL2" type="Sprite2D" parent="."]
+z_index = -3
+position = Vector2(7, 2.5)
+texture = ExtResource("5_omfgb")
+flip_h = true

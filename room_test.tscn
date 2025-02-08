@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bc8a4c3cfbps6"]
+[gd_scene load_steps=9 format=3 uid="uid://bc8a4c3cfbps6"]
 
 [ext_resource type="Script" path="res://scripts/scene.gd" id="1_pbvtm"]
 [ext_resource type="Texture2D" uid="uid://cwt4nq4yahpks" path="res://icon.svg" id="1_qs3ax"]
 [ext_resource type="Script" path="res://scripts/liveCamera.gd" id="2_87vnv"]
 [ext_resource type="PackedScene" uid="uid://cm3ofme0qu1m3" path="res://objects/dummyEnemy.tscn" id="3_70rte"]
 [ext_resource type="Texture2D" uid="uid://dagjd7mpsmofe" path="res://sprites/square.png" id="3_oxlwy"]
+[ext_resource type="PackedScene" uid="uid://dva24j0mmpixu" path="res://objects/equipables/debug_sword.tscn" id="6_xe1sp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ugrgn"]
 size = Vector2(128.409, 129.939)
@@ -30,6 +31,7 @@ scale = Vector2(4.89063, 0.515625)
 texture = ExtResource("1_qs3ax")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="plat1"]
+collision_layer = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="plat1/StaticBody2D"]
 position = Vector2(-0.20447, 2.90909)
@@ -50,6 +52,8 @@ scale = Vector2(4.89063, 0.515625)
 texture = ExtResource("1_qs3ax")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="plat2"]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="plat2/StaticBody2D"]
 position = Vector2(-0.20447, 2.90909)
@@ -61,6 +65,7 @@ scale = Vector2(4.89063, 0.515625)
 texture = ExtResource("1_qs3ax")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="plat3"]
+collision_layer = 3
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="plat3/StaticBody2D"]
@@ -69,3 +74,13 @@ shape = SubResource("RectangleShape2D_ugrgn")
 
 [node name="dummyEnemy" parent="." instance=ExtResource("3_70rte")]
 position = Vector2(38, -385)
+
+[node name="DebugSword" parent="." instance=ExtResource("6_xe1sp")]
+z_index = -1
+position = Vector2(-413, -199)
+
+[node name="DebugSword2" parent="." instance=ExtResource("6_xe1sp")]
+position = Vector2(-455, -226)
+
+[node name="DebugSword3" parent="." instance=ExtResource("6_xe1sp")]
+position = Vector2(-250, -372)
