@@ -46,8 +46,9 @@ func _ready() -> void:
 		var file_name = dir.get_next()
 		while file_name !="":
 			var button : Button = Button.new()
+			var scene = load("res://objects/equipables/" + file_name)
 			button.text = file_name
-			button.pressed.connect(self.fileSelect.bind(button))
+			button.pressed.connect(self.fileSelect.bind(button, scene))
 			vbox.add_child(button)
 			file_name=dir.get_next()
 	for x in buttons.get_children():
@@ -56,11 +57,8 @@ func _ready() -> void:
 	for x in loop:
 		x.pressed.connect(self._usage_edit.bind(x))
 
-func fileSelect(_button : Button):
-	vbox.get_parent().queue_free()
-	var packedEquip = load("res://objects/equipables/"+_button.text)
-	print(packedEquip)
-	var item = packedEquip.instantiate()
+func fileSelect(_button : Button, scene : PackedScene):
+	var item = scene.instantiate()
 	add_child(item)
 	equip = item
 	
@@ -82,6 +80,7 @@ func fileSelect(_button : Button):
 	shou2.get_child(0).position = Vector2(equip.offset,0)
 	
 	reset()
+	vbox.get_parent().queue_free()
 
 func direction_button(button : Button):
 	if selected == "": return;
