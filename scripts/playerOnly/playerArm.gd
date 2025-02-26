@@ -3,6 +3,7 @@ class_name Arm
 @export_subgroup("Groups")
 @export var focus : Color
 @export var unfocus : Color
+@export var action : String
 
 @export_subgroup("Nodes")
 @export var target : Node2D;
@@ -30,6 +31,7 @@ func _ready() -> void:
 	skeleton = get_node("Skeleton2D")
 	rest = position
 	rest.y += 12
+	global_rotation_degrees = 0
 
 
 func flip(_val : bool) -> void:
@@ -53,6 +55,40 @@ func _process(_delta: float) -> void:
 		hand.rotation_degrees = 0
 	if held:
 		held.process()
+
+func dequip(velocity := Vector2(0,0))->void:
+	held.held = false
+	held.arm = null
+	held.z_index = abs(z_index)
+	held.monitorable = true
+	held.reparent(player.scene)
+	held.velocity = velocity
+	held = null
+	queue_redraw()
+	return 
+
+func _draw() -> void:
+	if !held:
+		return
+	if !Input.is_action_pressed("throw"):
+		return
+	if !isSelected:
+		return
+	var tar = target.get_local_mouse_position()
+	var v : Vector2 = -(target.position - tar).normalized()
+	v = v*300
+	
+	var t = 0.05
+	var colors = [Color.RED, Color.BLUE]
+	var start = target.position
+	var end : Vector2;
+	for i in range(12):
+		end = start
+		v += Vector2(0,1)*98*0.15
+		end += v*t
+		
+		draw_line(start,end, colors[i%2],2)
+		start = end
 
 func equip(item : equipable)-> void:
 	item.held = true

@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=3 uid="uid://cex3teu8e8vny"]
+
+[ext_resource type="Theme" uid="uid://c05v6ukv5r0xm" path="res://resources/ui-main.tres" id="1_121ir"]
+[ext_resource type="Script" path="res://scripts/UI/liveUi.gd" id="2_hwger"]
+[ext_resource type="Texture2D" uid="uid://ftwmlskomxp1" path="res://sprites/UI/ratingBoard.png" id="3_61n3w"]
+[ext_resource type="Texture2D" uid="uid://chvyb5w1lgb50" path="res://sprites/UI/flipNum.png" id="4_8wrho"]
+
+[node name="testUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_121ir")
+script = ExtResource("2_hwger")
+id = "test"
+
+[node name="Test" type="Label" parent="."]
+layout_mode = 0
+offset_left = 486.0
+offset_top = 158.0
+offset_right = 526.0
+offset_bottom = 181.0
+scale = Vector2(5, 5)
+text = "MEOWWW"
+
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 1044.0
+offset_top = 77.0
+offset_right = 1084.0
+offset_bottom = 117.0
+scale = Vector2(2, 2)
+
+[node name="board" type="Sprite2D" parent="Control"]
+position = Vector2(0, 1.33333)
+texture = ExtResource("3_61n3w")
+
+[node name="numbers" type="Control" parent="Control"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="flip1" type="Sprite2D" parent="Control/numbers"]
+position = Vector2(-40, 45)
+texture = ExtResource("4_8wrho")
+hframes = 10
+frame = 9
+
+[node name="flip2" type="Sprite2D" parent="Control/numbers"]
+position = Vector2(-24, 45)
+texture = ExtResource("4_8wrho")
+hframes = 10
+
+[node name="flip3" type="Sprite2D" parent="Control/numbers"]
+position = Vector2(-8, 45)
+texture = ExtResource("4_8wrho")
+hframes = 10
+
+[node name="flip4" type="Sprite2D" parent="Control/numbers"]
+position = Vector2(8, 45)
+texture = ExtResource("4_8wrho")
+hframes = 10
+
+[node name="flip5" type="Sprite2D" parent="Control/numbers"]
+position = Vector2(24, 45)
+texture = ExtResource("4_8wrho")
+hframes = 10
+
+[node name="flip6" type="Sprite2D" parent="Control/numbers"]
+position = Vector2(40, 45)
+texture = ExtResource("4_8wrho")
+hframes = 10

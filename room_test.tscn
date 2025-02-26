@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bc8a4c3cfbps6"]
+[gd_scene load_steps=11 format=3 uid="uid://bc8a4c3cfbps6"]
 
 [ext_resource type="Script" path="res://scripts/scene.gd" id="1_pbvtm"]
 [ext_resource type="Texture2D" uid="uid://cwt4nq4yahpks" path="res://icon.svg" id="1_qs3ax"]
@@ -6,12 +6,15 @@
 [ext_resource type="PackedScene" uid="uid://cm3ofme0qu1m3" path="res://objects/dummyEnemy.tscn" id="3_70rte"]
 [ext_resource type="Texture2D" uid="uid://dagjd7mpsmofe" path="res://sprites/square.png" id="3_oxlwy"]
 [ext_resource type="PackedScene" uid="uid://dva24j0mmpixu" path="res://objects/equipables/debug_sword.tscn" id="6_xe1sp"]
+[ext_resource type="Script" path="res://death.gd" id="7_r1l5w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ugrgn"]
 size = Vector2(128.409, 129.939)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_beg3j"]
 size = Vector2(9.20126, 151.273)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4r6od"]
 
 [node name="currentScene" type="Node2D" node_paths=PackedStringArray("spawn", "camera")]
 script = ExtResource("1_pbvtm")
@@ -73,14 +76,26 @@ position = Vector2(-0.20447, 2.90909)
 shape = SubResource("RectangleShape2D_ugrgn")
 
 [node name="dummyEnemy" parent="." instance=ExtResource("3_70rte")]
-position = Vector2(38, -385)
+position = Vector2(449, -381)
 
-[node name="DebugSword" parent="." instance=ExtResource("6_xe1sp")]
+[node name="ONE" parent="." instance=ExtResource("6_xe1sp")]
 z_index = -1
 position = Vector2(-413, -199)
 
-[node name="DebugSword2" parent="." instance=ExtResource("6_xe1sp")]
+[node name="TWO" parent="." instance=ExtResource("6_xe1sp")]
 position = Vector2(-455, -226)
 
-[node name="DebugSword3" parent="." instance=ExtResource("6_xe1sp")]
+[node name="THREE" parent="." instance=ExtResource("6_xe1sp")]
 position = Vector2(-250, -372)
+
+[node name="death" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4294967295
+script = ExtResource("7_r1l5w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="death"]
+position = Vector2(-7, 218)
+shape = SubResource("WorldBoundaryShape2D_4r6od")
+
+[connection signal="area_entered" from="death" to="death" method="_on_area_entered"]
+[connection signal="body_entered" from="death" to="death" method="_on_body_entered"]

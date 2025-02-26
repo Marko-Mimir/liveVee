@@ -22,8 +22,10 @@ func click(e : InputEventMouseButton) -> void:
 				LeftArm.isSelected = true
 				RightArm.isSelected = false
 			elif LeftArm.held:
-				print('useage')
-			if LeftArm.held == null and nearest != null:
+				pass #usage
+			if nearest != null and !Input.is_action_pressed("throw"):
+				if LeftArm.held != null:
+					LeftArm.dequip(Vector2((.5*(LeftArm.z_index/abs(LeftArm.z_index))*-1),-.5)*300)
 				LeftArm.equip(nearest)
 				hideEquipment(nearest)
 		2:
@@ -31,11 +33,22 @@ func click(e : InputEventMouseButton) -> void:
 				LeftArm.isSelected = false
 				RightArm.isSelected = true
 			elif RightArm.held:
-				print('useage')
-			if RightArm.held == null and nearest != null:
+				pass #usage
+			if nearest != null and !Input.is_action_pressed("throw"):
+				if RightArm.held != null:
+					RightArm.dequip(Vector2((.5*(RightArm.z_index/abs(RightArm.z_index))),-.5)*300)
 				RightArm.equip(nearest)
 				hideEquipment(nearest)
 		
+
+func _draw() -> void:
+	pass
+
+func _get_selected_arm() -> Array[Arm]:
+	if RightArm.isSelected:
+		return [RightArm, LeftArm]
+	return [LeftArm, RightArm]
+	
 
 #outline stuff
 func seeEquipment(area: Area2D) -> void:
@@ -46,7 +59,8 @@ func hideEquipment(area: Area2D) -> void:
 	overlap.pop_at(overlap.find(area))
 	if area.outlined:
 		area.outline()
-		nearest = null
+		if area == nearest:
+			nearest = null
 	updateVisible()
 
 func updateVisible() -> void:

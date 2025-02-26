@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="equipableSettings" load_steps=5 format=3 uid="uid://dk38xdnwo5b7n"]
+[gd_resource type="Resource" script_class="equipableSettings" load_steps=11 format=3 uid="uid://dk38xdnwo5b7n"]
 
 [ext_resource type="Script" path="res://scripts/equipables/resources/equipableSettings.gd" id="1_3oe3u"]
 [ext_resource type="Script" path="res://scripts/equipables/resources/equipableState.gd" id="2_qgb4d"]
+[ext_resource type="Script" path="res://scripts/equipables/resources/equipableUsage.gd" id="3_sknj0"]
+[ext_resource type="Texture2D" uid="uid://c8pme7rc4y5xs" path="res://sprites/equipables/effects/debug_smear_R.png" id="4_n4188"]
 
 [sub_resource type="Resource" id="Resource_5foh3"]
 script = ExtResource("2_qgb4d")
 name = "rest"
-position = Vector2(5.1, 13.2)
+position = Vector2(0.5, 15.5)
 rotation = 125.0
 
 [sub_resource type="Resource" id="Resource_mpiu0"]
@@ -15,7 +17,54 @@ name = "wake"
 position = Vector2(7.5, 7.8)
 rotation = -60.0
 
+[sub_resource type="Resource" id="Resource_80iik"]
+script = ExtResource("2_qgb4d")
+name = "throw"
+position = Vector2(-6.8, -10.5)
+rotation = 140.0
+
+[sub_resource type="Resource" id="Resource_4fqur"]
+script = ExtResource("2_qgb4d")
+name = "test"
+position = Vector2(12.2, 16.8)
+rotation = -56.3
+
+[sub_resource type="Resource" id="Resource_s86ny"]
+script = ExtResource("3_sknj0")
+name = "test"
+directions = [4]
+smear_texture = ExtResource("4_n4188")
+start = {
+"deg": -99.4,
+"pos": Vector2(-4, -9.3)
+}
+end = {
+"deg": 32.0,
+"pos": Vector2(10.3, 10)
+}
+smear = {
+"deg": 8.5,
+"pos": Vector2(20.7, -9.7)
+}
+
+[sub_resource type="Resource" id="Resource_57f7k"]
+script = ExtResource("3_sknj0")
+name = "tes2"
+directions = [0, 5, 2, 7]
+start = {
+"deg": -113.6,
+"pos": Vector2(-4.7, -19)
+}
+end = {
+"deg": -135.9,
+"pos": Vector2(-8, -16.7)
+}
+smear = {
+"deg": 0.01,
+"pos": Vector2(4, -6)
+}
+
 [resource]
 script = ExtResource("1_3oe3u")
-states = Array[ExtResource("2_qgb4d")]([SubResource("Resource_5foh3"), SubResource("Resource_mpiu0")])
-comeBackLater = "please"
+states = Array[ExtResource("2_qgb4d")]([SubResource("Resource_5foh3"), SubResource("Resource_mpiu0"), SubResource("Resource_80iik"), SubResource("Resource_4fqur")])
+usages = Array[ExtResource("3_sknj0")]([SubResource("Resource_s86ny"), SubResource("Resource_57f7k")])

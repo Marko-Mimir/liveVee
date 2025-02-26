@@ -1,0 +1,132 @@
+[gd_scene load_steps=12 format=4 uid="uid://dna3r0nnle1oy"]
+
+[ext_resource type="Script" path="res://scripts/scene.gd" id="1_hl0v6"]
+[ext_resource type="Script" path="res://scripts/liveCamera.gd" id="2_a6okv"]
+[ext_resource type="PackedScene" uid="uid://cv7b4vpqx2qhb" path="res://objects/UI/fps_counter.tscn" id="2_rau65"]
+[ext_resource type="Texture2D" uid="uid://psgq3beah7n8" path="res://sprites/concrete-tiles.png" id="3_xisu2"]
+[ext_resource type="Script" path="res://death.gd" id="4_atx6x"]
+[ext_resource type="PackedScene" uid="uid://dva24j0mmpixu" path="res://objects/equipables/debug_sword.tscn" id="5_n7onf"]
+[ext_resource type="Texture2D" uid="uid://ftwmlskomxp1" path="res://sprites/UI/ratingBoard.png" id="7_mf23a"]
+[ext_resource type="Theme" uid="uid://c05v6ukv5r0xm" path="res://resources/ui-main.tres" id="8_hpyvx"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h4qbt"]
+texture = ExtResource("3_xisu2")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:1/0 = 0
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSet" id="TileSet_xbayq"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 3
+physics_layer_0/collision_mask = 0
+sources/0 = SubResource("TileSetAtlasSource_h4qbt")
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_o6j4q"]
+
+[node name="debug room" type="Node2D" node_paths=PackedStringArray("spawn", "camera")]
+script = ExtResource("1_hl0v6")
+spawn = NodePath("Marker2D")
+camera = NodePath("LiveCam")
+startingUi = Array[PackedScene]([ExtResource("2_rau65")])
+
+[node name="LiveCam" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+script = ExtResource("2_a6okv")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(-130, -61)
+
+[node name="TileMap" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAD4/wMAAAAAAAEAAAD5/wMAAAAAAAEAAAD6/wMAAAAAAAEAAAD7/wMAAAAAAAEAAAD8/wMAAAAAAAEAAAD9/wMAAAAAAAEAAAD+/wMAAAAAAAEAAAD//wMAAAAAAAEAAAD4/wIAAAAAAAAAAAD7/wIAAAAAAAAAAAD+/wIAAAAAAAAAAAD5/wIAAAABAAAAAAD8/wIAAAABAAAAAAD//wIAAAABAAAAAAD6/wIAAAABAAEAAAD9/wIAAAABAAEAAAD1/wIAAAAAAAAAAADy/wIAAAAAAAAAAADv/wIAAAAAAAAAAAABAAIAAAAAAAAAAAAEAAIAAAAAAAAAAAAHAAIAAAAAAAAAAAAKAAIAAAAAAAAAAAACAAIAAAABAAAAAAAFAAIAAAABAAAAAAAIAAIAAAABAAAAAAD2/wIAAAABAAAAAADz/wIAAAABAAAAAADw/wIAAAABAAAAAAALAAIAAAABAAAAAAAMAAIAAAABAAEAAAAJAAIAAAABAAEAAAAGAAIAAAABAAEAAAADAAIAAAABAAEAAAAAAAIAAAABAAEAAAD3/wIAAAABAAEAAAD0/wIAAAABAAEAAADx/wIAAAABAAEAAAD3/wMAAAAAAAEAAAD2/wMAAAAAAAEAAAD1/wMAAAAAAAEAAAD0/wMAAAAAAAEAAADz/wMAAAAAAAEAAADy/wMAAAAAAAEAAADx/wMAAAAAAAEAAADw/wMAAAAAAAEAAADv/wMAAAAAAAEAAAAAAAMAAAAAAAEAAAABAAMAAAAAAAEAAAACAAMAAAAAAAEAAAADAAMAAAAAAAEAAAAEAAMAAAAAAAEAAAAFAAMAAAAAAAEAAAAGAAMAAAAAAAEAAAAHAAMAAAAAAAEAAAAIAAMAAAAAAAEAAAAJAAMAAAAAAAEAAAAKAAMAAAAAAAEAAAALAAMAAAAAAAEAAAAMAAMAAAAAAAEAAAA=")
+tile_set = SubResource("TileSet_xbayq")
+
+[node name="death" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4294967295
+script = ExtResource("4_atx6x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="death"]
+position = Vector2(-7, 218)
+shape = SubResource("WorldBoundaryShape2D_o6j4q")
+
+[node name="DebugSword" parent="." instance=ExtResource("5_n7onf")]
+position = Vector2(-223, -72)
+
+[node name="DebugSword2" parent="." instance=ExtResource("5_n7onf")]
+position = Vector2(-294, -86)
+
+[node name="jumpHeight 3000" type="Node2D" parent="."]
+z_index = -50
+
+[node name="RatingBoard" type="Sprite2D" parent="jumpHeight 3000"]
+self_modulate = Color(1, 1, 1, 0.462745)
+position = Vector2(37, 33.5)
+texture = ExtResource("7_mf23a")
+
+[node name="RatingBoard2" type="Sprite2D" parent="jumpHeight 3000"]
+self_modulate = Color(1, 1, 1, 0.462745)
+position = Vector2(37, -21.5)
+texture = ExtResource("7_mf23a")
+
+[node name="RatingBoard3" type="Sprite2D" parent="jumpHeight 3000"]
+self_modulate = Color(1, 1, 1, 0.462745)
+position = Vector2(37, -77)
+texture = ExtResource("7_mf23a")
+
+[node name="RatingBoard4" type="Sprite2D" parent="jumpHeight 3000"]
+self_modulate = Color(1, 1, 1, 0.462745)
+position = Vector2(37, -133)
+texture = ExtResource("7_mf23a")
+
+[node name="Label" type="Label" parent="jumpHeight 3000"]
+offset_left = -25.0
+offset_top = 55.0
+offset_right = 114.0
+offset_bottom = 78.0
+rotation = -1.5708
+theme = ExtResource("8_hpyvx")
+text = "Jump height checker 3000"
+
+[node name="SpeedDistance 3000" type="Node2D" parent="."]
+z_index = -50
+position = Vector2(161, 0)
+
+[node name="RatingBoard" type="Sprite2D" parent="SpeedDistance 3000"]
+self_modulate = Color(1, 1, 1, 0.462745)
+position = Vector2(37, 17)
+rotation = 1.56653
+texture = ExtResource("7_mf23a")
+
+[node name="RatingBoard2" type="Sprite2D" parent="SpeedDistance 3000"]
+self_modulate = Color(1, 1, 1, 0.462745)
+position = Vector2(98, 17)
+rotation = 1.56653
+texture = ExtResource("7_mf23a")
+
+[node name="RatingBoard3" type="Sprite2D" parent="SpeedDistance 3000"]
+self_modulate = Color(1, 1, 1, 0.462745)
+position = Vector2(153.7, 17)
+rotation = 1.56653
+texture = ExtResource("7_mf23a")
+
+[node name="RatingBoard4" type="Sprite2D" parent="SpeedDistance 3000"]
+self_modulate = Color(1, 1, 1, 0.462745)
+position = Vector2(214.7, 17)
+rotation = 1.56653
+texture = ExtResource("7_mf23a")
+
+[node name="Label" type="Label" parent="SpeedDistance 3000"]
+offset_left = 15.0
+offset_top = -45.0
+offset_right = 154.0
+offset_bottom = -22.0
+theme = ExtResource("8_hpyvx")
+text = "Speed checker 3000"
+
+[connection signal="area_entered" from="death" to="death" method="_on_area_entered"]
+[connection signal="body_entered" from="death" to="death" method="_on_body_entered"]

@@ -31,6 +31,7 @@ var isBlink : bool = false
 
 var currentGround = null
 var friction = .01;
+var holdingJump = false
 
 var debug = false
 
@@ -39,6 +40,7 @@ signal onFlip(value : bool)
 signal onClick(mouseEvent : InputEventMouseButton)
 
 var manager : ItemManager;
+var s = 0
 
 func _ready():
 	blinkTimer = get_node("blink")
@@ -54,6 +56,12 @@ func coyoteTimeout() -> void:
 
 func _physics_process(delta):
 	if not is_on_floor():
+		if Input.is_action_just_released("jump"):
+			holdingJump = false
+		if !holdingJump and velocity.y < 0:
+			velocity.y = lerpf(velocity.y, 0.0, .5)
+		if Input.is_action_pressed("down"):
+			velocity.y += 10
 		#Do gravity
 		velocity.y += (gravity * delta)
 		#Start coyote time if off ground and groundedJump = true
@@ -67,19 +75,22 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("jump"): #Jump handeling, for both multijumps and grounded jump
 		if groundedJump or additionalJumps > 0:
+			holdingJump = true;
 			velocity.y = jump_velocity
 			if not groundedJump:
 				additionalJumps -= 1
 	
 	var direction = Input.get_axis("left", "right")
 	if direction:
-		velocity.x = (direction * speed)
+		s = lerpf(s, 300.0, .1)
+		velocity.x = (direction * s)
 	else:
 		velocity.x = (move_toward(velocity.x, 0, speed*friction))
+		s = 0
 	
 	move_and_slide()
 
-func _process(_delta):	
+func _process(_delta):
 	#check ground type
 	var result = groundCast.get_collider()
 	if result == null and currentGround != null:
@@ -117,6 +128,8 @@ func _process(_delta):
 		if Input.is_action_just_pressed("leftMouse"): #teleport arround
 			global_position = get_global_mouse_position()
 			velocity.y = 0
+		if Input.is_action_just_pressed("rightMouse"): #Wipe UI
+			ui.wipe()
 		if Input.is_action_just_pressed("down"): #stop graity
 			velocity.y = 0
 			if gravity == 0:

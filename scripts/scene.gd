@@ -3,11 +3,17 @@ class_name liveScene
 
 @export var spawn : Marker2D;
 @export var camera : LiveCamera;
+@export var startingUi : Array[PackedScene]
 
 func _ready():
 	player.position = spawn.position
 	player.scene = self
 	camera.focus = player
+	for x in startingUi:
+		ui.add_ui(x.instantiate())
+
+func respawn():
+	player.position = spawn.position
 
 func debug_collision_shape_visibility() -> void:
 	var tree := get_tree()

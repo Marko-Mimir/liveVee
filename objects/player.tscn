@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bdk4v1yalw4s4"]
+[gd_scene load_steps=16 format=3 uid="uid://bdk4v1yalw4s4"]
 
 [ext_resource type="Script" path="res://scripts/playerOnly/player.gd" id="1_4j3bi"]
 [ext_resource type="Texture2D" uid="uid://clar7icgm343h" path="res://sprites/player/body.png" id="2_icoqo"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://223edb5w4l0u" path="res://sprites/player-arm.png" id="4_78o4s"]
 [ext_resource type="Texture2D" uid="uid://blfsvtvrqr2ho" path="res://sprites/player/legs.png" id="5_r11iy"]
 [ext_resource type="Script" path="res://scripts/playerOnly/itemManager.gd" id="6_hvbid"]
+[ext_resource type="Texture2D" uid="uid://c0gse3sl7qd3k" path="res://sprites/plus.png" id="9_1epuq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m82m7"]
 size = Vector2(16, 63)
@@ -104,6 +105,7 @@ rotation = -6.28319
 script = ExtResource("3_tgw36")
 focus = Color(1, 1, 1, 1)
 unfocus = Color(0.633757, 0.633757, 0.633757, 1)
+action = "leftMouse"
 target = NodePath("../leftFocus")
 hand = NodePath("Skeleton2D/lShoulder/lhand")
 shoulder = NodePath("Skeleton2D/lShoulder")
@@ -166,12 +168,20 @@ remote_path = NodePath("../../../../lShoulder/lhand")
 update_rotation = false
 update_scale = false
 
+[node name="Plus2" type="Sprite2D" parent="leftArm/Skeleton2D/Lhumer/Lforearm/Lhand"]
+modulate = Color(0, 1, 0, 1)
+self_modulate = Color(1, 1, 1, 0.454902)
+z_index = 11
+rotation = -0.820488
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("9_1epuq")
+
 [node name="lShoulder" type="Marker2D" parent="leftArm/Skeleton2D"]
 position = Vector2(1.5, -10.5)
 gizmo_extents = 3.0
 
 [node name="lhand" type="Marker2D" parent="leftArm/Skeleton2D/lShoulder"]
-position = Vector2(0.535389, 16.706)
+position = Vector2(-0.234816, 16.9796)
 scale = Vector2(1.00001, 1.00001)
 
 [node name="rightArm" type="Node2D" parent="." node_paths=PackedStringArray("target", "hand", "shoulder")]
@@ -180,6 +190,7 @@ position = Vector2(3, 0)
 script = ExtResource("3_tgw36")
 focus = Color(1, 1, 1, 1)
 unfocus = Color(0.635294, 0.662745, 0.662745, 1)
+action = "rightMouse"
 target = NodePath("../rightFocus")
 hand = NodePath("Skeleton2D/rShoulder/rHand")
 shoulder = NodePath("Skeleton2D/rShoulder")
@@ -253,7 +264,15 @@ update_scale = false
 position = Vector2(8, 12)
 
 [node name="leftFocus" type="Marker2D" parent="."]
-position = Vector2(-4, 12)
+position = Vector2(-5, 14)
+
+[node name="Plus" type="Sprite2D" parent="leftFocus"]
+visible = false
+modulate = Color(1, 0, 0, 1)
+self_modulate = Color(1, 1, 1, 0.454902)
+z_index = 11
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("9_1epuq")
 
 [node name="FloorLoot" type="Area2D" parent="."]
 collision_layer = 0
