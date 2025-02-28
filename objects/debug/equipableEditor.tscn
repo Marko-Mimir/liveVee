@@ -171,9 +171,6 @@ text = "Deg: 0	°"
 [node name="shoulder" type="Marker2D" parent="Label/usage/start"]
 self_modulate = Color(1, 0, 0, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="Label/usage/start/shoulder"]
-self_modulate = Color(1, 0, 0.00784314, 1)
-
 [node name="end" type="Button" parent="Label/usage"]
 layout_mode = 0
 offset_left = -236.0
@@ -200,9 +197,7 @@ offset_bottom = 63.0
 text = "Deg: 0	°"
 
 [node name="shoulder" type="Marker2D" parent="Label/usage/end"]
-self_modulate = Color(0, 0, 1, 1)
-
-[node name="Sprite2D" type="Sprite2D" parent="Label/usage/end/shoulder"]
+modulate = Color(0, 0, 1, 1)
 self_modulate = Color(0, 0, 1, 1)
 
 [node name="smear" type="Button" parent="Label/usage"]
@@ -446,16 +441,6 @@ offset_bottom = 83.0
 theme = ExtResource("4_4lhn1")
 theme_override_colors/font_color = Color(0, 1, 0, 1)
 text = "Success!"
-
-[node name="Label3" type="Label" parent="."]
-offset_left = -80.0
-offset_top = 71.0
-offset_right = 92.0
-offset_bottom = 120.0
-theme = ExtResource("4_4lhn1")
-text = "EDITOR MAY CRASH RANDOMLY
-IDK HOW TO FIX :)"
-horizontal_alignment = 1
 
 [connection signal="item_selected" from="Label/usage/usage" to="." method="_opt_select"]
 [connection signal="item_selected" from="Label/states/state2" to="." method="_state_select"]

@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="equipableSettings" load_steps=11 format=3 uid="uid://dk38xdnwo5b7n"]
+[gd_resource type="Resource" script_class="equipableSettings" load_steps=12 format=3 uid="uid://dk38xdnwo5b7n"]
 
 [ext_resource type="Script" path="res://scripts/equipables/resources/equipableSettings.gd" id="1_3oe3u"]
 [ext_resource type="Script" path="res://scripts/equipables/resources/equipableState.gd" id="2_qgb4d"]
 [ext_resource type="Script" path="res://scripts/equipables/resources/equipableUsage.gd" id="3_sknj0"]
 [ext_resource type="Texture2D" uid="uid://c8pme7rc4y5xs" path="res://sprites/equipables/effects/debug_smear_R.png" id="4_n4188"]
+[ext_resource type="Texture2D" uid="uid://bujur1dbn3eli" path="res://sprites/equipables/effects/debug_smear_L.png" id="5_kjvc8"]
 
 [sub_resource type="Resource" id="Resource_5foh3"]
 script = ExtResource("2_qgb4d")
@@ -29,42 +30,45 @@ name = "test"
 position = Vector2(12.2, 16.8)
 rotation = -56.3
 
-[sub_resource type="Resource" id="Resource_s86ny"]
+[sub_resource type="Resource" id="Resource_gun7b"]
 script = ExtResource("3_sknj0")
-name = "test"
+name = "right"
 directions = [4]
 smear_texture = ExtResource("4_n4188")
 start = {
-"deg": -99.4,
-"pos": Vector2(-4, -9.3)
+"deg": -98.2,
+"pos": Vector2(-8.2, -12)
 }
 end = {
-"deg": 32.0,
-"pos": Vector2(10.3, 10)
+"deg": 36.1,
+"pos": Vector2(5.3, 14.1)
 }
 smear = {
-"deg": 8.5,
-"pos": Vector2(20.7, -9.7)
+"deg": 19.2,
+"pos": Vector2(21.5, -8.1)
 }
+smear_collision = Array[PackedVector2Array]([PackedVector2Array(24, 6, 8, 12, 5, 12, 5, 13, 12, 13, 6, 20, 6, 21, 16, 15, 23, 15, 20, 16, 20, 17, 27, 18, 36, 18, 43, 24, 44, 24, 47, 29, 48, 29, 46, 30, 46, 31, 56, 41, 57, 41, 57, 47, 54, 51, 54, 53, 53, 48, 52, 48, 51, 53, 51, 59, 50, 61, 49, 61, 49, 58, 48, 58, 46, 71, 46, 73, 52, 72, 54, 72, 59, 75, 59, 76, 76, 80, 76, 82, 84, 81, 85, 81, 82, 70, 82, 56, 81, 61, 80, 61, 72, 38, 72, 34, 71, 36, 70, 36, 66, 28, 66, 21, 65, 24, 64, 24, 57, 13, 57, 11, 56, 13, 55, 13, 52, 10, 52, 9, 24, 5), PackedVector2Array(42, 26, 41, 26, 41, 27, 42, 27), PackedVector2Array(46, 29, 44, 27, 42, 27, 46, 30), PackedVector2Array(56, 9, 55, 9, 55, 11, 56, 11)])
 
-[sub_resource type="Resource" id="Resource_57f7k"]
+[sub_resource type="Resource" id="Resource_7ey66"]
 script = ExtResource("3_sknj0")
-name = "tes2"
-directions = [0, 5, 2, 7]
+name = "left"
+directions = [3]
+smear_texture = ExtResource("5_kjvc8")
 start = {
-"deg": -113.6,
-"pos": Vector2(-4.7, -19)
+"deg": -77.6,
+"pos": Vector2(3.9, -13.6)
 }
 end = {
-"deg": -135.9,
-"pos": Vector2(-8, -16.7)
+"deg": 144.4,
+"pos": Vector2(-8.3, 10.3)
 }
 smear = {
-"deg": 0.01,
-"pos": Vector2(4, -6)
+"deg": -16.4,
+"pos": Vector2(-22.7, -10)
 }
+smear_collision = Array[PackedVector2Array]([PackedVector2Array(62, 6, 50, 8, 42, 8, 36, 12, 36, 13, 35, 11, 34, 11, 30, 19, 30, 21, 27, 22, 27, 24, 26, 21, 25, 21, 25, 28, 21, 34, 21, 36, 20, 34, 19, 34, 14, 50, 14, 54, 11, 58, 11, 61, 10, 56, 9, 56, 7, 77, 6, 77, 9, 83, 10, 83, 37, 73, 37, 72, 44, 73, 45, 73, 46, 71, 46, 67, 39, 53, 39, 48, 38, 53, 37, 53, 35, 47, 34, 47, 35, 41, 35, 39, 44, 31, 45, 31, 43, 30, 43, 29, 52, 20, 52, 19, 64, 17, 71, 17, 68, 15, 75, 15, 82, 21, 85, 21, 79, 16, 79, 13, 86, 13, 86, 12, 62, 5), PackedVector2Array(36, 11, 36, 9, 35, 9, 35, 11), PackedVector2Array(50, 27, 50, 26, 49, 26, 49, 27), PackedVector2Array(47, 30, 49, 28, 49, 27, 45, 30)])
 
 [resource]
 script = ExtResource("1_3oe3u")
 states = Array[ExtResource("2_qgb4d")]([SubResource("Resource_5foh3"), SubResource("Resource_mpiu0"), SubResource("Resource_80iik"), SubResource("Resource_4fqur")])
-usages = Array[ExtResource("3_sknj0")]([SubResource("Resource_s86ny"), SubResource("Resource_57f7k")])
+usages = Array[ExtResource("3_sknj0")]([SubResource("Resource_gun7b"), SubResource("Resource_7ey66")])

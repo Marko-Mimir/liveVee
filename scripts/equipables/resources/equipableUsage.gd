@@ -7,3 +7,4 @@ class_name equipableUsage
 @export var start : Dictionary;
 @export var end : Dictionary
 @export var smear : Dictionary
+@export var smear_collision : Array[PackedVector2Array]

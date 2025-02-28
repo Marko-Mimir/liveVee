@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bdk4v1yalw4s4"]
+[gd_scene load_steps=17 format=3 uid="uid://bdk4v1yalw4s4"]
 
 [ext_resource type="Script" path="res://scripts/playerOnly/player.gd" id="1_4j3bi"]
 [ext_resource type="Texture2D" uid="uid://clar7icgm343h" path="res://sprites/player/body.png" id="2_icoqo"]
@@ -45,6 +45,8 @@ modifications/0 = SubResource("SkeletonModification2DFABRIK_chd4o")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yw1jy"]
 size = Vector2(74, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_daft5"]
 
 [node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("coyoteTimer", "sprite", "groundCast")]
 collision_layer = 2
@@ -264,6 +266,7 @@ update_scale = false
 position = Vector2(8, 12)
 
 [node name="leftFocus" type="Marker2D" parent="."]
+visible = false
 position = Vector2(-5, 14)
 
 [node name="Plus" type="Sprite2D" parent="leftFocus"]
@@ -282,6 +285,19 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorLoot"]
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_yw1jy")
+
+[node name="smear" type="Sprite2D" parent="."]
+
+[node name="smearArea" type="Area2D" parent="smear"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="smear/smearArea"]
+shape = SubResource("RectangleShape2D_daft5")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="smear/smearArea"]
+z_index = 100
+scale = Vector2(0.39833, 0.344267)
+texture = ExtResource("9_1epuq")
 
 [connection signal="timeout" from="blink" to="." method="blinkTimeout"]
 [connection signal="area_entered" from="FloorLoot" to="equipableManager" method="seeEquipment"]

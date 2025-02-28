@@ -57,28 +57,33 @@ func _ready() -> void:
 	for x in loop:
 		x.pressed.connect(self._usage_edit.bind(x))
 
-func fileSelect(_button : Button, scene : PackedScene):
+func initEquip(scene : PackedScene)->equipable:
+	# THIS USED TO BREAK! THANK YOU BLUESKY USER @caaz.me
 	var item = scene.instantiate()
 	add_child(item)
 	equip = item
-	
 	equip.held = true
 	shoulder = get_node("shoulder/item")
 	equip.z_index = 7
 	equip.rotation_degrees = 0
-	equip.reparent(shoulder)
 	equip.position = Vector2(equip.offset,0)
+	return equip
+
+func fileSelect(_button : Button, scene : PackedScene):
+	equip = initEquip(scene)
+	equip.reparent(shoulder)
 	settings = equip.settings
 	
 	var shou1 = start.get_child(2)
 	var shou2 = end.get_child(2)
 	shou1.global_position = Vector2(0,0) 
-	shou1.get_child(0).texture = equip.sprite.texture
-	shou1.get_child(0).position = Vector2(equip.offset,0)
-	shou2.get_child(0).texture = equip.sprite.texture
+	initEquip(scene).reparent(shou1)
+	shou1.modulate = Color.RED
 	shou2.global_position = Vector2(0,0)
-	shou2.get_child(0).position = Vector2(equip.offset,0)
+	initEquip(scene).reparent(shou2)
+	shou2.modulate = Color.BLUE
 	
+	equip = shoulder.get_child(0)
 	reset()
 	vbox.get_parent().queue_free()
 
@@ -212,13 +217,23 @@ func select(index: int, isUsage : bool) -> void:
 				var b = buttons.get_children()
 				b.pop_at(4)
 				var a = arrows.get_children()
-				print(x)
-				#if x.smear_texture: 
-				smear.disabled = false
-				smear.get_child(2).texture = x.smear_texture
-				smear.get_child(2).global_position = Vector2(0,0)
-				#else: 
-				#	smear.disabled = true
+				if x.smear_texture: 
+					smear.disabled = false
+					smear.get_child(2).texture = x.smear_texture
+					if !x.smear_collision:
+						var img : Image = smear.get_child(2).texture.get_image()
+						var bit := BitMap.new()
+						bit.create_from_image_alpha(img)
+						var points := bit.opaque_to_polygons(
+							Rect2i(
+								Vector2.ZERO,
+								img.get_size()
+							))
+						x.smear_collision = points
+					smear.get_child(2).global_position = Vector2(0,0)
+				else: 
+					smear.disabled = true
+					smear.get_child(2).texture = null
 					
 				var l = [x.start, x.end, x.smear]
 				for y in len(l):

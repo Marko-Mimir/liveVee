@@ -7,6 +7,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var groundedJump = true
 var additionalJumps = 1;
 var scene : liveScene = null;
+var smear : Sprite2D
 
 #flip setter
 var flip : bool = false:
@@ -30,6 +31,7 @@ var blinkTimer : Timer
 var isBlink : bool = false
 
 var currentGround = null
+var smearArea : Area2D;
 var friction = .01;
 var holdingJump = false
 
@@ -43,6 +45,8 @@ var manager : ItemManager;
 var s = 0
 
 func _ready():
+	smear = get_node("smear")
+	smearArea = get_node("smear/smearArea")
 	blinkTimer = get_node("blink")
 	LeftArm = get_node("leftArm")
 	RightArm = get_node("rightArm")

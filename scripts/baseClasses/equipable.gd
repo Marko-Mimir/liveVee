@@ -12,6 +12,8 @@ var data : Dictionary
 var iName : String
 var iDesc : String
 var states : Dictionary = {}
+var isAttacking
+var dontAttack := false
 
 #gravity
 var mass : float = 0.15
@@ -76,8 +78,9 @@ func select(_val : bool) -> void:
 	arm.target.position = arm.rest
 
 func _input(event: InputEvent) -> void: #DIRECTION DETECTOR
-	if !arm: return
+	if !arm or !arm.isSelected: return
 	if player.manager.nearest: return
+	if dontAttack: return;
 	if event.is_action_pressed(arm.action):
 		#DIRECTION PARSER
 		var vec  = (get_global_mouse_position() - arm.shoulder.global_position).normalized()
@@ -120,7 +123,6 @@ func _input(event: InputEvent) -> void: #DIRECTION DETECTOR
 				if x == final[2]:
 					maybe[2] = use
 					break
-		
 		for x in maybe:
 			if x != null: 
 				usageDirection.emit(x); 
