@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://jhy67fl0xsbg"]
+
+[ext_resource type="Script" uid="uid://bvexlw18tu0ob" path="res://scripts/npcs/engineer.gd" id="1_vm2id"]
+[ext_resource type="Texture2D" uid="uid://cart5ewdpvx22" path="res://sprites/npcs/DummyNpc.png" id="2_087lk"]
+[ext_resource type="Script" uid="uid://buidnln71qguy" path="res://scripts/interactable.gd" id="3_087lk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cxeoe"]
+size = Vector2(18, 67)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4jtek"]
+size = Vector2(30, 69)
+
+[node name="engineer" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_vm2id")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_087lk")
+
+[node name="body" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0.5)
+shape = SubResource("RectangleShape2D_cxeoe")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="interact" type="Area2D" parent="." node_paths=PackedStringArray("sprite")]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("3_087lk")
+sprite = NodePath("../sprite")
+doAutoWalk = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interact"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_4jtek")
+debug_color = Color(0.603922, 0.364706, 1, 0)

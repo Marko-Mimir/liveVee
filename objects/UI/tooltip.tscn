@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://c138eph1tpt64"]
+
+[ext_resource type="Theme" uid="uid://c05v6ukv5r0xm" path="res://resources/ui-main.tres" id="1_imxc2"]
+[ext_resource type="Script" uid="uid://cwedk1gym6g4p" path="res://scripts/UI/liveUi.gd" id="2_1gamx"]
+[ext_resource type="Script" uid="uid://byhffic6qcpnl" path="res://scripts/UI/tooltip.gd" id="3_wdf3p"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_imxc2")
+script = ExtResource("2_1gamx")
+id = "TOOLTIP"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 47.0
+script = ExtResource("3_wdf3p")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="title" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "     [u][font_size=31]&[/font_size][/u]     "
+fit_content = true
+autowrap_mode = 0
+
+[node name="desc" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+fit_content = true

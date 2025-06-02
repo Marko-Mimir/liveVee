@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cmbig5p1758ei"]
 
-[ext_resource type="Script" path="res://scripts/damageText.gd" id="1_10bgs"]
+[ext_resource type="Script" uid="uid://dbmpdan0xm5wt" path="res://scripts/damageText.gd" id="1_10bgs"]
 [ext_resource type="Theme" uid="uid://dpln7wp86xpgh" path="res://resources/heavyDamage.tres" id="1_pohr6"]
 [ext_resource type="Theme" uid="uid://bejt7vy1job0n" path="res://resources/normalDamage.tres" id="3_lrocy"]
 

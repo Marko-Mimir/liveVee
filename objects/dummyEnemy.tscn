@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://cm3ofme0qu1m3"]
 
-[ext_resource type="Script" path="res://scripts/dummyEnemy.gd" id="1_v14b7"]
-[ext_resource type="Script" path="res://scripts/baseClasses/enemybase.gd" id="2_ipus7"]
-[ext_resource type="Script" path="res://scripts/health.gd" id="3_ihkmf"]
+[ext_resource type="Script" uid="uid://bnn4boglcaueg" path="res://scripts/dummyEnemy.gd" id="1_v14b7"]
+[ext_resource type="Script" uid="uid://cqjwyosij82uy" path="res://scripts/baseClasses/enemybase.gd" id="2_ipus7"]
+[ext_resource type="Script" uid="uid://caux7u2nstll1" path="res://scripts/health.gd" id="3_ihkmf"]
 [ext_resource type="Theme" uid="uid://bejt7vy1job0n" path="res://resources/normalDamage.tres" id="4_ko6wo"]
 [ext_resource type="Texture2D" uid="uid://cwt4nq4yahpks" path="res://icon.svg" id="4_xxk7w"]
 

@@ -1,14 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://cv7b4vpqx2qhb"]
 
-[ext_resource type="Script" path="res://scripts/UI/fpsCounter.gd" id="1_4v5vj"]
+[ext_resource type="Script" uid="uid://duyfr3qipdynt" path="res://scripts/UI/fpsCounter.gd" id="1_4v5vj"]
 [ext_resource type="Theme" uid="uid://c05v6ukv5r0xm" path="res://resources/ui-main.tres" id="1_pawfl"]
-[ext_resource type="Script" path="res://scripts/UI/liveUi.gd" id="1_ulop6"]
+[ext_resource type="Script" uid="uid://cwedk1gym6g4p" path="res://scripts/UI/liveUi.gd" id="1_ulop6"]
 
 [node name="FpsCounter" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -1152.0
+offset_bottom = -648.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_pawfl")

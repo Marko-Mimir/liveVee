@@ -1,6 +1,13 @@
 extends CharacterBody2D
 class_name Player
 
+#dear future code readers, this is a mess i cant even lie, I spent a lot of this project learning godot and
+#unfortunately it turned into this hell that is player.gd have fun looking through this and feel free to msg
+#me if a) you found this b) have any critiques as this is very IMPORTANT to have feel right a lot of this is 
+#subject to change idk yeah, anywhoo, have fun reading a bunch of broken up player scripts lol, 
+# pls dont judge the equipment manager by far the first thing I made all the way in 2024 i think
+# anywhoo, signing off - Marko/Restine 6.2.2025
+
 var speed = 300
 var jump_velocity = -400
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -30,10 +37,15 @@ var blink : Sprite2D
 var blinkTimer : Timer
 var isBlink : bool = false
 
+var speakBox : Area2D;
+
 var currentGround = null
 var smearArea : Area2D;
-var friction = .01;
+var friction = .2;
 var holdingJump = false
+
+##Area of Interest, set this to make the player automatically move towards it unless the player presses ANY button.
+var aoi : AOI = null
 
 var debug = false
 
@@ -45,6 +57,7 @@ var manager : ItemManager;
 var s = 0
 
 func _ready():
+	speakBox = get_node("speakBox")
 	smear = get_node("smear")
 	smearArea = get_node("smear/smearArea")
 	blinkTimer = get_node("blink")
@@ -58,7 +71,25 @@ func _ready():
 func coyoteTimeout() -> void:
 	groundedJump = false
 
+func set_aoi(target : AOI):
+	aoi = target
+
 func _physics_process(delta):
+	if aoi:
+		velocity.y += (gravity * delta)
+		if can_interact(aoi):
+			aoi.action.emit()
+			aoi=null
+			return
+		if aoi.global_position.x > global_position.x:
+			s = lerpf(s, 300.0, .1)
+			velocity.x = (1 * s)
+		else:
+			s = lerpf(s, 300.0, .1)
+			velocity.x = (-1 * s)
+		move_and_slide()
+		return
+	
 	if not is_on_floor():
 		if Input.is_action_just_released("jump"):
 			holdingJump = false
@@ -94,16 +125,12 @@ func _physics_process(delta):
 	
 	move_and_slide()
 
+func can_interact(area : Area2D)-> bool:
+	if area in speakBox.get_overlapping_areas():
+		return true;
+	return false;
+
 func _process(_delta):
-	#check ground type
-	var result = groundCast.get_collider()
-	if result == null and currentGround != null:
-		friction = .25
-		currentGround = result
-	elif result != currentGround:
-		friction = result.get_meta("Friction", 0.08)
-		currentGround = result
-	
 	#flip
 	var mouse : Vector2 = get_local_mouse_position()
 	if mouse.x > 0 and flip:
@@ -143,6 +170,9 @@ func _process(_delta):
 	
 
 func _input(event: InputEvent) -> void:
+	if aoi and event is InputEventKey and event.is_echo() == false:
+		aoi = null
+		return
 	if event is InputEventMouseButton:
 		if event.pressed:
 			onClick.emit(event)

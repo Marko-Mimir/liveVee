@@ -11,6 +11,12 @@ func _ready():
 	camera.focus = player
 	for x in startingUi:
 		ui.add_ui(x.instantiate())
+	gamePrint("&wWowza we're testing")
+
+func gamePrint(text : String):
+	if !ui.has_ui("IGO"):
+		ui.add_ui(load("res://objects/UI/in_game_output.tscn").instantiate())
+	ui.get_ui("IGO").get_child(0).output(util.translateAltColorCodes("&", text))
 
 func respawn():
 	player.position = spawn.position

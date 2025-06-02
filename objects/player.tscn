@@ -1,13 +1,13 @@
-[gd_scene load_steps=17 format=3 uid="uid://bdk4v1yalw4s4"]
+[gd_scene load_steps=18 format=3 uid="uid://bdk4v1yalw4s4"]
 
-[ext_resource type="Script" path="res://scripts/playerOnly/player.gd" id="1_4j3bi"]
+[ext_resource type="Script" uid="uid://crqmdc0vi3ocl" path="res://scripts/playerOnly/player.gd" id="1_4j3bi"]
 [ext_resource type="Texture2D" uid="uid://clar7icgm343h" path="res://sprites/player/body.png" id="2_icoqo"]
 [ext_resource type="Texture2D" uid="uid://dreeknh1km7me" path="res://sprites/player/blink.png" id="3_p8xte"]
-[ext_resource type="Script" path="res://scripts/playerOnly/playerArm.gd" id="3_tgw36"]
+[ext_resource type="Script" uid="uid://daldp3cqhfqn6" path="res://scripts/playerOnly/playerArm.gd" id="3_tgw36"]
 [ext_resource type="Texture2D" uid="uid://ci68q4ff7tq7y" path="res://sprites/player/head.png" id="4_65kmv"]
 [ext_resource type="Texture2D" uid="uid://223edb5w4l0u" path="res://sprites/player-arm.png" id="4_78o4s"]
 [ext_resource type="Texture2D" uid="uid://blfsvtvrqr2ho" path="res://sprites/player/legs.png" id="5_r11iy"]
-[ext_resource type="Script" path="res://scripts/playerOnly/itemManager.gd" id="6_hvbid"]
+[ext_resource type="Script" uid="uid://cemm6qu0n7rbr" path="res://scripts/playerOnly/itemManager.gd" id="6_hvbid"]
 [ext_resource type="Texture2D" uid="uid://c0gse3sl7qd3k" path="res://sprites/plus.png" id="9_1epuq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m82m7"]
@@ -47,6 +47,9 @@ modifications/0 = SubResource("SkeletonModification2DFABRIK_chd4o")
 size = Vector2(74, 96)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_daft5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i8sra"]
+size = Vector2(178, 122)
 
 [node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("coyoteTimer", "sprite", "groundCast")]
 collision_layer = 2
@@ -298,6 +301,15 @@ disabled = true
 z_index = 100
 scale = Vector2(0.39833, 0.344267)
 texture = ExtResource("9_1epuq")
+
+[node name="speakBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="speakBox"]
+position = Vector2(0, -26)
+shape = SubResource("RectangleShape2D_i8sra")
+debug_color = Color(0.883192, 0.000334798, 0.815654, 0.164706)
 
 [connection signal="timeout" from="blink" to="." method="blinkTimeout"]
 [connection signal="area_entered" from="FloorLoot" to="equipableManager" method="seeEquipment"]

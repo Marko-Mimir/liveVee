@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="equipableSettings" load_steps=12 format=3 uid="uid://dk38xdnwo5b7n"]
 
-[ext_resource type="Script" path="res://scripts/equipables/resources/equipableSettings.gd" id="1_3oe3u"]
-[ext_resource type="Script" path="res://scripts/equipables/resources/equipableState.gd" id="2_qgb4d"]
-[ext_resource type="Script" path="res://scripts/equipables/resources/equipableUsage.gd" id="3_sknj0"]
+[ext_resource type="Script" uid="uid://lidm6pjx62ks" path="res://scripts/equipables/resources/equipableSettings.gd" id="1_3oe3u"]
+[ext_resource type="Script" uid="uid://djl0w01mgwcia" path="res://scripts/equipables/resources/equipableState.gd" id="2_qgb4d"]
+[ext_resource type="Script" uid="uid://buhhc2y1ekr6e" path="res://scripts/equipables/resources/equipableUsage.gd" id="3_sknj0"]
 [ext_resource type="Texture2D" uid="uid://c8pme7rc4y5xs" path="res://sprites/equipables/effects/debug_smear_R.png" id="4_n4188"]
 [ext_resource type="Texture2D" uid="uid://bujur1dbn3eli" path="res://sprites/equipables/effects/debug_smear_L.png" id="5_kjvc8"]
 

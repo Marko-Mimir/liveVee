@@ -12,13 +12,14 @@ config_version=5
 
 config/name="projectLive"
 run/main_scene="res://debug_room.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
+config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 player="*res://objects/player.tscn"
 ui="*res://objects/ui_mananger.tscn"
+util="*res://scripts/util.gd"
 
 [display]
 

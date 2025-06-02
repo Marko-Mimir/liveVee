@@ -1,15 +1,18 @@
 [gd_scene load_steps=7 format=3 uid="uid://dva24j0mmpixu"]
 
-[ext_resource type="Script" path="res://scripts/equipables/debugSword.gd" id="1_nd7s2"]
+[ext_resource type="Script" uid="uid://i23cf5rcgcgm" path="res://scripts/equipables/debugSword.gd" id="1_nd7s2"]
 [ext_resource type="Resource" uid="uid://dk38xdnwo5b7n" path="res://resources/equipables/DebugSword.tres" id="2_ihj82"]
 [ext_resource type="Texture2D" uid="uid://bbmw242it7bit" path="res://sprites/equipables/debugSword.png" id="2_r3lad"]
-[ext_resource type="Shader" path="res://resources/outline.gdshader" id="2_xsd88"]
+[ext_resource type="Shader" uid="uid://8im0t0012kxi" path="res://resources/outline.gdshader" id="2_xsd88"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7jhno"]
 resource_local_to_scene = true
 shader = ExtResource("2_xsd88")
+shader_parameter/color = Color(1, 1, 0, 1)
 shader_parameter/width = 1.0
-shader_parameter/outline_color = Color(1, 0.296609, 0.102677, 1)
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
 shader_parameter/is_active = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pox8q"]
