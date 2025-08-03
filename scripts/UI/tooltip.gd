@@ -14,9 +14,13 @@ func startTooltip(title : String, description : String):
 	isShowing = true
 	titleLabel.text = base.replace("&", util.translateAltColorCodes("&",title))
 	desc.text = util.translateAltColorCodes("&", description)
+	var m = get_minimum_size()
+	if m.y < 179:
+		size = m
 
 func endTooltip():
 	isShowing = false
+	
 
 func _process(_delta: float) -> void:
 	if isShowing:

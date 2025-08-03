@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfvsvdvviepjt"]
+
+[ext_resource type="Script" uid="uid://ykl4qdfld0jw" path="res://scripts/UI/optionbubble.gd" id="1_t41u5"]
+[ext_resource type="Theme" uid="uid://c05v6ukv5r0xm" path="res://resources/ui-main.tres" id="2_l1tl2"]
+
+[node name="optionBubble" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+script = ExtResource("1_t41u5")
+
+[node name="Panel" type="PanelContainer" parent="."]
+z_index = 100
+custom_minimum_size = Vector2(11, 11)
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("2_l1tl2")
+theme_type_variation = &"optionBubble"
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 2
+focus_mode = 0
+flat = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
+clip_contents = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[connection signal="button_down" from="Panel/Button" to="." method="bump"]
+[connection signal="mouse_entered" from="Panel/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Panel/Button" to="." method="_on_button_mouse_exited"]

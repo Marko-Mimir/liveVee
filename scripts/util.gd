@@ -20,6 +20,36 @@ var TextColors : Dictionary[String, String] = {
 }
 var collectables : Dictionary
 
+var letterCheck : RegEx
+var countWords : RegEx
+
+func _ready() -> void:
+	countWords = RegEx.new()
+	countWords.compile("\\S+")
+	letterCheck = RegEx.new()
+	letterCheck.compile("[a-zA-Z]")
+
+func get_raw(altColorCode : String, translateText : String):
+	var brokenString : PackedStringArray = translateText.split(altColorCode)
+	
+	var patched : Array[String];
+	var rawText : String = brokenString.get(0)
+	brokenString.remove_at(0)
+	patched.append(rawText)
+	for line in brokenString:
+		patched.append("&"+line[0])
+		var r = line.erase(0)
+		patched.append(r)
+		rawText+=r
+	
+	return {"raw":rawText, "patch":patched}
+
+func wordCount(str : String):
+	return countWords.search_all(str).size()
+
+func isLetter(str: String):
+	return letterCheck.search(str)
+
 func translateAltColorCodes(altColorCode : String, textToTranslate : String):
 	var brokenString : PackedStringArray = textToTranslate.split(altColorCode)
 	var ends = ""

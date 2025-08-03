@@ -4,6 +4,8 @@ class_name AOI
 @export var sprite : Sprite2D;
 @export var doAutoWalk : bool = false;
 
+
+var isPlayer := false
 var outline := preload("res://resources/outline.gdshader")
 var test : RichTextLabel
 
@@ -33,3 +35,10 @@ func onclick(_viewport:Node, event:InputEvent, _shape_idx:int)-> void:
 		else:
 			if doAutoWalk:
 				player.set_aoi(self)
+
+
+func _on_area_entered(_area: Area2D) -> void:
+	isPlayer = true
+
+func _on_area_exited(_area: Area2D) -> void:
+	isPlayer = false

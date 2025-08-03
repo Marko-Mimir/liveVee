@@ -162,5 +162,9 @@ func outline():
 	if !sprite.material.has_method("set_shader_parameter"):
 		push_warning("Sprite has wrong type of material attached.")
 		return
-	sprite.material.set_shader_parameter("is_active", !sprite.material.get_shader_parameter("is_active"))
-	outlined = sprite.material.get_shader_parameter("is_active")
+	if outlined:
+		sprite.material.set_shader_parameter("strength", 0.0)
+		outlined = false
+	else:
+		sprite.material.set_shader_parameter("strength", 1.0)
+		outlined = true

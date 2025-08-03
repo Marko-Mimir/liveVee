@@ -8,10 +8,9 @@ class_name liveScene
 func _ready():
 	player.position = spawn.position
 	player.scene = self
-	camera.focus = player
+	camera.focus = player.sprite
 	for x in startingUi:
 		ui.add_ui(x.instantiate())
-	gamePrint("&wWowza we're testing")
 
 func gamePrint(text : String):
 	if !ui.has_ui("IGO"):

@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://r5is6e76qh4"
+
+[deps]
+
+files=["res://resources/LiveText.en.translation"]
+
+source_file="res://resources/LiveText.csv"
+dest_files=["res://resources/LiveText.en.translation"]
+
+[params]
+
+compress=true
+delimiter=0

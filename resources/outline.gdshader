@@ -5,7 +5,7 @@ uniform float width : hint_range(0, 10) = 1.0;
 uniform int pattern : hint_range(0, 2) = 1; // diamond, circle, square
 uniform bool inside = false;
 uniform bool add_margins = true; // only useful when inside is false
-uniform bool is_active = false;
+uniform float strength : hint_range(0.0, 1.0, 0.01) = 1.0;
 
 void vertex() {
 	if (add_margins) {
@@ -41,7 +41,6 @@ bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, sampler2D texture) {
 
 void fragment() {
 	vec2 uv = UV;
-	
 	if (add_margins) {
 		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0));
 		
@@ -58,6 +57,6 @@ void fragment() {
 	
 	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, TEXTURE)) {
 		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb, color.a) : color.rgb;
-		COLOR.a += (1.0 - COLOR.a) * color.a;
+		COLOR.a = strength;
 	}
 }

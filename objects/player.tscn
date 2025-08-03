@@ -1,11 +1,16 @@
-[gd_scene load_steps=18 format=3 uid="uid://bdk4v1yalw4s4"]
+[gd_scene load_steps=23 format=3 uid="uid://bdk4v1yalw4s4"]
 
 [ext_resource type="Script" uid="uid://crqmdc0vi3ocl" path="res://scripts/playerOnly/player.gd" id="1_4j3bi"]
+[ext_resource type="Script" uid="uid://cydq6jbv2f0f8" path="res://scripts/playerOnly/playerChatManager.gd" id="2_3nfmf"]
+[ext_resource type="Script" uid="uid://di2xsyxegpk0j" path="res://scripts/playerOnly/playerInventory.gd" id="2_4vq5b"]
 [ext_resource type="Texture2D" uid="uid://clar7icgm343h" path="res://sprites/player/body.png" id="2_icoqo"]
 [ext_resource type="Texture2D" uid="uid://dreeknh1km7me" path="res://sprites/player/blink.png" id="3_p8xte"]
 [ext_resource type="Script" uid="uid://daldp3cqhfqn6" path="res://scripts/playerOnly/playerArm.gd" id="3_tgw36"]
+[ext_resource type="PackedScene" uid="uid://cfvsvdvviepjt" path="res://objects/UI/optionbubble.tscn" id="3_vqq2l"]
 [ext_resource type="Texture2D" uid="uid://ci68q4ff7tq7y" path="res://sprites/player/head.png" id="4_65kmv"]
 [ext_resource type="Texture2D" uid="uid://223edb5w4l0u" path="res://sprites/player-arm.png" id="4_78o4s"]
+[ext_resource type="PackedScene" uid="uid://bk4lew7b184co" path="res://objects/UI/chatbubble.tscn" id="4_mqnmn"]
+[ext_resource type="FontFile" uid="uid://4lgf7rpk7072" path="res://resources/DepartureMono-Regular.otf" id="4_r673r"]
 [ext_resource type="Texture2D" uid="uid://blfsvtvrqr2ho" path="res://sprites/player/legs.png" id="5_r11iy"]
 [ext_resource type="Script" uid="uid://cemm6qu0n7rbr" path="res://scripts/playerOnly/itemManager.gd" id="6_hvbid"]
 [ext_resource type="Texture2D" uid="uid://c0gse3sl7qd3k" path="res://sprites/plus.png" id="9_1epuq"]
@@ -59,6 +64,19 @@ coyoteTimer = NodePath("coyoteTimer")
 sprite = NodePath("body")
 groundCast = NodePath("groundCast")
 
+[node name="chatManager" type="VBoxContainer" parent="."]
+offset_right = 280.0
+offset_bottom = 240.0
+scale = Vector2(0.5, 0.5)
+alignment = 2
+script = ExtResource("2_3nfmf")
+bubble = ExtResource("3_vqq2l")
+packedScene = ExtResource("4_mqnmn")
+font = ExtResource("4_r673r")
+
+[node name="InvStorage" type="Node2D" parent="."]
+script = ExtResource("2_4vq5b")
+
 [node name="equipableManager" type="Node2D" parent="." node_paths=PackedStringArray("detector")]
 visible = false
 script = ExtResource("6_hvbid")
@@ -75,7 +93,6 @@ z_index = 1
 position = Vector2(1, -18)
 texture = ExtResource("3_p8xte")
 hframes = 3
-frame = 1
 
 [node name="head" type="Sprite2D" parent="body"]
 position = Vector2(1, -17)
@@ -303,7 +320,7 @@ scale = Vector2(0.39833, 0.344267)
 texture = ExtResource("9_1epuq")
 
 [node name="speakBox" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 16
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="speakBox"]

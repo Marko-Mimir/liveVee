@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://baq7nqugochma"]
+[gd_scene load_steps=11 format=4 uid="uid://baq7nqugochma"]
 
 [ext_resource type="Script" uid="uid://bmlj1lscnkrll" path="res://scripts/scene.gd" id="1_ysf54"]
 [ext_resource type="PackedScene" uid="uid://cv7b4vpqx2qhb" path="res://objects/UI/fps_counter.tscn" id="2_2ba7n"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d00rh2o5wn11k" path="res://objects/UI/in_game_output.tscn" id="3_m31pe"]
 [ext_resource type="PackedScene" uid="uid://bogs33ad3h4si" path="res://objects/collectables/dummyCollectable.tscn" id="7_a0ov3"]
 [ext_resource type="PackedScene" uid="uid://jhy67fl0xsbg" path="res://objects/npcs/engineer.tscn" id="8_2ba7n"]
+[ext_resource type="Texture2D" uid="uid://b6jgsp3lqavnj" path="res://sprites/collectable/blueprint.png" id="8_m31pe"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eqwf2"]
 texture = ExtResource("3_5116e")
@@ -45,19 +46,23 @@ camera = NodePath("LiveCam")
 startingUi = Array[PackedScene]([ExtResource("2_2ba7n"), ExtResource("3_m31pe")])
 
 [node name="LiveCam" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
 script = ExtResource("2_5116e")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(-130, -61)
 
 [node name="groundMap" type="TileMapLayer" parent="."]
-z_index = -1
+z_index = -6
 tile_map_data = PackedByteArray("AAD5/wEAAAACAAAAAAD6/wEAAAACAAAAAAD7/wEAAAACAAAAAAD8/wEAAAACAAAAAAD9/wEAAAACAAAAAAD+/wEAAAACAAAAAAD//wEAAAACAAAAAAD4/wEAAAACAAAAAAD3////AAADAAAAAAD3//3/AAADAAAAAAD3//v/AAADAAAAAAD3//z/AAADAAEAAAD3//7/AAADAAEAAAD3/wAAAAADAAEAAAD3/wEAAAAAAAEAAAAAAAEAAAACAAAAAAD3//n/AAAAAAAAAAD3//r/AAADAAEAAAD4//n/AAACAAEAAAD5//n/AAACAAEAAAD6//n/AAACAAEAAAD7//n/AAACAAEAAAD8//n/AAACAAEAAAD9//n/AAACAAEAAAD+//n/AAACAAEAAAD///n/AAACAAEAAAAAAPn/AAACAAEAAAACAAEAAAACAAAAAAADAAEAAAACAAAAAAAEAAEAAAACAAAAAAAFAAEAAAACAAAAAAAGAAEAAAACAAAAAAAHAAEAAAACAAAAAAAIAAEAAAACAAAAAAABAAEAAAACAAAAAAAJAAEAAAACAAAAAAAKAAEAAAACAAAAAAALAAEAAAACAAAAAAAMAAEAAAACAAAAAAANAAEAAAACAAAAAAAOAAEAAAACAAAAAAAPAAEAAAABAAEAAAAPAPn/AAABAAAAAAAPAAAAAAAEAAEAAAAPAP7/AAAEAAEAAAAPAPz/AAAEAAEAAAAPAPr/AAAEAAEAAAAPAPv/AAAEAAAAAAAPAP3/AAAEAAAAAAAPAP//AAAEAAAAAAAOAPn/AAACAAEAAAANAPn/AAACAAEAAAAMAPn/AAACAAEAAAALAPn/AAACAAEAAAAKAPn/AAACAAEAAAAJAPn/AAACAAEAAAAIAPn/AAACAAEAAAAHAPn/AAACAAEAAAAGAPn/AAACAAEAAAAFAPn/AAACAAEAAAAEAPn/AAACAAEAAAADAPn/AAACAAEAAAACAPn/AAACAAEAAAABAPn/AAACAAEAAAA=")
 tile_set = SubResource("TileSet_eecmb")
 
 [node name="RigidBody2D" parent="." instance=ExtResource("8_2ba7n")]
-position = Vector2(-20, -72)
+position = Vector2(-19, -4)
 
 [node name="Sprite2D" parent="." instance=ExtResource("7_a0ov3")]
-position = Vector2(136, -60)
+position = Vector2(137, -57)
+texture = ExtResource("8_m31pe")
+
+[node name="Sprite2D2" parent="." instance=ExtResource("7_a0ov3")]
+position = Vector2(94, -20)
+texture = ExtResource("8_m31pe")

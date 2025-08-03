@@ -3,17 +3,80 @@
 [ext_resource type="Script" uid="uid://i23cf5rcgcgm" path="res://scripts/equipables/debugSword.gd" id="1_nd7s2"]
 [ext_resource type="Resource" uid="uid://dk38xdnwo5b7n" path="res://resources/equipables/DebugSword.tres" id="2_ihj82"]
 [ext_resource type="Texture2D" uid="uid://bbmw242it7bit" path="res://sprites/equipables/debugSword.png" id="2_r3lad"]
-[ext_resource type="Shader" uid="uid://8im0t0012kxi" path="res://resources/outline.gdshader" id="2_xsd88"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7jhno"]
+[sub_resource type="Shader" id="Shader_0uudq"]
+code = "shader_type canvas_item;
+
+uniform vec4 color : source_color = vec4(1.0, 1.0, 0, 1.0);
+uniform float width : hint_range(0, 10) = 1.0;
+uniform int pattern : hint_range(0, 2) = 1; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+uniform float strength : hint_range(0.0, 1.0, 0.01) = 1.0;
+
+void vertex() {
+	if (add_margins) {
+		VERTEX += (UV * 2.0 - 1.0) * width;
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+		
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+		
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+			
+			if ((xy != clamp(xy, vec2(0.0), vec2(1.0)) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+	
+	return false;
+}
+
+void fragment() {
+	vec2 uv = UV;
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0));
+		
+		uv = (uv - texture_pixel_size * width) * TEXTURE_PIXEL_SIZE / texture_pixel_size;
+		
+		if (uv != clamp(uv, vec2(0.0), vec2(1.0))) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv);
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv);
+	}
+	
+	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, TEXTURE)) {
+		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb, color.a) : color.rgb;
+		COLOR.a = strength;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pnygb"]
 resource_local_to_scene = true
-shader = ExtResource("2_xsd88")
+shader = SubResource("Shader_0uudq")
 shader_parameter/color = Color(1, 1, 0, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 1
 shader_parameter/inside = false
 shader_parameter/add_margins = true
-shader_parameter/is_active = false
+shader_parameter/strength = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pox8q"]
 size = Vector2(38, 4)
@@ -31,7 +94,7 @@ itemId = 0
 settings = ExtResource("2_ihj82")
 
 [node name="sprite" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_7jhno")
+material = SubResource("ShaderMaterial_pnygb")
 position = Vector2(5, 0)
 texture = ExtResource("2_r3lad")
 

@@ -33,7 +33,7 @@ position = Vector2(0, 5)
 texture = ExtResource("7_a546g")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
+zoom = Vector2(1.5, 1.5)
 
 [node name="shoulder" type="Marker2D" parent="."]
 position = Vector2(-6.5, -10.5)
@@ -89,6 +89,7 @@ offset_left = 19.0
 offset_top = 56.0
 offset_right = 102.0
 offset_bottom = 151.0
+theme_override_constants/h_separation = 4
 columns = 3
 
 [node name="0" type="Button" parent="Label/usage/GridContainer"]

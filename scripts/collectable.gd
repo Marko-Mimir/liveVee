@@ -4,8 +4,8 @@ class_name liveCollectable
 @export var defaultTexture := "res://sprites/collectable/dummycollect.png"
 
 @export_subgroup("data")
-@export_range(0, 100) var id := 0
-enum types {BLUEPRINT}
+@export_range(-1, 100) var id := 0
+enum types {BLUEPRINT, DEBUG=-1}
 @export var type :types
 
 var data : Dictionary
@@ -26,10 +26,10 @@ func _ready() -> void:
 	area.body_entered.connect(self.g)
 	area.mouse_entered.connect(self.doTooltip)
 	area.mouse_exited.connect(self.noTooltip)
-
-func doTooltip()-> void:
 	if !tooltip:
 		tooltip = ui.get_or_add("TOOLTIP", "res://objects/UI/tooltip.tscn")
+
+func doTooltip()-> void:
 	tooltip.get_child(0).startTooltip(item["name"], item["desc"])
 
 func noTooltip() -> void:
@@ -38,7 +38,8 @@ func noTooltip() -> void:
 func g(_body) -> void:
 	if !player.scene:
 		return
+	noTooltip()
 	player.scene.gamePrint("Item Get!")
-	#player.collect(item)
+	player.collect(item, data["type"])
 	#TODO: Sound + Animation
 	queue_free()

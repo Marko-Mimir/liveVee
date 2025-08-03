@@ -19,6 +19,8 @@ class rich:
 		bbcode_enabled = true
 		var s = get_theme_default_font().get_string_size(txt)
 		s.x -=20
+		autowrap_mode = TextServer.AUTOWRAP_OFF
+		clip_contents = false
 		custom_minimum_size = s
 	
 	func start():

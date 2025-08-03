@@ -1,32 +1,50 @@
-[gd_scene load_steps=6 format=3 uid="uid://jhy67fl0xsbg"]
+[gd_scene load_steps=12 format=3 uid="uid://jhy67fl0xsbg"]
 
 [ext_resource type="Script" uid="uid://bvexlw18tu0ob" path="res://scripts/npcs/engineer.gd" id="1_vm2id"]
-[ext_resource type="Texture2D" uid="uid://cart5ewdpvx22" path="res://sprites/npcs/DummyNpc.png" id="2_087lk"]
+[ext_resource type="Texture2D" uid="uid://x0xbutvi51cc" path="res://sprites/npcs/engineer.png" id="2_cxeoe"]
+[ext_resource type="Texture2D" uid="uid://bbhef3xtuyon" path="res://sprites/npcs/store-a-tron.png" id="3_4jtek"]
 [ext_resource type="Script" uid="uid://buidnln71qguy" path="res://scripts/interactable.gd" id="3_087lk"]
+[ext_resource type="Script" uid="uid://bkuuon2evaeci" path="res://scripts/baseClasses/focusable.gd" id="3_qvep4"]
+[ext_resource type="Texture2D" uid="uid://buuq5vk38cav2" path="res://sprites/npcs/engineer-blink.png" id="4_4jtek"]
+[ext_resource type="Script" uid="uid://0it87dny8i1r" path="res://scripts/UI/chatManager.gd" id="7_pm0ti"]
+[ext_resource type="PackedScene" uid="uid://bk4lew7b184co" path="res://objects/UI/chatbubble.tscn" id="8_erdry"]
+[ext_resource type="FontFile" uid="uid://4lgf7rpk7072" path="res://resources/DepartureMono-Regular.otf" id="9_48dq7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cxeoe"]
-size = Vector2(18, 67)
+size = Vector2(21, 68.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4jtek"]
 size = Vector2(30, 69)
 
-[node name="engineer" type="RigidBody2D"]
-collision_layer = 4
-collision_mask = 3
+[node name="engineer" type="RigidBody2D" node_paths=PackedStringArray("camFocus")]
+collision_layer = 0
 script = ExtResource("1_vm2id")
+camFocus = NodePath("sprite")
+json_path = "res://resources/npcs/engineer.json"
 
 [node name="sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_087lk")
+z_index = -5
+texture = ExtResource("2_cxeoe")
+script = ExtResource("3_qvep4")
+
+[node name="store-a-tron" type="Sprite2D" parent="sprite"]
+z_index = -1
+position = Vector2(4, 17)
+texture = ExtResource("3_4jtek")
+
+[node name="blink" type="Sprite2D" parent="sprite"]
+visible = false
+position = Vector2(-1, -22)
+texture = ExtResource("4_4jtek")
 
 [node name="body" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 0.5)
+position = Vector2(1, 2)
 shape = SubResource("RectangleShape2D_cxeoe")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="interact" type="Area2D" parent="." node_paths=PackedStringArray("sprite")]
 collision_layer = 8
-collision_mask = 0
-monitoring = false
+collision_mask = 16
 script = ExtResource("3_087lk")
 sprite = NodePath("../sprite")
 doAutoWalk = true
@@ -35,3 +53,17 @@ doAutoWalk = true
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_4jtek")
 debug_color = Color(0.603922, 0.364706, 1, 0)
+
+[node name="talk_module" type="VBoxContainer" parent="." node_paths=PackedStringArray("talkingSprite")]
+offset_right = 280.0
+offset_bottom = 240.0
+scale = Vector2(0.5, 0.5)
+mouse_filter = 2
+alignment = 2
+script = ExtResource("7_pm0ti")
+talkingSprite = NodePath("../sprite")
+packedScene = ExtResource("8_erdry")
+font = ExtResource("9_48dq7")
+
+[connection signal="area_entered" from="interact" to="interact" method="_on_area_entered"]
+[connection signal="area_exited" from="interact" to="interact" method="_on_area_exited"]
