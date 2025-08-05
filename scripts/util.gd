@@ -18,10 +18,12 @@ var TextColors : Dictionary[String, String] = {
 	"e" : "[color=yellow]",
 	"f" : "[color=white]"
 }
-var collectables : Dictionary
+var items : Dictionary
 
 var letterCheck : RegEx
 var countWords : RegEx
+
+var dummyTexture := "res://sprites/collectable/dummycollect.png"
 
 func _ready() -> void:
 	countWords = RegEx.new()
@@ -80,14 +82,15 @@ func loadJson(path : String)-> Dictionary:
 	player.scene.gamePrint("ERROR WITH JSON WITH PATH ["+path+"] RETURNING {} EXPECTED [Dictionary] GOT ["+type_string(typeof(json))+"]")
 	return {}
 
-func validateCollectable(item : Dictionary) -> bool:
-	if !collectables:
-		collectables = loadJson("res://resources/collectables.json")
-	if collectables[str(item["type"])].has(str(item["id"])):
-		return true
-	return false
+func isNeg(num : int)-> bool:
+	if abs(num) == num:
+		return false
+	return true
 
-func getCollectableData(item : Dictionary):
-	if !collectables:
-		collectables = loadJson("res://resources/collectables.json")
-	return collectables[str(item["type"])][str(item["id"])]
+func getItem(id : int)-> Dictionary:
+	if items.is_empty():
+		items = loadJson("res://resources/json/items.json");
+	if !items.keys().has(str(id)):
+		player.scene.gamePrint("&4Error with getting item data. Invalid ID. ["+str(id)+"]")
+		return {}
+	return items.get(str(id))

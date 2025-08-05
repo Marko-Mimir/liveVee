@@ -33,6 +33,8 @@ func skip():
 
 func typewrite():
 	if label.visible_characters > len(raw):
+		if kys == true: return
+		await get_tree().create_timer(1).timeout
 		finish.emit(self)
 		switch()
 		return #done
@@ -44,7 +46,7 @@ func typewrite():
 		await get_tree().create_timer(.1).timeout
 		label.visible_characters += 1
 	elif str(raw[label.visible_characters-1]) == ".":
-		await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(.4).timeout
 		label.visible_characters += 1
 	else:
 		await get_tree().create_timer(.03).timeout

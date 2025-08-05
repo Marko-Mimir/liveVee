@@ -1,0 +1,6 @@
+{
+	"0":{"name":"&4DEBUG ERROR&r", "desc":"[center]If you see this naturally something royally fucked up"},
+	"1":{"name":"&bUnknown Blueprint&r", "desc":"[center]A schematic for some kind of item."},
+	"2":{"name":"&aUnknown Recipe&r", "desc":"[center]A recipe for some kind of food."},
+	"3":{"name":"&aUnknown Recipe&r", "desc":"[center]A recipe for some kind of drink."}
+}

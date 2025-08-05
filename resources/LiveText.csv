@@ -1,18 +1,27 @@
 ﻿keys,en
-ENG-INTRO-NEG,…
+ENG-INTRO--1,…
 ENG-INTRO-0,Hey.
+
 ENG-BP-1,I've been watching your episodes. Nice Job. Good Ratings.
 ENG-BP-2,I saw you got some blueprints on your last run.
 ENG-BP-3,"Could I have them?"
 ENG-BP-3:1,"Sweet. Im *name*, the lead engineer of the team making all of your gear."
-ENG-BP-3:2,Whatever.
+ENG-BP-3:2,"Whatever."
 ENG-BP-4,Vee decided it would be good TV if you had something to find. So they decided to spread them around the set.
 ENG-BP-5,"Well anyways, now that I have that, I'll get to work."
 ENG-BP-NEW,Lets see what we've got…
 ENG-BP-INFO-0,"Ah, the &4Debug Sword&r, this was supposed to be a  secret, oh well, don’t make blueprints for what you don’t want to be found I guess."
-ENG-CV-1,"As I was saying… The blueprints you picked up, &acan I have them?"
+
+ENG-CV-1,"As I was saying… The blueprints you picked up, can I have them?"
 ENG-CV-2,[TEMP] Ahem. Vee spread blueprints around as an incentive.
-ENG-BP-NONE,"Well actually, you don’t have any. Huh. I could have swore I saw some."
+
+ENG-BAD-1,"About time. I'm *name*, the lead engineer of the team making all of your gear."
+
+ENG-WEP-NONE,"Well actually, you don’t have any. Huh. I could have swore I saw some."
+
 ENG-HUB-1,I found {plural}
 ENG-HUB-1:1,some blueprints.
 ENG-HUB-1:2,a blueprint.
+ENG-HUB-2,I changed my mind.
+
+GEN-LEAVE,Nevermind.

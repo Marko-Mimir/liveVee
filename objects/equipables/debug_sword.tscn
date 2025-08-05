@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dva24j0mmpixu"]
 
 [ext_resource type="Script" uid="uid://i23cf5rcgcgm" path="res://scripts/equipables/debugSword.gd" id="1_nd7s2"]
-[ext_resource type="Resource" uid="uid://dk38xdnwo5b7n" path="res://resources/equipables/DebugSword.tres" id="2_ihj82"]
+[ext_resource type="Resource" uid="uid://dsjbl5ouwxgrx" path="res://resources/equipables/DebugSword.tres" id="2_ihj82"]
 [ext_resource type="Texture2D" uid="uid://bbmw242it7bit" path="res://sprites/equipables/debugSword.png" id="2_r3lad"]
 
 [sub_resource type="Shader" id="Shader_0uudq"]

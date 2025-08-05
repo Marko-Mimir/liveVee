@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="equipableSettings" load_steps=12 format=3 uid="uid://dk38xdnwo5b7n"]
+[gd_resource type="Resource" script_class="equipableSettings" load_steps=12 format=3 uid="uid://dsjbl5ouwxgrx"]
 
 [ext_resource type="Script" uid="uid://lidm6pjx62ks" path="res://scripts/equipables/resources/equipableSettings.gd" id="1_3oe3u"]
 [ext_resource type="Script" uid="uid://djl0w01mgwcia" path="res://scripts/equipables/resources/equipableState.gd" id="2_qgb4d"]
@@ -27,8 +27,8 @@ rotation = 140.0
 [sub_resource type="Resource" id="Resource_4fqur"]
 script = ExtResource("2_qgb4d")
 name = "test"
-position = Vector2(12.2, 16.8)
-rotation = -56.3
+position = Vector2(11.2, 8.5)
+rotation = 52.0
 
 [sub_resource type="Resource" id="Resource_gun7b"]
 script = ExtResource("3_sknj0")

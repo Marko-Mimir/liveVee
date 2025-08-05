@@ -38,4 +38,5 @@ func _on_button_mouse_exited() -> void:
 	hover = false
 
 func bump() -> void:
+	if kys: return
 	hit.emit(pos)

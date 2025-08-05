@@ -1,27 +1,18 @@
 extends Sprite2D
-class_name liveCollectable
-
-@export var defaultTexture := "res://sprites/collectable/dummycollect.png"
+class_name LiveItem
 
 @export_subgroup("data")
-@export_range(-1, 100) var id := 0
-enum types {BLUEPRINT, DEBUG=-1}
-@export var type :types
+@export_range(0, 100) var id := 0
 
-var data : Dictionary
-var item : Dictionary
+var data : Dictionary;
 var area : Area2D;
 var tooltip : LiveUi;
 
 func _ready() -> void:
-	data = {"id": self.id, "type" : self.type}
 	if texture == null:
-		texture = load(defaultTexture)
-	if !util.validateCollectable(data):
-		print("INVALID COLLECTABLE, KILLING")
-		queue_free()
-		return
-	item = util.getCollectableData(data)
+		texture = load(util.dummyTexture)
+	
+	data = util.getItem(id)
 	area = get_node("Area2D")
 	area.body_entered.connect(self.g)
 	area.mouse_entered.connect(self.doTooltip)
@@ -30,7 +21,7 @@ func _ready() -> void:
 		tooltip = ui.get_or_add("TOOLTIP", "res://objects/UI/tooltip.tscn")
 
 func doTooltip()-> void:
-	tooltip.get_child(0).startTooltip(item["name"], item["desc"])
+	tooltip.get_child(0).startTooltip(data["name"], data["desc"])
 
 func noTooltip() -> void:
 	tooltip.get_child(0).endTooltip()
@@ -39,7 +30,6 @@ func g(_body) -> void:
 	if !player.scene:
 		return
 	noTooltip()
-	player.scene.gamePrint("Item Get!")
-	player.collect(item, data["type"])
+	player.collect(id)
 	#TODO: Sound + Animation
 	queue_free()

@@ -8,14 +8,30 @@ var nearest : Area2D = null
 
 var LeftArm : Arm = null
 var RightArm : Arm = null
+var isFocus := false;
+var lastSelect : Arm = null
 
 func _ready() -> void:
 	RightArm = get_node("../rightArm")
 	LeftArm = get_node("../leftArm")
 	LeftArm.isSelected = true
 	player.onClick.connect(click)
-	
+
+func unfocus() -> void:
+	if isFocus:
+		lastSelect.isSelected = true
+		isFocus = false
+		return
+	isFocus = true
+	if RightArm.isSelected:
+		RightArm.isSelected = false
+		lastSelect = LeftArm
+	else:
+		LeftArm.isSelected = false
+		lastSelect = LeftArm
+
 func click(e : InputEventMouseButton) -> void:
+	if(isFocus): return
 	match e.get_button_index():
 		1:
 			if !LeftArm.isSelected:

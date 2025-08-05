@@ -1,82 +1,44 @@
 extends LiveNpc
 
-var friendship = 0
-var nextChat = "0"
-var currentConvo := "-1"
-var leftMidConvo := false
-var option = -1
-var avaliableConvos := ["BP"]
-var isChatting := false
-
-
-func liveReady() -> void:
-	interact.action.connect(self.speak)
-	chat.ChatFinished.connect(self.continueChat)
-	player.chat.optionPicked.connect(self.optionsRecieved)
-
-func speak():
-	if isChatting or camFocus.isFocused:
-		if player.debugCheck and chat.emitNext:
-			chat.skip()
-		return
-	player.scene.camera.zoomto(2)
-	player.scene.camera.pullFocus(camFocus)
-	isChatting = true
-	
-	continueChat()
-
-func optionsRecieved(pos):
-	option = pos
-
-func buildHub():
+func buildHub() -> Dictionary:
 	var q := {}
-	for convo in avaliableConvos:
-		if convo == "BP":
-			var p
-			if len(player.inventory.InvBlueprints) >= 2:
-				p = tr("ENG-HUB-1:1")
-			else: p=tr("ENG-HUB-1:2")
-			q.set("bp", tr("ENG-HUB-1").format({plural = p}))
-			print(q)
+	if player.chat.hasFlag(who, "BadIntro"):
+		q.set("10", tr("ENG-HUB-2"))
+	if player.inventory.hasItem(1) and player.chat.hasFlag(who, "GoodIntro"):
+		player.scene.gamePrint("HAS BP")
+		var p
+		if player.inventory.getItems(1) >= 2:
+			p = tr("ENG-HUB-1:1")
+		else: p=tr("ENG-HUB-1:2")
+		q.set("9", tr("ENG-HUB-1").format({plural = p}))
+	q.set("LEAVE", tr("GEN-LEAVE"))
+	return q
 
 func continueChat():
+	lastMessage = {}
 	if nextChat == "HUB":
-		player.scene.gamePrint("Hub doesn't exist as of now lol")
-		buildHub()
-		return
-	var nextMsg : Dictionary = diologue[nextChat]
-	#different message types: (option, flagged, seached, or  normal)
-	if nextMsg.has("response"): #Option messages within a convo cannot have the leave flag as of now
-		var obj : ChatBubble = chat.new_message(nextMsg["token"])
-		obj.manualKill = true
+		var hub := buildHub()
+		chat.new_message("ENG-INTRO-"+str(collection.queryFriendship(who)))
 		chat.emitNext = false
-		await obj.finish
-		player.chat.do_options(nextMsg["response"])
+		player.chat.do_options(hub.values())
 		await player.chat.optionPicked
-		nextChat = nextMsg["next"][option]
-		obj.manualKill = false
-		obj.switch()
+		if hub.keys()[option] == "LEAVE":
+			await player.chat.ChatFinished
+			player.scene.camera.zoomto(1)
+			player.scene.camera.release()
+			isChatting = false
+			return
+		nextChat = hub.keys()[option]
+		player.scene.gamePrint(nextChat)
+		await player.chat.ChatFinished
 		continueChat()
-	elif nextMsg.has("hFlag"):
-		if player.chat.hasFlag("eng", nextMsg['hFlag']):
-			chat.new_message(nextMsg["token"][0])
-		else:
-			
-			chat.new_message(nextMsg["token"][1])
-			nextChat= nextMsg["next"]
-	elif nextMsg.has("item"):
-		pass
-	else:
-		chat.new_message(nextMsg["token"])
-		nextChat= nextMsg["next"]
-	
-	#Flag stuff
-	if nextMsg.has("gFlag"):
-		player.chat.giveFlag("eng", nextMsg["gFlag"])
-	#if it has leave, make sure to zoom out after the message
-	if nextMsg.has("leave"):
-		chat.emitNext = false
-		await chat.ChatFinished
+		return
+	if nextChat == "&b":
 		player.scene.camera.zoomto(1)
 		player.scene.camera.release()
 		isChatting = false
+		nextChat = "HUB"
+		return
+	normalMessage()
+	#PROBABLY CAN BE PUT INTO NPC BASECLASS (below stuff)
+	

@@ -39,6 +39,7 @@ func new_message(key) -> Object:
 #connect to ButtonHit to get response.
 func do_options(options : Array):
 	lastOptions = options
+	player.head.frame = 1
 	var itter = 0
 	for option in options:
 		var optionBubble : OptionBubble = bubble.instantiate()
@@ -57,7 +58,6 @@ func wipeOptions():
 		child.kys = true
 
 func giveFlag(obj : String, flag : String):
-	player.scene.gamePrint(flag)
 	flags.get_or_add(obj, [])
 	var f = flags[obj]
 	if f == null:
@@ -73,7 +73,15 @@ func hasFlag(obj : String, flag:String)->bool:
 		return false
 	return true
 
+func removeFlag(obj : String, flag:String):
+	if !flags[obj].has(flag): return;
+	var f :Array = flags[obj]
+	f.erase(flag)
+	flags.set(obj, f)
+	print(flags)
+
 func buttonHit(pos):
+	player.head.frame = 0
 	wipeOptions()
 	await get_tree().create_timer(.5).timeout
 	new_message(lastOptions[pos])

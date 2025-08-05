@@ -58,11 +58,14 @@ tile_set = SubResource("TileSet_eecmb")
 
 [node name="RigidBody2D" parent="." instance=ExtResource("8_2ba7n")]
 position = Vector2(-19, -4)
+who = "eng"
 
-[node name="Sprite2D" parent="." instance=ExtResource("7_a0ov3")]
-position = Vector2(137, -57)
+[node name="Sprite2D3" parent="." instance=ExtResource("7_a0ov3")]
+position = Vector2(105, -27)
 texture = ExtResource("8_m31pe")
+id = 1
 
-[node name="Sprite2D2" parent="." instance=ExtResource("7_a0ov3")]
-position = Vector2(94, -20)
+[node name="Sprite2D4" parent="." instance=ExtResource("7_a0ov3")]
+position = Vector2(144, -85)
 texture = ExtResource("8_m31pe")
+id = 1

@@ -140,19 +140,20 @@ func can_interact(area : Area2D)-> bool:
 	return false;
 
 func _process(_delta):
-	#flip
 	var mouse : Vector2 = get_local_mouse_position()
-	if mouse.x > 0 and flip:
-		flip = false
-	elif mouse.x < 0 and not flip:
-		flip = true
 	
-	if mouse.y < -35:
-		head.frame=1
-	elif mouse.y > 10:
-		head.frame=2
-	else:
-		head.frame = 0
+	if not player.manager.isFocus:
+		if mouse.y < -35:
+			head.frame=1
+		elif mouse.y > 10 :
+			head.frame=2
+		else:
+			head.frame = 0
+	#flip
+	if mouse.x > 0 and flip and not player.manager.isFocus:
+		flip = false
+	elif mouse.x <= 0 and not flip and not player.manager.isFocus:
+		flip = true
 	
 	#debug stuff
 	if Input.is_action_just_pressed("fullscreen"):
@@ -187,14 +188,8 @@ func _process(_delta):
 			scene.camera.zoom.x = i
 			scene.camera.zoom.y = scene.camera.zoom.x
 
-func collect(item : Dictionary, type : int) -> void:
-	print(item)
-	print(type)
-	if type == liveCollectable.types.BLUEPRINT:
-		#Blueprint Specificity
-		print("BP COLLECT")
-		inventory.getBlueprint(int(item["data"]))
-	pass
+func collect(itemId : int) -> void:
+	inventory.addItem(itemId)
 
 func _input(event: InputEvent) -> void:
 	if aoi and event is InputEventKey and event.is_echo() == false:

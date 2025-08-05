@@ -7,7 +7,7 @@ class_name equipable
 @export var settings := equipableSettings.new()
 
 #data
-var itemPath = "res://resources/items.json"
+var itemPath = "res://resources/json/equipables.json"
 var data : Dictionary
 var iName : String
 var iDesc : String

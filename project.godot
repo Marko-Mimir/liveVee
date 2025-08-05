@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 player="*res://objects/player.tscn"
 ui="*res://objects/ui_mananger.tscn"
 util="*res://scripts/util.gd"
+collection="*res://scripts/playerOnly/collection.gd"
 
 [display]
 

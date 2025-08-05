@@ -2,16 +2,18 @@
 	"convo":{
 		"1":{"description":"The intro convo BEFORE you say yes to eng's question.", "restart":"7"},
 		"2":{"description":"The intro convo AFTER you say yes to eng's question.", "restart":"8"},
-		"BP":{"description":"This convo shows up in the HUB if you have a blueprint.", "text":"ENG-HUB-1", "start":"9", "restart":"9"}
+		"BP":{"description":"This convo shows up in the HUB if you have a blueprint.", "text":"ENG-HUB-1", "start":"9", "restart":"9"},
+		"HUB":{"description":"This happens when you leave the convo at a weird point or at the end of a diologue tree.", "restart":"HUB"}
 	},
 	"0":{"token":"ENG-BP-1", "next":"1", "rude":true, "convoId":"1"},
 	"1":{"token":"ENG-BP-2","next":"2", "rude":true, "convoId":"1"},
 	"2":{"token":"ENG-BP-3", "next":["3","4"], "response":["Yes","No"], "convoId":"1", "rude":true},
 	"3":{"token":"ENG-BP-3:1", "next":"5", "rude":true, "convoId":"2"},
-	"4":{"token":"ENG-BP-3:2", "next":"HUB", "leave":true, "gFlag":"BadIntro"},
-	"5":{"token":"ENG-BP-4", "next":"6", "convoId":"2"},
-	"6":{"token":"ENG-BP-5", "next":"HUB", "leave":true, "gFlag":"GoodIntro"},
-	"7":{"token":"ENG-CV-1", "next":["3,4"], "response":["Yes", "No"], "convoId":"1", "rude":true},
-	"8":{"token":"ENG-CV-2", "next":"5", "rude":true, "convoId":"2"},
-	"9":{"token":"ENG-BP-NEW", "next":"&b", "rude":true, "convoId":"3"}
+	"4":{"token":"ENG-BP-3:2", "next":"HUB", "convoId":"HUB", "leave":true, "friendship":-10, "gFlag":"BadIntro"},
+	"5":{"token":"ENG-BP-4", "next":"6", "rude":true, "convoId":"2"},
+	"6":{"token":"ENG-BP-5", "next":"HUB", "convoId":"HUB","leave":true, "friendship":10, "gFlag":"GoodIntro"},
+	"7":{"token":"ENG-CV-1", "next":["3","4"], "response":["Yes", "No"], "convoId":"1", "rude":true},
+	"8":{"token":"ENG-CV-2", "next":"6", "rude":true, "convoId":"2"},
+	"9":{"token":"ENG-BP-NEW", "next":"&b", "rude":true, "convoId":"HUB"},
+	"10":{"token":"ENG-BAD-1", "next":"5", "rude":true, "rFlag":"BadIntro","convoId":"2"}
 }
