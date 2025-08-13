@@ -1,4 +1,4 @@
-﻿keys,en
+keys,en
 ENG-INTRO--1,…
 ENG-INTRO-0,Hey.
 
@@ -25,3 +25,25 @@ ENG-HUB-1:2,a blueprint.
 ENG-HUB-2,I changed my mind.
 
 GEN-LEAVE,Nevermind.
+
+
+UI-EP-START, Are you ready to start\nthis episode?
+UI-YES,Yes
+UI-NO,No
+UI-READY,Ready!
+UI-NOT,Not yet.
+UI-CONFIRM,Are you sure?
+UI-GREEN-LEAVE,[center]Are you sure that you \nwant to leave the greenroom?\n[color=gray][i](Game will not save durring an episode)
+
+
+UNUSED-1,"Hi text prowler lol"
+
+HEART-UNUSED-1,"[bpm=80]Well look what we have here..."
+HEART-UNUSED-2,"[bpm=95]Someone somewhere they arent supposed to be."
+HEART-UNUSED-3,"[bpm=150]Well have fun snooping. Might find some upcoming stuff. Might not. Who knows how vigilent an effort this is."
+HEART-UNUSED-4,"[bpm=200]Continue on your merry way cheater."
+HEART-DEV-1,"If you're reading this, hi :) bonus line for you because your reading the file somehow, idk about decompiling lowkey, dont judge me first real game in a while :)"
+HEART-DEV-2,"BTW, not much happens if you play [bpm=x] in game, the needed text effect is probably not in the source, though to be fair i could be stupid lol hopefully not cause it'll only work propperly in one room lolsies"
+HEART-DEV-3,"I'm gonna stop procrastinating and get back to work on the project :). I do hope oneday someone will read this, its a fun idea to bounce arround in my head. So if you see this, pls contact me"
+HEART-DEV-4,"Go to restine.dev/contact and tell me you read HEART-DEV, if i get too many of these i'll delete this line, i do hope to reach that one day lol. I wonder if i actually did twitch integation. Bye chat"
+HEART-DEV-5,"SHOULD I USE .PO??? i DONT KNOW"

@@ -104,7 +104,6 @@ position = Vector2(2, 22.5)
 texture = ExtResource("5_r11iy")
 
 [node name="player" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(-1, 3.5)
 shape = SubResource("RectangleShape2D_m82m7")
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cg35lshtlcrn6"
-path="res://.godot/imported/greenroom.png-2a10b4883b27a4182545b224e4b94212.ctex"
+uid="uid://coqrikcgjpoqj"
+path="res://.godot/imported/bed.png-3876800807510dd21ba44abbf09f42a7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/tilemaps/greenroom.png"
-dest_files=["res://.godot/imported/greenroom.png-2a10b4883b27a4182545b224e4b94212.ctex"]
+source_file="res://sprites/objects/bed.png"
+dest_files=["res://.godot/imported/bed.png-3876800807510dd21ba44abbf09f42a7.ctex"]
 
 [params]
 

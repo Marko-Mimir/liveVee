@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bf46yrcunal3i"]
+
+[ext_resource type="Script" uid="uid://bmlj1lscnkrll" path="res://scripts/scene.gd" id="1_fdima"]
+[ext_resource type="Script" uid="uid://cvvcowg68u64p" path="res://scripts/liveCamera.gd" id="2_yw5tq"]
+[ext_resource type="Texture2D" uid="uid://cwt4nq4yahpks" path="res://icon.svg" id="3_habf3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_un2gk"]
+size = Vector2(350, 118)
+
+[node name="sceenRoot" type="Node2D" node_paths=PackedStringArray("spawn", "camera")]
+script = ExtResource("1_fdima")
+spawn = NodePath("Marker2D")
+camera = NodePath("LiveCamera")
+metadata/_custom_type_script = "uid://bmlj1lscnkrll"
+
+[node name="LiveCamera" type="Camera2D" parent="."]
+script = ExtResource("2_yw5tq")
+metadata/_custom_type_script = "uid://cvvcowg68u64p"
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(4, 267)
+shape = SubResource("RectangleShape2D_un2gk")
+
+[node name="Icon" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(2.99999, 267.5)
+scale = Vector2(2.71875, 0.929687)
+texture = ExtResource("3_habf3")

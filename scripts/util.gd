@@ -52,6 +52,12 @@ func wordCount(str : String):
 func isLetter(str: String):
 	return letterCheck.search(str)
 
+func switchScene(scene : PackedScene):
+	var cur = player.scene
+	var new = scene.instantiate()
+	cur.queue_free()
+	get_tree().root.add_child(new)
+
 func translateAltColorCodes(altColorCode : String, textToTranslate : String):
 	var brokenString : PackedStringArray = textToTranslate.split(altColorCode)
 	var ends = ""
@@ -70,6 +76,12 @@ func translateAltColorCodes(altColorCode : String, textToTranslate : String):
 			ends += "[/color]"
 	
 	return coloredText
+
+func confirm(question = "UI-CONFIRM", yes = "UI-YES", no = "UI-NO") -> LiveConfirmation:
+	var conf : LiveConfirmation = load("res://objects/UI/confirmDiologue.tscn").instantiate()
+	ui.add_ui(conf)
+	conf.init(question, yes, no)
+	return conf
 
 func loadJson(path : String)-> Dictionary:
 	var json_as_text = FileAccess.get_file_as_string(path)

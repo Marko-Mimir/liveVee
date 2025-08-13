@@ -1,0 +1,86 @@
+[gd_scene load_steps=13 format=4 uid="uid://baq7nqugochma"]
+
+[ext_resource type="Script" uid="uid://bmlj1lscnkrll" path="res://scripts/scene.gd" id="1_ysf54"]
+[ext_resource type="PackedScene" uid="uid://cv7b4vpqx2qhb" path="res://objects/UI/fps_counter.tscn" id="2_2ba7n"]
+[ext_resource type="Script" uid="uid://cvvcowg68u64p" path="res://scripts/liveCamera.gd" id="2_5116e"]
+[ext_resource type="Texture2D" uid="uid://bgi2q8rcpa75a" path="res://sprites/tilemaps/greenroom.png" id="3_5116e"]
+[ext_resource type="PackedScene" uid="uid://d00rh2o5wn11k" path="res://objects/UI/in_game_output.tscn" id="3_m31pe"]
+[ext_resource type="PackedScene" uid="uid://bogs33ad3h4si" path="res://objects/collectables/dummyCollectable.tscn" id="7_a0ov3"]
+[ext_resource type="PackedScene" uid="uid://jhy67fl0xsbg" path="res://objects/npcs/engineer.tscn" id="8_2ba7n"]
+[ext_resource type="Texture2D" uid="uid://b6jgsp3lqavnj" path="res://sprites/collectable/blueprint.png" id="8_m31pe"]
+[ext_resource type="Script" uid="uid://1s0qovr2vrwl" path="res://scripts/unique/startEpisode.gd" id="9_m31pe"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eqwf2"]
+texture = ExtResource("3_5116e")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -12.6347, 16, -12.643, 16, 16, -16, 16)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+4:1/0 = 0
+4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSet" id="TileSet_eecmb"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 3
+physics_layer_0/collision_mask = 0
+sources/0 = SubResource("TileSetAtlasSource_eqwf2")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w3h7i"]
+size = Vector2(106, 118)
+
+[node name="sceneRoot" type="Node2D" node_paths=PackedStringArray("spawn", "camera")]
+script = ExtResource("1_ysf54")
+spawn = NodePath("Marker2D")
+camera = NodePath("LiveCam")
+startingUi = Array[PackedScene]([ExtResource("2_2ba7n"), ExtResource("3_m31pe")])
+
+[node name="LiveCam" type="Camera2D" parent="."]
+script = ExtResource("2_5116e")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(-130, -61)
+
+[node name="groundMap" type="TileMapLayer" parent="."]
+z_index = -6
+tile_map_data = PackedByteArray("AAD5/wEAAAACAAAAAAD6/wEAAAACAAAAAAD7/wEAAAACAAAAAAD8/wEAAAACAAAAAAD9/wEAAAACAAAAAAD+/wEAAAACAAAAAAD//wEAAAACAAAAAAD4/wEAAAACAAAAAAD3////AAADAAAAAAD3//3/AAADAAAAAAD3//v/AAADAAAAAAD3//z/AAADAAEAAAD3//7/AAADAAEAAAD3/wAAAAADAAEAAAD3/wEAAAAAAAEAAAAAAAEAAAACAAAAAAD3//n/AAAAAAAAAAD3//r/AAADAAEAAAD4//n/AAACAAEAAAD5//n/AAACAAEAAAD6//n/AAACAAEAAAD7//n/AAACAAEAAAD8//n/AAACAAEAAAD9//n/AAACAAEAAAD+//n/AAACAAEAAAD///n/AAACAAEAAAAAAPn/AAACAAEAAAACAAEAAAACAAAAAAADAAEAAAACAAAAAAAEAAEAAAACAAAAAAAFAAEAAAACAAAAAAAGAAEAAAACAAAAAAAHAAEAAAACAAAAAAAIAAEAAAACAAAAAAABAAEAAAACAAAAAAAFAPn/AAACAAEAAAAEAPn/AAACAAEAAAADAPn/AAACAAEAAAACAPn/AAACAAEAAAABAPn/AAACAAEAAAAGAPr/AAAEAAAAAAAGAPv/AAAEAAAAAAAGAPz/AAAEAAAAAAAGAPn/AAABAAAAAAAGAP3/AAAEAAAAAAAHAP3/AAACAAEAAAAIAP3/AAACAAEAAAAKAP3/AAABAAAAAAAKAP7/AAAEAAAAAAAKAP//AAAEAAEAAAAKAAAAAAAEAAAAAAAKAAEAAAABAAEAAAAJAAEAAAACAAAAAAAJAP3/AAACAAEAAAA=")
+tile_set = SubResource("TileSet_eecmb")
+
+[node name="RigidBody2D" parent="." instance=ExtResource("8_2ba7n")]
+position = Vector2(-19, -4)
+who = "eng"
+
+[node name="Sprite2D3" parent="." instance=ExtResource("7_a0ov3")]
+position = Vector2(-58, -128)
+texture = ExtResource("8_m31pe")
+id = 1
+
+[node name="Sprite2D4" parent="." instance=ExtResource("7_a0ov3")]
+position = Vector2(-8, -137)
+texture = ExtResource("8_m31pe")
+id = 1
+
+[node name="startEpisode" type="Area2D" parent="."]
+position = Vector2(269, -10)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("9_m31pe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="startEpisode"]
+position = Vector2(9, -1)
+shape = SubResource("RectangleShape2D_w3h7i")

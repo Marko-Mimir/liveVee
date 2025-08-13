@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cg35lshtlcrn6"
-path="res://.godot/imported/greenroom.png-2a10b4883b27a4182545b224e4b94212.ctex"
+uid="uid://dd1gbyklm61lp"
+path="res://.godot/imported/GR-curtain-back.png-3461d2c27e92d7a52c5fc4c798724a5f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/tilemaps/greenroom.png"
-dest_files=["res://.godot/imported/greenroom.png-2a10b4883b27a4182545b224e4b94212.ctex"]
+source_file="res://sprites/objects/GR-curtain-back.png"
+dest_files=["res://.godot/imported/GR-curtain-back.png-3461d2c27e92d7a52c5fc4c798724a5f.ctex"]
 
 [params]
 

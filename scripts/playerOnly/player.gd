@@ -118,6 +118,11 @@ func _physics_process(delta):
 		additionalJumps = 1
 	
 	if Input.is_action_just_pressed("jump"): #Jump handeling, for both multijumps and grounded jump
+		var ground : Node = groundCast.get_collider()
+		if Input.is_action_pressed("down") and ground is StaticBody2D:
+			if ground.get_child(0).is_one_way_collision_enabled():
+				position.y +=1
+			return
 		if groundedJump or additionalJumps > 0:
 			holdingJump = true;
 			velocity.y = jump_velocity
