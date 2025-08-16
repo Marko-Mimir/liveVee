@@ -24,6 +24,7 @@ var letterCheck : RegEx
 var countWords : RegEx
 
 var dummyTexture := "res://sprites/collectable/dummycollect.png"
+var sceneTransition := "res://objects/UI/transition.tscn"
 
 func _ready() -> void:
 	countWords = RegEx.new()
@@ -52,9 +53,17 @@ func wordCount(str : String):
 func isLetter(str: String):
 	return letterCheck.search(str)
 
+func playerRight(obj : Node2D):
+	if player.position.x >= obj.position.x:
+		return true
+	return false
+
 func switchScene(scene : PackedScene):
 	var cur = player.scene
 	var new = scene.instantiate()
+	var trans = load(sceneTransition).instantiate()
+	ui.add_ui(trans)
+	await trans.half
 	cur.queue_free()
 	get_tree().root.add_child(new)
 

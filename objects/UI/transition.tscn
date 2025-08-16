@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqi6prxvixjdp"]
+
+[ext_resource type="Script" uid="uid://ic42po1dj6jo" path="res://scripts/UI/transition.gd" id="1_u6057"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u6057")
+id = "trans"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 641.0
+offset_bottom = 361.0
+color = Color(0, 0, 0, 0)

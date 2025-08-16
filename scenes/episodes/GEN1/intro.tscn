@@ -1,11 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://bf46yrcunal3i"]
+[gd_scene load_steps=7 format=3 uid="uid://bf46yrcunal3i"]
 
 [ext_resource type="Script" uid="uid://bmlj1lscnkrll" path="res://scripts/scene.gd" id="1_fdima"]
 [ext_resource type="Script" uid="uid://cvvcowg68u64p" path="res://scripts/liveCamera.gd" id="2_yw5tq"]
 [ext_resource type="Texture2D" uid="uid://cwt4nq4yahpks" path="res://icon.svg" id="3_habf3"]
+[ext_resource type="PackedScene" uid="uid://c0ioa2clnk6wi" path="res://objects/enemies/testdummy.tscn" id="4_un2gk"]
+[ext_resource type="PackedScene" uid="uid://dva24j0mmpixu" path="res://objects/equipables/debug_sword.tscn" id="5_70c1s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_un2gk"]
-size = Vector2(350, 118)
+size = Vector2(754, 98)
 
 [node name="sceenRoot" type="Node2D" node_paths=PackedStringArray("spawn", "camera")]
 script = ExtResource("1_fdima")
@@ -20,12 +22,20 @@ metadata/_custom_type_script = "uid://cvvcowg68u64p"
 [node name="Marker2D" type="Marker2D" parent="."]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(4, 267)
+position = Vector2(1, 110)
 shape = SubResource("RectangleShape2D_un2gk")
 
 [node name="Icon" type="Sprite2D" parent="StaticBody2D"]
-position = Vector2(2.99999, 267.5)
-scale = Vector2(2.71875, 0.929687)
+position = Vector2(1.49997, 121)
+scale = Vector2(5.89844, 0.929687)
 texture = ExtResource("3_habf3")
+
+[node name="testDummy" parent="." instance=ExtResource("4_un2gk")]
+position = Vector2(-249, -37)
+lock_rotation = true
+
+[node name="DebugSword" parent="." instance=ExtResource("5_70c1s")]
+position = Vector2(-212, -46)

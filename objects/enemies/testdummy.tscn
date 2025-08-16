@@ -1,0 +1,188 @@
+[gd_scene load_steps=20 format=3 uid="uid://c0ioa2clnk6wi"]
+
+[ext_resource type="Script" uid="uid://cqjwyosij82uy" path="res://scripts/baseClasses/enemybase.gd" id="1_sqcs1"]
+[ext_resource type="Texture2D" uid="uid://cekcx3ait0eqa" path="res://sprites/enemies/testdummy.png" id="2_ix5c6"]
+[ext_resource type="PackedScene" uid="uid://cvuhnvlptsmfv" path="res://objects/particles/general_hit.tscn" id="2_p0yeu"]
+[ext_resource type="PackedScene" uid="uid://bn1onka8xqahs" path="res://objects/particles/general_kaboom.tscn" id="3_brbdc"]
+[ext_resource type="Script" uid="uid://c1yl2rmhxsd6n" path="res://scripts/shake.gd" id="3_i7tdr"]
+[ext_resource type="Script" uid="uid://caux7u2nstll1" path="res://scripts/health.gd" id="4_i7tdr"]
+[ext_resource type="Theme" uid="uid://c05v6ukv5r0xm" path="res://resources/ui-main.tres" id="5_qe631"]
+[ext_resource type="Texture2D" uid="uid://br3vgqoy8pogk" path="res://sprites/particles/testDummyFragment.png" id="8_brbdc"]
+
+[sub_resource type="Animation" id="Animation_p0yeu"]
+resource_name = "hurtLeft"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_brbdc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_jvxgf"]
+resource_name = "hurtRight"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 0]
+}
+
+[sub_resource type="Animation" id="Animation_2lmvx"]
+resource_name = "dead"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_32h87"]
+_data = {
+&"RESET": SubResource("Animation_brbdc"),
+&"dead": SubResource("Animation_2lmvx"),
+&"hurtLeft": SubResource("Animation_p0yeu"),
+&"hurtRight": SubResource("Animation_jvxgf")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t2psq"]
+size = Vector2(20, 52)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ix5c6"]
+size = Vector2(9, 62)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qe631"]
+bg_color = Color(0.484225, 0, 0.087003, 1)
+
+[sub_resource type="Gradient" id="Gradient_jvxgf"]
+offsets = PackedFloat32Array(0, 0.40201, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2lmvx"]
+gradient = SubResource("Gradient_jvxgf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_32h87"]
+particle_flag_disable_z = true
+angle_min = 1.07288e-05
+angle_max = 1.07288e-05
+direction = Vector3(-0.5, -0.5, 0)
+spread = 105.0
+initial_velocity_min = 41.83
+initial_velocity_max = 68.44
+angular_velocity_min = -169.73
+angular_velocity_max = 235.44
+gravity = Vector3(0, 98, 0)
+linear_accel_min = 31.18
+linear_accel_max = 52.47
+radial_accel_min = -31.18
+radial_accel_max = 6.08
+tangential_accel_min = -2.23517e-06
+tangential_accel_max = -2.23517e-06
+color_ramp = SubResource("GradientTexture1D_2lmvx")
+
+[node name="testDummy" type="RigidBody2D" node_paths=PackedStringArray("animations", "hurtbox", "shake", "health", "hitEffect", "deathParticles")]
+collision_layer = 0
+script = ExtResource("1_sqcs1")
+animations = NodePath("AnimationPlayer")
+hurtbox = NodePath("hurtbox")
+shake = NodePath("shakeModule")
+health = NodePath("health")
+hitEffect = NodePath("generalHit")
+deathParticles = [NodePath("deathParticles/generalHit"), NodePath("deathParticles/generalKaboom"), NodePath("deathParticles/death1")]
+
+[node name="generalHit" parent="." instance=ExtResource("2_p0yeu")]
+position = Vector2(0, -9)
+
+[node name="body" type="Sprite2D" parent="."]
+texture = ExtResource("2_ix5c6")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_32h87")
+}
+
+[node name="hurtbox" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_t2psq")
+debug_color = Color(0.98523, 0, 0.335829, 0.42)
+
+[node name="shakeModule" type="Node2D" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("3_i7tdr")
+sprite = NodePath("../body")
+shake_amount = 2.0
+shake_duration = 0.2
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_ix5c6")
+
+[node name="health" type="Node2D" parent="." node_paths=PackedStringArray("bar")]
+script = ExtResource("4_i7tdr")
+bar = NodePath("ProgressBar")
+
+[node name="ProgressBar" type="ProgressBar" parent="health"]
+offset_left = -22.0
+offset_top = -41.0
+offset_right = 23.0
+offset_bottom = -35.0
+theme = ExtResource("5_qe631")
+theme_override_styles/fill = SubResource("StyleBoxFlat_qe631")
+show_percentage = false
+
+[node name="deathParticles" type="Node2D" parent="."]
+
+[node name="generalHit" parent="deathParticles" instance=ExtResource("2_p0yeu")]
+
+[node name="generalKaboom" parent="deathParticles" instance=ExtResource("3_brbdc")]
+
+[node name="death1" type="GPUParticles2D" parent="deathParticles"]
+position = Vector2(0, -9)
+emitting = false
+amount = 3
+texture = ExtResource("8_brbdc")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_32h87")

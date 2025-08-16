@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvuhnvlptsmfv"]
+
+[ext_resource type="Texture2D" uid="uid://fquty362pmib" path="res://sprites/particles/hit.png" id="1_iv6g2"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sgv5r"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yui1d"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(20, 20, 1)
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 0, 0)
+anim_speed_min = 1.4
+anim_speed_max = 2.56
+
+[node name="generalHit" type="GPUParticles2D"]
+z_index = 50
+material = SubResource("CanvasItemMaterial_sgv5r")
+emitting = false
+amount = 4
+texture = ExtResource("1_iv6g2")
+one_shot = true
+explosiveness = 0.46
+process_material = SubResource("ParticleProcessMaterial_yui1d")

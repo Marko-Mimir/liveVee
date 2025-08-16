@@ -1,15 +1,17 @@
 extends Node2D
 class_name Health
 
+signal dead
+
 var health : float = 10;
-var maxHealth : int = 10;
+@export var maxHealth : int = 10;
 @export var bar : ProgressBar
 
-func initalize(maxHp : int):
-	maxHealth = maxHp
-	bar.max_value = maxHp
-	bar.value = maxHp
-	health = maxHp
+func _ready() -> void:
+	if bar:
+		bar.max_value = maxHealth
+		bar.value = maxHealth
+	health = maxHealth
 
 func getHealth():
 	return health; 
@@ -20,7 +22,9 @@ func editHealth(editHp : float):
 	health = snapped(health, 0.01)
 	if health > maxHealth:
 		health = maxHealth;
-	if health < 0:
+	if bar:
+		bar.value = health
+	if health < 0 or health == 0:
 		health = 0;
-	bar.value = health
+		dead.emit()
 	return health

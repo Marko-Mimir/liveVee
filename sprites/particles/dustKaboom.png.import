@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g71bkdfucjjb"
-path="res://.godot/imported/completelyOriginalEnemy.png-ff2a906f429176d623001ffc6a23aa33.ctex"
+uid="uid://53wmy4jbxi4h"
+path="res://.godot/imported/dustKaboom.png-c1d598de85bb68295d87173a993bd516.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/completelyOriginalEnemy.png"
-dest_files=["res://.godot/imported/completelyOriginalEnemy.png-ff2a906f429176d623001ffc6a23aa33.ctex"]
+source_file="res://sprites/particles/dustKaboom.png"
+dest_files=["res://.godot/imported/dustKaboom.png-c1d598de85bb68295d87173a993bd516.ctex"]
 
 [params]
 

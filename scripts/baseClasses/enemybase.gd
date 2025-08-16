@@ -1,47 +1,46 @@
 extends Node2D
-class_name Enemy
+class_name LiveEnemy
 
-var damageText = preload("res://objects/damageText.tscn")
-
-signal hurt
-signal dead
+@export var animations : AnimationPlayer
 @export var hurtbox : Area2D
-@export var healthManager : Health;
-@export var healthLabel : Label
-var hurted = false
-var hitstop : Timer
-var counter = -1
+@export var shake : ShakeComponent
+@export var health : Health
+@export var hitEffect : GPUParticles2D
+@export var deathParticles : Array[GPUParticles2D] = []
 
-func _ready():
-	healthManager.initalize(100)
+var isDying := false
 
-func _on_hurtbox_area_entered(_area):
-	hurtCheck()
+func _ready() -> void:
+	hurtbox.area_entered.connect(self.onHurt)
+	health.dead.connect(self.kys)
 
-func getPlayerDir() -> bool:
-	if player.global_position.x < global_position.x:
-		return true
-	else:
-		return false
+func onHurt(_area : Area2D) -> void:
+	if util.playerRight(self):
+		if animations and animations.has_animation("hurtRight"):
+			animations.play("hurtRight")
+	elif animations and animations.has_animation("hurtLeft"):
+			animations.play("hurtLeft")
+	if hitEffect:
+		if hitEffect.emitting:
+			hitEffect.restart()
+		hitEffect.emitting = true
+	if shake:
+		shake.shake()
+	health.editHealth(-2)
 
-func hurtCheck():
-	if counter == player.slashCounter:
-#Sometimes the sweet and sour spot will both emit, this is to stop that
-		return
-	counter = player.slashCounter
-	
-	var sour = hurtbox.overlaps_area(player.getSour())
-	var damage = player.damage(sour)
-	
-	healthManager.editHealth(-damage)
+func _process(_delta: float) -> void:
+	if isDying:
+		modulate.a = lerpf(modulate.a, 0, .5)
 
-	var num : damageNumber = damageText.instantiate()
-	num.crit = (damage >= 20)
-	num.damage = damage
-	num.position = global_position + Vector2(randi_range(-20,20), randi_range(-20,20))
-	get_window().add_child(num)
-	
-	if healthManager.getHealth() == 0:
-		dead.emit()
-	else:
-		hurt.emit()
+func kys():
+	health.visible = false
+	if animations and animations.has_animation("dead"):
+			animations.play("dead")
+	if shake:
+		shake.shake()
+	for particle in deathParticles:
+		particle.emitting = true
+	await get_tree().create_timer(1).timeout
+	isDying = true
+	await get_tree().create_timer(1).timeout
+	queue_free()
