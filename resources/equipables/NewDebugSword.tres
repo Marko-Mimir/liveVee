@@ -1,0 +1,152 @@
+[gd_resource type="Resource" script_class="LiveEquipable" load_steps=34 format=3 uid="uid://bq23ee66b6s5g"]
+
+[ext_resource type="Script" uid="uid://bvb408pib8awm" path="res://scripts/equipables/resources/liveAnimation.gd" id="1_plwyb"]
+[ext_resource type="Script" uid="uid://bas8gupab6hbb" path="res://scripts/equipables/resources/liveEquipable.gd" id="2_ccasi"]
+[ext_resource type="Script" uid="uid://bgt3js0b8n3mo" path="res://scripts/equipables/resources/liveAnimationTrack.gd" id="2_qgs1d"]
+[ext_resource type="Script" uid="uid://ds68aybmjxnra" path="res://scripts/equipables/resources/liveKeyframe.gd" id="3_2kc0l"]
+[ext_resource type="Texture2D" uid="uid://pcndcc27x7a3" path="res://sprites/equipables/debugSword-sheet.png" id="3_ccasi"]
+
+[sub_resource type="Resource" id="Resource_qgs1d"]
+script = ExtResource("3_2kc0l")
+value = Vector2(-7.524288, -54.980568)
+
+[sub_resource type="Resource" id="Resource_2kc0l"]
+script = ExtResource("3_2kc0l")
+time = 0.1
+value = Vector2(46.84467, -21.194168)
+
+[sub_resource type="Resource" id="Resource_diqwh"]
+script = ExtResource("3_2kc0l")
+time = 0.2
+value = Vector2(3.3495216, -52.26213)
+
+[sub_resource type="Resource" id="Resource_bu8il"]
+script = ExtResource("3_2kc0l")
+time = 0.3
+value = Vector2(38.689335, -11.097084)
+
+[sub_resource type="Resource" id="Resource_vmflw"]
+script = ExtResource("3_2kc0l")
+time = 0.4
+value = Vector2(6.456333, -54.592224)
+
+[sub_resource type="Resource" id="Resource_g1rl5"]
+script = ExtResource("3_2kc0l")
+time = 0.5
+value = Vector2(34.80582, -3.7184372)
+
+[sub_resource type="Resource" id="Resource_6ligc"]
+script = ExtResource("2_qgs1d")
+trackPath = "focus"
+keyframes = Array[ExtResource("3_2kc0l")]([SubResource("Resource_qgs1d"), SubResource("Resource_2kc0l"), SubResource("Resource_diqwh"), SubResource("Resource_bu8il"), SubResource("Resource_vmflw"), SubResource("Resource_g1rl5")])
+
+[sub_resource type="Resource" id="Resource_y67qj"]
+script = ExtResource("3_2kc0l")
+value = Vector2(126.601974, -40.388344)
+
+[sub_resource type="Resource" id="Resource_2vvfy"]
+script = ExtResource("3_2kc0l")
+time = 0.1
+value = Vector2(128.54372, -19.029121)
+
+[sub_resource type="Resource" id="Resource_x2pru"]
+script = ExtResource("3_2kc0l")
+time = 0.2
+value = Vector2(126.99037, -47.37864)
+
+[sub_resource type="Resource" id="Resource_by1xy"]
+script = ExtResource("3_2kc0l")
+time = 0.3
+value = Vector2(122.330185, -3.4951248)
+
+[sub_resource type="Resource" id="Resource_nl0nc"]
+script = ExtResource("3_2kc0l")
+time = 0.4
+value = Vector2(123.495224, -43.495125)
+
+[sub_resource type="Resource" id="Resource_juimm"]
+script = ExtResource("3_2kc0l")
+time = 0.5
+value = Vector2(120.38844, 13.980583)
+
+[sub_resource type="Resource" id="Resource_eseas"]
+script = ExtResource("2_qgs1d")
+trackPath = "equip"
+keyframes = Array[ExtResource("3_2kc0l")]([SubResource("Resource_y67qj"), SubResource("Resource_2vvfy"), SubResource("Resource_x2pru"), SubResource("Resource_by1xy"), SubResource("Resource_nl0nc"), SubResource("Resource_juimm")])
+
+[sub_resource type="Resource" id="Resource_kgpl5"]
+script = ExtResource("3_2kc0l")
+value = 2.0
+
+[sub_resource type="Resource" id="Resource_x34n8"]
+script = ExtResource("3_2kc0l")
+time = 0.1
+value = 3.0
+
+[sub_resource type="Resource" id="Resource_1cg2r"]
+script = ExtResource("3_2kc0l")
+time = 0.2
+value = 4.0
+
+[sub_resource type="Resource" id="Resource_pdlbl"]
+script = ExtResource("3_2kc0l")
+time = 0.3
+value = 5.0
+
+[sub_resource type="Resource" id="Resource_ph5iu"]
+script = ExtResource("3_2kc0l")
+time = 0.4
+value = 4.0
+
+[sub_resource type="Resource" id="Resource_t4117"]
+script = ExtResource("3_2kc0l")
+time = 0.5
+value = 3.0
+
+[sub_resource type="Resource" id="Resource_lnjcc"]
+script = ExtResource("2_qgs1d")
+trackPath = "equip:frame"
+keyframes = Array[ExtResource("3_2kc0l")]([SubResource("Resource_kgpl5"), SubResource("Resource_x34n8"), SubResource("Resource_1cg2r"), SubResource("Resource_pdlbl"), SubResource("Resource_ph5iu"), SubResource("Resource_t4117")])
+
+[sub_resource type="Resource" id="Resource_mbuh8"]
+script = ExtResource("3_2kc0l")
+value = 0.0
+
+[sub_resource type="Resource" id="Resource_i4o8h"]
+script = ExtResource("3_2kc0l")
+time = 0.2
+value = 0.0
+
+[sub_resource type="Resource" id="Resource_vbikb"]
+script = ExtResource("3_2kc0l")
+time = 0.3
+value = 0.0
+
+[sub_resource type="Resource" id="Resource_q8cw7"]
+script = ExtResource("3_2kc0l")
+time = 0.4
+value = 0.0
+
+[sub_resource type="Resource" id="Resource_u3nmh"]
+script = ExtResource("3_2kc0l")
+time = 0.5
+value = 0.0
+
+[sub_resource type="Resource" id="Resource_xka2c"]
+script = ExtResource("2_qgs1d")
+trackPath = "focus:frame"
+keyframes = Array[ExtResource("3_2kc0l")]([SubResource("Resource_mbuh8"), SubResource("Resource_i4o8h"), SubResource("Resource_vbikb"), SubResource("Resource_q8cw7"), SubResource("Resource_u3nmh")])
+
+[sub_resource type="Resource" id="Resource_0w7ra"]
+script = ExtResource("1_plwyb")
+name = "Testing"
+length = 1.0
+tracks = Array[ExtResource("2_qgs1d")]([SubResource("Resource_6ligc"), SubResource("Resource_eseas"), SubResource("Resource_lnjcc"), SubResource("Resource_xka2c")])
+
+[resource]
+script = ExtResource("2_ccasi")
+name = "DebugSword"
+sprite = ExtResource("3_ccasi")
+frames = Vector2(6, 1)
+animations = Array[ExtResource("1_plwyb")]([SubResource("Resource_0w7ra")])
+metadata/_custom_type_script = "uid://bas8gupab6hbb"

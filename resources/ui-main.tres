@@ -1,9 +1,11 @@
-[gd_resource type="Theme" load_steps=9 format=3 uid="uid://c05v6ukv5r0xm"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://c05v6ukv5r0xm"]
 
 [ext_resource type="Texture2D" uid="uid://b2a5bvfbuk5tt" path="res://resources/firepanel.png" id="1_5rnmv"]
 [ext_resource type="Texture2D" uid="uid://ug6khrur221s" path="res://sprites/UI/DiologuePanel.png" id="2_wyo0n"]
 [ext_resource type="FontFile" uid="uid://4lgf7rpk7072" path="res://resources/DepartureMono-Regular.otf" id="3_wyo0n"]
 [ext_resource type="Texture2D" uid="uid://ds5mpwfv61vyu" path="res://sprites/UI/OptionPanel..png" id="4_eeduo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eeduo"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sjj4m"]
 content_margin_left = 10.0
@@ -27,6 +29,8 @@ texture_margin_top = 3.0
 texture_margin_right = 3.0
 texture_margin_bottom = 3.0
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3u3va"]
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wyo0n"]
 texture = ExtResource("2_wyo0n")
 texture_margin_left = 5.0
@@ -46,6 +50,7 @@ axis_stretch_vertical = 2
 [resource]
 default_font = ExtResource("3_wyo0n")
 default_font_size = 11
+Button/styles/focus = SubResource("StyleBoxEmpty_eeduo")
 GridContainer/constants/v_separation = -6
 Label/constants/line_spacing = -7
 MarginContainer/constants/margin_bottom = 10
@@ -55,6 +60,7 @@ MarginContainer/constants/margin_top = 10
 Panel/styles/panel = SubResource("StyleBoxTexture_sjj4m")
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_dwm6d")
 RichTextLabel/constants/line_separation = 0
+TextEdit/styles/focus = SubResource("StyleBoxEmpty_3u3va")
 VBoxContainer/constants/separation = -8
 chatbubble/base_type = &"PanelContainer"
 chatbubble/styles/panel = SubResource("StyleBoxTexture_wyo0n")

@@ -1,0 +1,675 @@
+[gd_scene load_steps=26 format=3 uid="uid://ra5irfngu71i"]
+
+[ext_resource type="Script" uid="uid://crc3dtca5884n" path="res://scripts/debug/equipable_maker.gd" id="1_641pu"]
+[ext_resource type="Texture2D" uid="uid://clar7icgm343h" path="res://sprites/player/body.png" id="1_wlutq"]
+[ext_resource type="Shader" uid="uid://dkmjt3twc8fwr" path="res://resources/blur.gdshader" id="2_2ivlx"]
+[ext_resource type="Texture2D" uid="uid://dreeknh1km7me" path="res://sprites/player/blink.png" id="2_641pu"]
+[ext_resource type="Texture2D" uid="uid://b2ojnpng2c57b" path="res://resources/icons/MainPlay.svg" id="2_ydf02"]
+[ext_resource type="Texture2D" uid="uid://ci68q4ff7tq7y" path="res://sprites/player/head.png" id="3_ii3dx"]
+[ext_resource type="Texture2D" uid="uid://bdo44i7ah6oi0" path="res://resources/icons/Pause.svg" id="3_sbyug"]
+[ext_resource type="Script" uid="uid://12nquy1r8q6" path="res://scripts/animation_player.gd" id="4_mm4vo"]
+[ext_resource type="Texture2D" uid="uid://blfsvtvrqr2ho" path="res://sprites/player/legs.png" id="4_pqmv1"]
+[ext_resource type="Texture2D" uid="uid://223edb5w4l0u" path="res://sprites/player-arm.png" id="5_6xh0l"]
+[ext_resource type="Theme" uid="uid://c05v6ukv5r0xm" path="res://resources/ui-main.tres" id="7_641pu"]
+[ext_resource type="Texture2D" uid="uid://dagjd7mpsmofe" path="res://sprites/square.png" id="9_6xh0l"]
+[ext_resource type="Texture2D" uid="uid://bg37qnci8qolb" path="res://resources/icons/Remove.svg" id="10_2ivlx"]
+[ext_resource type="Texture2D" uid="uid://oqwca4gojf5t" path="res://resources/icons/Rename.svg" id="11_komjd"]
+[ext_resource type="Texture2D" uid="uid://dvv2lby4p0aln" path="res://sprites/rect.png" id="13_tsp4e"]
+[ext_resource type="Script" uid="uid://3k6mpful3qhh" path="res://addons/draggablesprite2d/src/draggablesprite2d.gd" id="14_ydf02"]
+[ext_resource type="Texture2D" uid="uid://c0gse3sl7qd3k" path="res://sprites/plus.png" id="15_sbyug"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_komjd"]
+shader = ExtResource("2_2ivlx")
+shader_parameter/lod = 2.000000095
+
+[sub_resource type="SkeletonModification2DFABRIK" id="SkeletonModification2DFABRIK_komjd"]
+target_nodepath = NodePath("../../leftFocus")
+fabrik_data_chain_length = 2
+joint_data/0/bone_index = 0
+joint_data/0/bone2d_node = NodePath("Lhumer")
+joint_data/1/bone_index = 1
+joint_data/1/bone2d_node = NodePath("Lhumer/Lforearm")
+joint_data/1/magnet_position = Vector2(-5, 8)
+joint_data/1/use_target_rotation = false
+
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_tsp4e"]
+enabled = true
+modification_count = 1
+modifications/0 = SubResource("SkeletonModification2DFABRIK_komjd")
+
+[sub_resource type="SkeletonModification2DFABRIK" id="SkeletonModification2DFABRIK_7t5jc"]
+target_nodepath = NodePath("../../rightFocus")
+fabrik_data_chain_length = 2
+joint_data/0/bone_index = 0
+joint_data/0/bone2d_node = NodePath("Rhumer")
+joint_data/1/bone_index = 1
+joint_data/1/bone2d_node = NodePath("Rhumer/Rfore")
+joint_data/1/magnet_position = Vector2(-10, 10)
+joint_data/1/use_target_rotation = false
+
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_ydf02"]
+enabled = true
+modification_count = 1
+modifications/0 = SubResource("SkeletonModification2DFABRIK_7t5jc")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7t5jc"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.13818929, 0.15392238, 0.16605723, 0.6)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ydf02"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.13725491, 0.15294118, 0.16470589, 0.6)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tsp4e"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.13725491, 0.15294118, 0.16470589, 0.6)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 6
+
+[node name="EquipableMaker" type="Node2D" node_paths=PackedStringArray("animation", "vbox", "sprite", "focus", "leftArm", "leftSkeleton", "leftFocus", "rightArm", "rightSkeleton", "rightFocus", "focusSprite", "equipableSprite", "dragName", "animationList", "updatedTime", "timeline")]
+script = ExtResource("1_641pu")
+animation = NodePath("LiveAnimationPlayer")
+vbox = NodePath("Screenblur/EquipableSelector/EquipableVbox")
+sprite = NodePath("player/body")
+focus = NodePath("focus/RemoteTransform2D")
+leftArm = NodePath("player/leftArm")
+leftSkeleton = NodePath("player/leftArm/Skeleton2D")
+leftFocus = NodePath("player/leftFocus")
+rightArm = NodePath("player/rightArm")
+rightSkeleton = NodePath("player/rightArm/Skeleton2D")
+rightFocus = NodePath("player/rightFocus")
+focusSprite = NodePath("focus")
+equipableSprite = NodePath("equip")
+dragName = NodePath("Inspector/Name")
+animationList = NodePath("Editor Options/OptionButton")
+updatedTime = NodePath("timeline/current")
+timeline = NodePath("timeline/HSlider")
+play = ExtResource("2_ydf02")
+pause = ExtResource("3_sbyug")
+
+[node name="LiveAnimationPlayer" type="Node" parent="." node_paths=PackedStringArray("objects")]
+script = ExtResource("4_mm4vo")
+objects = {
+"equip": NodePath("../equip"),
+"focus": NodePath("../focus")
+}
+
+[node name="Screenblur" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("7_641pu")
+
+[node name="Square" type="Sprite2D" parent="Screenblur"]
+z_index = 99
+material = SubResource("ShaderMaterial_komjd")
+position = Vector2(-3.5, -8.5)
+scale = Vector2(22.633333, 13.366667)
+texture = ExtResource("9_6xh0l")
+
+[node name="EquipableSelector" type="Control" parent="Screenblur"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Screenblur/EquipableSelector"]
+z_index = 100
+layout_mode = 0
+offset_left = -56.0
+offset_top = -163.0
+offset_right = 56.0
+offset_bottom = -140.0
+text = "Select an Object"
+
+[node name="EquipableVbox" type="VBoxContainer" parent="Screenblur/EquipableSelector"]
+z_index = 100
+layout_mode = 0
+offset_left = -85.0
+offset_top = -142.0
+offset_right = 86.0
+offset_bottom = 44.0
+theme_override_constants/separation = 4
+
+[node name="NewAnimation" type="Control" parent="Screenblur"]
+visible = false
+z_index = 100
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LineEdit" type="LineEdit" parent="Screenblur/NewAnimation"]
+layout_mode = 0
+offset_left = -138.0
+offset_top = -28.0
+offset_right = 140.0
+offset_bottom = -6.0
+focus_mode = 1
+placeholder_text = "New Animation Name"
+context_menu_enabled = false
+emoji_menu_enabled = false
+virtual_keyboard_enabled = false
+virtual_keyboard_show_on_focus = false
+middle_mouse_paste_enabled = false
+caret_blink = true
+
+[node name="Label" type="Label" parent="Screenblur/NewAnimation"]
+layout_mode = 0
+offset_left = -77.0
+offset_top = 6.0
+offset_right = 77.0
+offset_bottom = 28.0
+text = "Press enter to submit."
+
+[node name="RenameAnimation" type="Control" parent="Screenblur"]
+visible = false
+z_index = 100
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LineEdit" type="LineEdit" parent="Screenblur/RenameAnimation"]
+layout_mode = 0
+offset_left = -138.0
+offset_top = -28.0
+offset_right = 140.0
+offset_bottom = -6.0
+focus_mode = 1
+placeholder_text = "New Animation Name"
+context_menu_enabled = false
+emoji_menu_enabled = false
+virtual_keyboard_enabled = false
+virtual_keyboard_show_on_focus = false
+middle_mouse_paste_enabled = false
+caret_blink = true
+
+[node name="Label" type="Label" parent="Screenblur/RenameAnimation"]
+layout_mode = 0
+offset_left = -77.0
+offset_top = 6.0
+offset_right = 77.0
+offset_bottom = 28.0
+text = "Press enter to submit."
+
+[node name="DeleteAnimation" type="Control" parent="Screenblur"]
+visible = false
+z_index = 100
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="confirm" type="Label" parent="Screenblur/DeleteAnimation"]
+layout_mode = 0
+offset_left = -297.0
+offset_top = -72.0
+offset_right = 297.0
+offset_bottom = -30.0
+theme_override_constants/line_spacing = 0
+text = "This wil delete animation ()
+"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Screenblur/DeleteAnimation"]
+layout_mode = 0
+offset_left = -297.0
+offset_top = -72.0
+offset_right = 297.0
+offset_bottom = -30.0
+theme_override_constants/line_spacing = 0
+text = "
+Are you sure?
+(this action is irreversable)"
+horizontal_alignment = 1
+
+[node name="Yes" type="Button" parent="Screenblur/DeleteAnimation"]
+layout_mode = 0
+offset_left = -47.0
+offset_top = -21.0
+offset_right = -18.0
+offset_bottom = 1.0
+text = "Yes"
+
+[node name="No" type="Button" parent="Screenblur/DeleteAnimation"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = -21.0
+offset_right = 41.0
+offset_bottom = 1.0
+text = "No"
+
+[node name="player" type="Node2D" parent="."]
+
+[node name="body" type="Sprite2D" parent="player"]
+position = Vector2(-1, -5.5)
+texture = ExtResource("1_wlutq")
+hframes = 3
+
+[node name="blink" type="Sprite2D" parent="player/body"]
+visible = false
+z_index = 1
+position = Vector2(1, -18)
+texture = ExtResource("2_641pu")
+hframes = 3
+
+[node name="head" type="Sprite2D" parent="player/body"]
+position = Vector2(1, -17)
+texture = ExtResource("3_ii3dx")
+hframes = 3
+
+[node name="legs" type="Sprite2D" parent="player/body"]
+position = Vector2(2, 22.5)
+texture = ExtResource("4_pqmv1")
+
+[node name="leftArm" type="Node2D" parent="player"]
+z_index = 4
+position = Vector2(-8, 0)
+
+[node name="polygons" type="Node2D" parent="player/leftArm"]
+
+[node name="humerus" type="Polygon2D" parent="player/leftArm/polygons"]
+position = Vector2(-4, -15)
+texture = ExtResource("5_6xh0l")
+skeleton = NodePath("../../Skeleton2D")
+polygon = PackedVector2Array(2.86812, 1.23576, 6.72841, 1.21371, 9.50782, 3.35341, 9.52988, 7.30194, 6.92694, 15.2211, 1.16959, 15.199, 1.25782, 3.24312)
+uv = PackedVector2Array(2.86812, 1.23576, 6.72841, 1.21371, 9.50782, 3.35341, 9.52988, 7.30194, 6.92694, 15.2211, 1.16959, 15.199, 1.25782, 3.24312)
+bones = ["Lhumer", PackedFloat32Array(0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5), "Lhumer/Lforearm", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0), "Lhumer/Lforearm/Lhand", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)]
+
+[node name="forearm" type="Polygon2D" parent="player/leftArm/polygons"]
+position = Vector2(-14, -5)
+texture = ExtResource("5_6xh0l")
+skeleton = NodePath("../../Skeleton2D")
+polygon = PackedVector2Array(10.9858, 3.11076, 11.0078, 10.4784, 13.0814, 14.8902, 18.1108, 14.8902, 17.9122, 1.74312, 16.0372, 0.838706, 12.0225, 1.34606)
+uv = PackedVector2Array(10.9858, 3.11076, 11.0078, 10.4784, 13.0814, 14.8902, 18.1108, 14.8902, 17.9122, 1.74312, 16.0372, 0.838706, 12.0225, 1.34606)
+bones = ["Lhumer", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0), "Lhumer/Lforearm", PackedFloat32Array(0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5), "Lhumer/Lforearm/Lhand", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)]
+
+[node name="hand" type="Polygon2D" parent="player/leftArm/polygons"]
+position = Vector2(-23, 1)
+texture = ExtResource("5_6xh0l")
+skeleton = NodePath("../../Skeleton2D")
+polygon = PackedVector2Array(19.2578, 5.64753, 20.9343, 11.4269, 27.7946, 11.8019, 27.7505, 6.17694, 22.7211, 5.02988)
+uv = PackedVector2Array(19.2578, 5.64753, 20.9343, 11.4269, 27.7946, 11.8019, 27.7505, 6.17694, 22.7211, 5.02988)
+bones = ["Lhumer", PackedFloat32Array(0, 0, 0, 0, 0), "Lhumer/Lforearm", PackedFloat32Array(0, 0, 0, 0, 0), "Lhumer/Lforearm/Lhand", PackedFloat32Array(0.5, 0.5, 0.5, 0.5, 0.5)]
+
+[node name="Skeleton2D" type="Skeleton2D" parent="player/leftArm"]
+modification_stack = SubResource("SkeletonModificationStack2D_tsp4e")
+
+[node name="Lhumer" type="Bone2D" parent="player/leftArm/Skeleton2D"]
+position = Vector2(1.5, -10.5)
+rotation = 0.20961183
+scale = Vector2(0.9999986, 0.9999986)
+rest = Transform2D(1, 0, 0, 1, 1.5, -10.5)
+editor_settings/show_bone_gizmo = false
+metadata/_local_pose_override_enabled_ = true
+
+[node name="Lforearm" type="Bone2D" parent="player/leftArm/Skeleton2D/Lhumer"]
+position = Vector2(-0.5, 8.500002)
+rotation = -0.43631843
+scale = Vector2(0.99999785, 0.99999785)
+rest = Transform2D(1, 0, 0, 1, -0.5, 8.5)
+editor_settings/show_bone_gizmo = false
+metadata/_local_pose_override_enabled_ = true
+
+[node name="Lhand" type="Bone2D" parent="player/leftArm/Skeleton2D/Lhumer/Lforearm"]
+position = Vector2(0, 9)
+rotation = 1.0472
+scale = Vector2(0.999999, 0.999999)
+rest = Transform2D(-4.37114e-08, 1, -1, -4.37114e-08, 0, 9)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 78.323875
+editor_settings/show_bone_gizmo = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="player/leftArm/Skeleton2D/Lhumer/Lforearm/Lhand"]
+remote_path = NodePath("../../../../lShoulder/lhand")
+update_rotation = false
+update_scale = false
+
+[node name="lShoulder" type="Marker2D" parent="player/leftArm/Skeleton2D"]
+position = Vector2(1.5, -10.5)
+gizmo_extents = 3.0
+
+[node name="lhand" type="Marker2D" parent="player/leftArm/Skeleton2D/lShoulder"]
+position = Vector2(-17.485657, 0.6485405)
+scale = Vector2(1.00001, 1.00001)
+
+[node name="rightArm" type="Node2D" parent="player"]
+z_index = -4
+position = Vector2(3, 0)
+
+[node name="polygons" type="Node2D" parent="player/rightArm"]
+
+[node name="humer" type="Polygon2D" parent="player/rightArm/polygons"]
+position = Vector2(-3, -15)
+texture = ExtResource("5_6xh0l")
+skeleton = NodePath("../../Skeleton2D")
+polygon = PackedVector2Array(2.20882, 1.13624, 9.56447, 1.4626, 9.68999, 11.0526, 5.8992, 15.6969, 0.85317, 15.5463, 0.903379, 2.81825)
+uv = PackedVector2Array(2.20882, 1.13624, 9.56447, 1.4626, 9.68999, 11.0526, 5.8992, 15.6969, 0.85317, 15.5463, 0.903379, 2.81825)
+bones = ["Rhumer", PackedFloat32Array(0.5, 0.5, 0.5, 0.5, 0.5, 0.5), "Rhumer/Rfore", PackedFloat32Array(0, 0, 0, 0, 0, 0), "Rhumer/Rfore/Rhand", PackedFloat32Array(0, 0, 0, 0, 0, 0)]
+
+[node name="fore" type="Polygon2D" parent="player/rightArm/polygons"]
+position = Vector2(-13, -5)
+texture = ExtResource("5_6xh0l")
+skeleton = NodePath("../../Skeleton2D")
+polygon = PackedVector2Array(10.5666, 1.75329, 11.2284, 13.8856, 14.5814, 15.4739, 18.4858, 14.2606, 17.9122, 1.46653, 15.8828, 0.385647, 12.1549, 0.937118)
+uv = PackedVector2Array(10.5666, 1.75329, 11.2284, 13.8856, 14.5814, 15.4739, 18.4858, 14.2606, 17.9122, 1.46653, 15.8828, 0.385647, 10.4564, 1.90771)
+bones = ["Rhumer", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0), "Rhumer/Rfore", PackedFloat32Array(0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5), "Rhumer/Rfore/Rhand", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)]
+
+[node name="hand" type="Polygon2D" parent="player/rightArm/polygons"]
+position = Vector2(-23, 1)
+texture = ExtResource("5_6xh0l")
+skeleton = NodePath("../../Skeleton2D")
+polygon = PackedVector2Array(19.8755, 5.393, 20.5593, 11.5254, 28.8093, 12.1651, 27.949, 6.12094, 23.7137, 4.81947)
+uv = PackedVector2Array(19.8755, 5.393, 20.5593, 11.5254, 28.8093, 12.1651, 27.949, 6.12094, 23.7137, 4.81947)
+bones = ["Rhumer", PackedFloat32Array(0, 0, 0, 0, 0), "Rhumer/Rfore", PackedFloat32Array(0, 0, 0, 0, 0), "Rhumer/Rfore/Rhand", PackedFloat32Array(0.5, 0.5, 0.5, 0.5, 0.5)]
+
+[node name="Skeleton2D" type="Skeleton2D" parent="player/rightArm"]
+modification_stack = SubResource("SkeletonModificationStack2D_ydf02")
+
+[node name="rShoulder" type="Marker2D" parent="player/rightArm/Skeleton2D"]
+position = Vector2(1.5, -10.5)
+gizmo_extents = 3.0
+
+[node name="rHand" type="Marker2D" parent="player/rightArm/Skeleton2D/rShoulder"]
+position = Vector2(10.950468, 9.586358)
+scale = Vector2(1.00005, 1.00005)
+
+[node name="Rhumer" type="Bone2D" parent="player/rightArm/Skeleton2D"]
+position = Vector2(1.5, -10.5)
+rotation = 0.41626453
+scale = Vector2(0.99999756, 0.99999756)
+rest = Transform2D(1, 0, 0, 1, 1.5, -10.5)
+editor_settings/show_bone_gizmo = false
+metadata/_local_pose_override_enabled_ = true
+
+[node name="Rfore" type="Bone2D" parent="player/rightArm/Skeleton2D/Rhumer"]
+position = Vector2(0.50000024, 7.5000005)
+rotation = -0.7911728
+scale = Vector2(1.0000006, 1.0000006)
+rest = Transform2D(1, 0, 0, 1, 0.5, 7.5)
+editor_settings/show_bone_gizmo = false
+metadata/_local_pose_override_enabled_ = true
+
+[node name="Rhand" type="Bone2D" parent="player/rightArm/Skeleton2D/Rhumer/Rfore"]
+position = Vector2(0, 11)
+rotation = 1.5708
+rest = Transform2D(-4.37114e-08, 1, -1, -4.37114e-08, 0, 11)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 90.0002
+editor_settings/show_bone_gizmo = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="player/rightArm/Skeleton2D/Rhumer/Rfore/Rhand"]
+remote_path = NodePath("../../../../rShoulder/rHand")
+update_rotation = false
+update_scale = false
+
+[node name="rightFocus" type="Marker2D" parent="player"]
+position = Vector2(15.000004, -1.0000044)
+scale = Vector2(0.073333345, 0.073333345)
+
+[node name="leftFocus" type="Marker2D" parent="player"]
+position = Vector2(-50, -10)
+scale = Vector2(0.10000001, 0.10000001)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Inspector" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("7_641pu")
+
+[node name="Name" type="Label" parent="Inspector"]
+layout_mode = 0
+offset_left = 159.0
+offset_top = -172.0
+offset_right = 299.0
+offset_bottom = -158.0
+text = "Item Name"
+horizontal_alignment = 1
+
+[node name="Title" type="Label" parent="Inspector"]
+layout_mode = 0
+offset_left = 159.0
+offset_top = -154.0
+offset_right = 299.0
+offset_bottom = -140.0
+text = "Transparancy"
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="Inspector"]
+layout_mode = 0
+offset_left = 165.0
+offset_top = -143.0
+offset_right = 294.0
+offset_bottom = -127.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+scrollable = false
+
+[node name="Frame" type="Label" parent="Inspector"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = -117.0
+offset_right = 271.0
+offset_bottom = -103.0
+text = "Frame:"
+
+[node name="SpinBox" type="SpinBox" parent="Inspector"]
+layout_mode = 0
+offset_left = 231.0
+offset_top = -121.0
+offset_right = 285.0
+offset_bottom = -99.0
+
+[node name="Editor Options" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 39.0
+offset_bottom = 39.0
+theme = ExtResource("7_641pu")
+
+[node name="Flip" type="CheckBox" parent="Editor Options"]
+layout_mode = 0
+offset_left = -304.0
+offset_top = -126.0
+offset_right = -199.0
+offset_bottom = -102.0
+focus_mode = 0
+text = "Flip Player"
+
+[node name="Swap" type="CheckBox" parent="Editor Options"]
+layout_mode = 0
+offset_left = -304.0
+offset_top = -104.0
+offset_right = -199.0
+offset_bottom = -80.0
+focus_mode = 0
+text = "Swap Hand"
+
+[node name="Swap2" type="CheckBox" parent="Editor Options"]
+layout_mode = 0
+offset_left = -304.0
+offset_top = -83.0
+offset_right = -199.0
+offset_bottom = -59.0
+focus_mode = 0
+text = "Equipable Behind"
+
+[node name="OptionButton" type="OptionButton" parent="Editor Options"]
+layout_mode = 0
+offset_left = -82.0
+offset_top = -173.0
+offset_right = 83.0
+offset_bottom = -153.0
+focus_mode = 0
+selected = 0
+item_count = 2
+popup/item_0/text = "-NO ANIMATIONS-"
+popup/item_0/id = 0
+popup/item_0/disabled = true
+popup/item_1/text = "Add New Animation"
+popup/item_1/id = 3
+
+[node name="Delete Animation" type="Button" parent="Editor Options"]
+layout_mode = 0
+offset_left = -110.0
+offset_top = -175.0
+offset_right = -86.0
+offset_bottom = -151.0
+focus_mode = 0
+icon = ExtResource("10_2ivlx")
+
+[node name="Rename Animation" type="Button" parent="Editor Options"]
+layout_mode = 0
+offset_left = -138.0
+offset_top = -175.0
+offset_right = -114.0
+offset_bottom = -151.0
+focus_mode = 0
+icon = ExtResource("11_komjd")
+
+[node name="Name" type="Label" parent="Editor Options"]
+layout_mode = 0
+offset_left = -69.0
+offset_top = -150.0
+offset_right = 71.0
+offset_bottom = -136.0
+text = "Current Animation"
+horizontal_alignment = 1
+
+[node name="switch" type="Button" parent="Editor Options"]
+layout_mode = 0
+offset_left = -310.0
+offset_top = -175.0
+offset_right = -190.0
+offset_bottom = -153.0
+focus_mode = 0
+text = "Change Equipable"
+
+[node name="save" type="Button" parent="Editor Options"]
+layout_mode = 0
+offset_left = -310.0
+offset_top = -148.0
+offset_right = -190.0
+offset_bottom = -126.0
+focus_mode = 0
+text = "Save"
+
+[node name="focus" type="Area2D" parent="."]
+modulate = Color(0.6972708, 0.2948632, 0.13098156, 1)
+z_index = 98
+position = Vector2(15.000004, -1.0000019)
+scale = Vector2(0.4, 0.4)
+script = ExtResource("14_ydf02")
+texture = ExtResource("15_sbyug")
+metadata/_custom_type_script = "uid://3k6mpful3qhh"
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="focus"]
+position = Vector2(-2.3841858e-07, -6.198883e-06)
+scale = Vector2(0.18333335, 0.18333335)
+remote_path = NodePath("../../player/rightFocus")
+
+[node name="equip" type="Area2D" parent="."]
+script = ExtResource("14_ydf02")
+metadata/_custom_type_script = "uid://3k6mpful3qhh"
+
+[node name="timeline" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("7_641pu")
+
+[node name="HSlider" type="HSlider" parent="timeline"]
+layout_mode = 0
+offset_left = -270.0
+offset_top = 67.0
+offset_right = 270.0
+offset_bottom = 83.0
+theme_override_icons/grabber = ExtResource("13_tsp4e")
+theme_override_icons/grabber_highlight = ExtResource("13_tsp4e")
+theme_override_styles/slider = SubResource("StyleBoxFlat_7t5jc")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_ydf02")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_tsp4e")
+max_value = 1.0
+step = 0.01
+tick_count = 11
+ticks_on_borders = true
+
+[node name="Label" type="Label" parent="timeline"]
+layout_mode = 0
+offset_left = -271.0
+offset_top = 53.0
+offset_right = -231.0
+offset_bottom = 76.0
+text = "0"
+
+[node name="current" type="Label" parent="timeline"]
+layout_mode = 0
+offset_left = -19.0
+offset_top = 53.0
+offset_right = 21.0
+offset_bottom = 76.0
+text = "0"
+horizontal_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="timeline"]
+layout_mode = 0
+offset_left = 250.0
+offset_top = 45.0
+offset_right = 286.0
+offset_bottom = 67.0
+text = "1.0"
+alignment = 1
+
+[node name="Button" type="Button" parent="timeline"]
+layout_mode = 0
+offset_left = -299.0
+offset_top = 64.0
+offset_right = -275.0
+offset_bottom = 88.0
+icon = ExtResource("2_ydf02")
+
+[connection signal="button_down" from="Screenblur/DeleteAnimation/Yes" to="." method="actuallyDelete"]
+[connection signal="button_down" from="Screenblur/DeleteAnimation/No" to="." method="wipeBlur"]
+[connection signal="value_changed" from="Inspector/HSlider" to="." method="change_dragable_transparency"]
+[connection signal="value_changed" from="Inspector/SpinBox" to="." method="changeFrame"]
+[connection signal="toggled" from="Editor Options/Flip" to="." method="flip"]
+[connection signal="toggled" from="Editor Options/Swap" to="." method="swap_hand"]
+[connection signal="item_selected" from="Editor Options/OptionButton" to="." method="selectAnimation"]
+[connection signal="button_down" from="Editor Options/Delete Animation" to="." method="deleteConfirm"]
+[connection signal="button_down" from="Editor Options/Rename Animation" to="." method="renameAnimation"]
+[connection signal="button_down" from="Editor Options/switch" to="." method="swapEquip"]
+[connection signal="button_down" from="Editor Options/save" to="." method="save"]
+[connection signal="value_changed" from="timeline/HSlider" to="." method="moveTimeline"]
+[connection signal="text_submitted" from="timeline/LineEdit" to="." method="changeAnimationTime"]
+[connection signal="button_down" from="timeline/Button" to="." method="playPause"]
