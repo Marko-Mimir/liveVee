@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://by5u4hwxavavx"]
+
+[ext_resource type="Script" uid="uid://ceqogi4veh084" path="res://scripts/debug/TrackVisualizer.gd" id="1_autpv"]
+[ext_resource type="Texture2D" uid="uid://dtmvdfii0erae" path="res://sprites/circle.png" id="2_epet3"]
+
+[node name="TrackLine" type="Line2D"]
+points = PackedVector2Array(-270, 0, 270, 0)
+closed = true
+width = 1.0
+default_color = Color(0.556953, 0.556953, 0.556953, 1)
+script = ExtResource("1_autpv")
+keyframeImage = ExtResource("2_epet3")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://ra5irfngu71i"]
+[gd_scene load_steps=27 format=3 uid="uid://ra5irfngu71i"]
 
 [ext_resource type="Script" uid="uid://crc3dtca5884n" path="res://scripts/debug/equipable_maker.gd" id="1_641pu"]
 [ext_resource type="Texture2D" uid="uid://clar7icgm343h" path="res://sprites/player/body.png" id="1_wlutq"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://dvv2lby4p0aln" path="res://sprites/rect.png" id="13_tsp4e"]
 [ext_resource type="Script" uid="uid://3k6mpful3qhh" path="res://addons/draggablesprite2d/src/draggablesprite2d.gd" id="14_ydf02"]
 [ext_resource type="Texture2D" uid="uid://c0gse3sl7qd3k" path="res://sprites/plus.png" id="15_sbyug"]
+[ext_resource type="PackedScene" uid="uid://by5u4hwxavavx" path="res://objects/debug/AnimationTrackVisualizer.tscn" id="18_wecmf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_komjd"]
 shader = ExtResource("2_2ivlx")
@@ -88,7 +89,7 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 corner_detail = 6
 
-[node name="EquipableMaker" type="Node2D" node_paths=PackedStringArray("animation", "vbox", "sprite", "focus", "leftArm", "leftSkeleton", "leftFocus", "rightArm", "rightSkeleton", "rightFocus", "focusSprite", "equipableSprite", "dragName", "animationList", "updatedTime", "timeline")]
+[node name="EquipableMaker" type="Node2D" node_paths=PackedStringArray("animation", "vbox", "sprite", "focus", "leftArm", "leftSkeleton", "leftFocus", "rightArm", "rightSkeleton", "rightFocus", "focusSprite", "equipableSprite", "dragName", "animationList", "updatedTime", "timeline", "whereVisualizersGo")]
 script = ExtResource("1_641pu")
 animation = NodePath("LiveAnimationPlayer")
 vbox = NodePath("Screenblur/EquipableSelector/EquipableVbox")
@@ -106,6 +107,8 @@ dragName = NodePath("Inspector/Name")
 animationList = NodePath("Editor Options/OptionButton")
 updatedTime = NodePath("timeline/current")
 timeline = NodePath("timeline/HSlider")
+baseVisualizer = ExtResource("18_wecmf")
+whereVisualizersGo = NodePath("timeline/putVisualizersHere")
 play = ExtResource("2_ydf02")
 pause = ExtResource("3_sbyug")
 
@@ -318,16 +321,16 @@ modification_stack = SubResource("SkeletonModificationStack2D_tsp4e")
 
 [node name="Lhumer" type="Bone2D" parent="player/leftArm/Skeleton2D"]
 position = Vector2(1.5, -10.5)
-rotation = 0.20961183
-scale = Vector2(0.9999986, 0.9999986)
+rotation = 1.4297442
+scale = Vector2(0.99999833, 0.99999833)
 rest = Transform2D(1, 0, 0, 1, 1.5, -10.5)
 editor_settings/show_bone_gizmo = false
 metadata/_local_pose_override_enabled_ = true
 
 [node name="Lforearm" type="Bone2D" parent="player/leftArm/Skeleton2D/Lhumer"]
-position = Vector2(-0.5, 8.500002)
-rotation = -0.43631843
-scale = Vector2(0.99999785, 0.99999785)
+position = Vector2(-0.50000095, 8.500002)
+rotation = 0.14676222
+scale = Vector2(0.99999803, 0.99999803)
 rest = Transform2D(1, 0, 0, 1, -0.5, 8.5)
 editor_settings/show_bone_gizmo = false
 metadata/_local_pose_override_enabled_ = true
@@ -352,7 +355,7 @@ position = Vector2(1.5, -10.5)
 gizmo_extents = 3.0
 
 [node name="lhand" type="Marker2D" parent="player/leftArm/Skeleton2D/lShoulder"]
-position = Vector2(-17.485657, 0.6485405)
+position = Vector2(-17.485674, 0.6485424)
 scale = Vector2(1.00001, 1.00001)
 
 [node name="rightArm" type="Node2D" parent="player"]
@@ -393,21 +396,21 @@ position = Vector2(1.5, -10.5)
 gizmo_extents = 3.0
 
 [node name="rHand" type="Marker2D" parent="player/rightArm/Skeleton2D/rShoulder"]
-position = Vector2(10.950468, 9.586358)
+position = Vector2(10.95047, 9.586357)
 scale = Vector2(1.00005, 1.00005)
 
 [node name="Rhumer" type="Bone2D" parent="player/rightArm/Skeleton2D"]
 position = Vector2(1.5, -10.5)
-rotation = 0.41626453
+rotation = 0.04697895
 scale = Vector2(0.99999756, 0.99999756)
 rest = Transform2D(1, 0, 0, 1, 1.5, -10.5)
 editor_settings/show_bone_gizmo = false
 metadata/_local_pose_override_enabled_ = true
 
 [node name="Rfore" type="Bone2D" parent="player/rightArm/Skeleton2D/Rhumer"]
-position = Vector2(0.50000024, 7.5000005)
-rotation = -0.7911728
-scale = Vector2(1.0000006, 1.0000006)
+position = Vector2(0.5000005, 7.500001)
+rotation = -1.428356
+scale = Vector2(1.0000007, 1.0000007)
 rest = Transform2D(1, 0, 0, 1, 0.5, 7.5)
 editor_settings/show_bone_gizmo = false
 metadata/_local_pose_override_enabled_ = true
@@ -557,6 +560,15 @@ offset_bottom = -151.0
 focus_mode = 0
 icon = ExtResource("11_komjd")
 
+[node name="Add Object" type="Button" parent="Editor Options"]
+layout_mode = 0
+offset_left = -185.0
+offset_top = -175.0
+offset_right = -161.0
+offset_bottom = -151.0
+focus_mode = 0
+icon = ExtResource("15_sbyug")
+
 [node name="Name" type="Label" parent="Editor Options"]
 layout_mode = 0
 offset_left = -69.0
@@ -659,6 +671,9 @@ offset_right = -275.0
 offset_bottom = 88.0
 icon = ExtResource("2_ydf02")
 
+[node name="putVisualizersHere" type="Marker2D" parent="timeline"]
+position = Vector2(0, 103)
+
 [connection signal="button_down" from="Screenblur/DeleteAnimation/Yes" to="." method="actuallyDelete"]
 [connection signal="button_down" from="Screenblur/DeleteAnimation/No" to="." method="wipeBlur"]
 [connection signal="value_changed" from="Inspector/HSlider" to="." method="change_dragable_transparency"]
@@ -668,6 +683,7 @@ icon = ExtResource("2_ydf02")
 [connection signal="item_selected" from="Editor Options/OptionButton" to="." method="selectAnimation"]
 [connection signal="button_down" from="Editor Options/Delete Animation" to="." method="deleteConfirm"]
 [connection signal="button_down" from="Editor Options/Rename Animation" to="." method="renameAnimation"]
+[connection signal="button_down" from="Editor Options/Add Object" to="." method="addObject"]
 [connection signal="button_down" from="Editor Options/switch" to="." method="swapEquip"]
 [connection signal="button_down" from="Editor Options/save" to="." method="save"]
 [connection signal="value_changed" from="timeline/HSlider" to="." method="moveTimeline"]

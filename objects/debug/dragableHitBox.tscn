@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://owivti2ugdup"]
+
+[ext_resource type="Script" uid="uid://dcljwpmgh7ht0" path="res://scripts/debug/ManipulateHitbox.gd" id="1_utijm"]
+[ext_resource type="Script" uid="uid://dsg65t2wqqr31" path="res://scripts/debug/dragable.gd" id="2_ra81b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ra81b"]
+size = Vector2(4, 4)
+
+[node name="HitBox" type="Node2D"]
+script = ExtResource("1_utijm")
+
+[node name="Top_Left" type="Area2D" parent="."]
+position = Vector2(-10, -10)
+script = ExtResource("2_ra81b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Top_Left"]
+shape = SubResource("RectangleShape2D_ra81b")
+
+[node name="Top_Right" type="Area2D" parent="."]
+position = Vector2(10, -10)
+script = ExtResource("2_ra81b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Top_Right"]
+shape = SubResource("RectangleShape2D_ra81b")
+
+[node name="Bottom_Right" type="Area2D" parent="."]
+position = Vector2(10, 10)
+script = ExtResource("2_ra81b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom_Right"]
+shape = SubResource("RectangleShape2D_ra81b")
+
+[node name="Bottom_Left" type="Area2D" parent="."]
+position = Vector2(-10, 10)
+script = ExtResource("2_ra81b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom_Left"]
+shape = SubResource("RectangleShape2D_ra81b")

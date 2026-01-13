@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LiveEquipable" load_steps=34 format=3 uid="uid://bq23ee66b6s5g"]
+[gd_resource type="Resource" script_class="LiveEquipable" load_steps=28 format=3 uid="uid://bq23ee66b6s5g"]
 
 [ext_resource type="Script" uid="uid://bvb408pib8awm" path="res://scripts/equipables/resources/liveAnimation.gd" id="1_plwyb"]
 [ext_resource type="Script" uid="uid://bas8gupab6hbb" path="res://scripts/equipables/resources/liveEquipable.gd" id="2_ccasi"]
@@ -108,40 +108,11 @@ script = ExtResource("2_qgs1d")
 trackPath = "equip:frame"
 keyframes = Array[ExtResource("3_2kc0l")]([SubResource("Resource_kgpl5"), SubResource("Resource_x34n8"), SubResource("Resource_1cg2r"), SubResource("Resource_pdlbl"), SubResource("Resource_ph5iu"), SubResource("Resource_t4117")])
 
-[sub_resource type="Resource" id="Resource_mbuh8"]
-script = ExtResource("3_2kc0l")
-value = 0.0
-
-[sub_resource type="Resource" id="Resource_i4o8h"]
-script = ExtResource("3_2kc0l")
-time = 0.2
-value = 0.0
-
-[sub_resource type="Resource" id="Resource_vbikb"]
-script = ExtResource("3_2kc0l")
-time = 0.3
-value = 0.0
-
-[sub_resource type="Resource" id="Resource_q8cw7"]
-script = ExtResource("3_2kc0l")
-time = 0.4
-value = 0.0
-
-[sub_resource type="Resource" id="Resource_u3nmh"]
-script = ExtResource("3_2kc0l")
-time = 0.5
-value = 0.0
-
-[sub_resource type="Resource" id="Resource_xka2c"]
-script = ExtResource("2_qgs1d")
-trackPath = "focus:frame"
-keyframes = Array[ExtResource("3_2kc0l")]([SubResource("Resource_mbuh8"), SubResource("Resource_i4o8h"), SubResource("Resource_vbikb"), SubResource("Resource_q8cw7"), SubResource("Resource_u3nmh")])
-
 [sub_resource type="Resource" id="Resource_0w7ra"]
 script = ExtResource("1_plwyb")
 name = "Testing"
 length = 1.0
-tracks = Array[ExtResource("2_qgs1d")]([SubResource("Resource_6ligc"), SubResource("Resource_eseas"), SubResource("Resource_lnjcc"), SubResource("Resource_xka2c")])
+tracks = Array[ExtResource("2_qgs1d")]([SubResource("Resource_6ligc"), SubResource("Resource_eseas"), SubResource("Resource_lnjcc")])
 
 [resource]
 script = ExtResource("2_ccasi")

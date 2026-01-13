@@ -17,12 +17,15 @@ class_name DebugMaker
 @export var animationList : OptionButton
 @export var updatedTime : Label
 @export var timeline : HSlider
+@export var baseVisualizer : PackedScene
+@export var whereVisualizersGo : Marker2D
 var currentEquipable : LiveEquipable
 var lastDrag : DraggableSprite2D
 var animations : Array[String] = []
 var dir = DirAccess.open("res://resources/equipables/")
 var isPlaying : bool = false
 var currentAnimation : String
+var visual : Dictionary[String, LiveTrackVisualizer]
 @export var play : CompressedTexture2D
 @export var pause : CompressedTexture2D
 
@@ -39,6 +42,17 @@ func _ready() -> void:
 	equipableSprite.grabbed.connect(self.dragableClicked.bind(equipableSprite))
 	focusSprite.released.connect(self.dragableDropped.bind(focusSprite))
 	equipableSprite.released.connect(self.dragableDropped.bind(equipableSprite))
+
+func updateFrameTracks(track : LiveAnimationTrack):
+	if track.trackPath in visual.keys():
+		visual.get(track.trackPath).visualize(track, timeline.max_value)
+		return
+	var v = baseVisualizer.instantiate()
+	var p = whereVisualizersGo.get_child_count()*20
+	whereVisualizersGo.add_child(v)
+	v.position = Vector2(0, p)
+	visual.set(track.trackPath, v)
+	v.visualize(track, timeline.max_value)
 
 func populateEquipment() -> void:
 	dir.list_dir_begin()
@@ -106,14 +120,21 @@ func dragableClicked(dragable : DraggableSprite2D) -> void:
 	else:
 		$Inspector/SpinBox.visible = true
 		$Inspector/Frame.visible = true
-	$Inspector/SpinBox.max_value = dragable.hframes-1
-	$Inspector/SpinBox.value = dragable.frame
+		$Inspector/SpinBox.max_value = dragable.hframes-1
+		$Inspector/SpinBox.set_value_no_signal(dragable.frame)
 
 func dragableDropped(dragable : DraggableSprite2D) -> void:
 	if getCurrentAnimationName() in ["-NO ANIMATIONS-", "Add New Animation"]:
 		return
 	var anim = currentEquipable.animations[findAnimation(getCurrentAnimationName())]
 	animation.addKeyframe(anim, dragable.name, getCurrentTime(), dragable.position)
+	updateFrameTracks(getTrack(dragable.name))
+
+func getTrack(trackp : String) -> LiveAnimationTrack:
+	for t in getCurrentAnimation().tracks:
+		if t.trackPath == trackp:
+			return t
+	return null
 
 func swap_hand(_toggled_on: bool) -> void:
 	if focus.remote_path.get_name(3) == "rightFocus":
@@ -153,6 +174,8 @@ func createAnimation() -> void:
 	animation.addKeyframe(anim, "focus", 0.0, focusSprite.position)
 	animation.addKeyframe(anim, "equip", 0.0, equipableSprite.position)
 	animation.addKeyframe(anim, "equip:frame", 0.0, 0)
+	for t in anim.tracks:
+		updateFrameTracks(t)
 
 func save():
 	var r = ResourceSaver.save(currentEquipable, currentEquipable.resource_path)
@@ -192,6 +215,8 @@ func selectAnimation(index: int) -> void:
 		changeAnimationTime(str(cur.length))
 		animation.setActorsAtTime(cur, 0.0)
 		animation.initPlay(cur, 0.0)
+		for track in cur.tracks:
+			updateFrameTracks(track)
 
 func getCurrentAnimationName() -> String:
 	return animationList.get_item_text(animationList.selected)
@@ -249,6 +274,8 @@ func changeAnimationTime(new_text: String) -> void:
 	currentEquipable.animations[findAnimation(currentAnimation)].length = new_text.to_float()
 	timeline.max_value = new_text.to_float()
 	timeline.tick_count = int(timeline.max_value*10)+1
+	for t in getCurrentAnimation().tracks:
+		updateFrameTracks(t)
 
 func getCurrentTime() -> float:
 	return float(updatedTime.text)
@@ -265,3 +292,9 @@ func playPause() -> void:
 func changeFrame(value: float) -> void:
 	lastDrag.frame = value
 	animation.addKeyframe(getCurrentAnimation(), lastDrag.name+":frame", getCurrentTime(), value)
+	updateFrameTracks(getTrack(lastDrag.name+":frame"))
+
+
+func addObject() -> void:
+	print("TODO: Add objects")
+	pass # Replace with function body.

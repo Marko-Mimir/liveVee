@@ -19,16 +19,14 @@ func addKeyframe(anim : LiveAnimation, track_path : String, time: float, value :
 	keyframe.time = time
 	keyframe.value = value
 	current.keyframes.append(keyframe)
+
 func updateKeyframe(keyframe : LiveKeyframe, value : Variant):
-	print("Updated Keyframe. " + str(value)+","+ str(keyframe.time))
 	keyframe.value = value
 
 func findOrCreateTrack(anim : LiveAnimation, track_path : String) -> LiveAnimationTrack:
 	for track in anim.tracks:
 		if track.trackPath == track_path:
-			print('Found existing track')
 			return track
-	print('New track created!')
 	var track = LiveAnimationTrack.new(track_path)
 	anim.tracks.append(track)
 	return track
@@ -57,7 +55,7 @@ func getKeyframeAtTime(track : LiveAnimationTrack, time : float) -> Variant:
 func _interpolate(a: Variant, b: Variant, t: float) -> Variant:
 	match typeof(a):
 		TYPE_FLOAT, TYPE_INT:
-			return lerp(a, b, t)
+			return lerp(float(a), float(b), t)
 		TYPE_VECTOR2:
 			return a.lerp(b, t)
 		TYPE_VECTOR3:
@@ -92,7 +90,6 @@ func _process(delta: float) -> void:
 		return
 	internalTime += delta
 	
-	# Clamp or stop at animation end
 	if internalTime >= playAnimation.length:
 		if loop:
 			internalTime = 0.0
